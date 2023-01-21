@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">SmartAlert</string>
+    <string name="textView1">Welcome in MyPOIs app</string>
+    <string name="textView2">The best solution for managing points of Interest(POI).</string>
+    <string name="textView3">MyPOIs in a mobile application designed for creating, sharing and syncing map points.</string>
+    <string name="description">Description</string>
+    <string name="category">Category</string>
+    <string name="location">Location</string>
+    <string name="timestamp">Timestamp</string>
+    <string name="title">Title</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="search">Search</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="please_give_a_title">Please give a title</string>
+    <string name="noteEditText">Location is automatically filled in by your GPS connection</string>
 </resources>
