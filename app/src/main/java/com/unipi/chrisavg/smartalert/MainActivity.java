@@ -63,20 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void signup(View view){
-        mAuth.createUserWithEmailAndPassword("name1@unipi.gr","123456")
-                .addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
-                        user = mAuth.getCurrentUser();
-
-                        showMessage("Success!","User authenticated");
-                        showMessage("Success!",mAuth.getUid());
-
-                    }else {
-                        showMessage("Error",task.getException().getLocalizedMessage());
-                    }
-                });
-    }
+    
 
     private void changeUserProfile(String displayName, String imageUrl, FirebaseUser user){ //μεθοδος γιαν  κανουμε update καποια στοιχεια του χρηστη
         UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()

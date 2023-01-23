@@ -128,7 +128,7 @@ public class MainActivity2 extends AppCompatActivity implements LocationListener
                     showMessage("No GPS connection","Please wait until you find GPS connection so as we can access your location!");
                 }
                 else if (titleEditText.getText().toString().trim().isEmpty() ){
-                    showMessage("Give title","Give your poi a title!");
+                    showMessage("Give title","Give your a title!");
                 }
                 else{
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
