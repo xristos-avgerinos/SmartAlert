@@ -116,7 +116,7 @@
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_username"
+                            android:id="@+id/et_fullname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -126,7 +126,7 @@
                             android:drawableStart="@drawable/ic_person"
                             android:drawableLeft="@drawable/ic_person"
                             android:drawablePadding="12dp"
-                            android:hint="@string/hint_username"
+                            android:hint="@string/hint_fullname"
                             android:imeOptions="actionNext"
                             android:minWidth="320dp"
                             android:minHeight="45dp"
@@ -161,6 +161,7 @@
                             android:drawablePadding="12dp"
                             android:hint="@string/hint_phone"
                             android:imeOptions="actionNext"
+                            android:inputType="number"
                             android:minWidth="320dp"
                             android:minHeight="45dp"
                             android:singleLine="true" />

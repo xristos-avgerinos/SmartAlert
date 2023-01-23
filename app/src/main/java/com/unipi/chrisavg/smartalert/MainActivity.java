@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.renderscript.RenderScript;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     FloatingActionButton floatingActionButton;
+
+    TextView textViewWelcome, textViewFullName, textViewEmail, textViewMobile;
+    String fullName, email, mobile;
     static final int locationRequestCode = 123;
 
     @Override
@@ -48,6 +52,19 @@ public class MainActivity extends AppCompatActivity {
         reference = database.getReference("Users");
 
         floatingActionButton = findViewById(R.id.floatingActionButton);
+
+        getSupportActionBar().setTitle("User Profile");
+        textViewWelcome = findViewById(R.id.textView_show_welcome);
+        textViewFullName = findViewById(R.id.textView_show_full_name);
+        textViewEmail = findViewById(R.id.textView_show_email);
+        textViewMobile = findViewById(R.id.textView_show_mobile);
+        
+        if(user == null){
+            Toast.makeText(this, "Something went wrong! User's details are not available at the moment.", Toast.LENGTH_SHORT).show();
+        }else{
+            showUserProfile();
+        }
+
     }
     public void floatingActionButtonClick(View view){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -62,44 +79,34 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    private void showUserProfile () {
 
-    
-
-    private void changeUserProfile(String displayName, String imageUrl, FirebaseUser user){ //μεθοδος γιαν  κανουμε update καποια στοιχεια του χρηστη
-        UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                .setDisplayName(displayName)
-                .setPhotoUri(Uri.parse(imageUrl))
-                .build();
-        user.updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
+        //Extracting User Reference from Database for "Registered Users"
+        reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful())
-                    Toast.makeText(MainActivity.this, "User profile updated!", Toast.LENGTH_SHORT).show();
-                else showMessage("Error",task.getException().getLocalizedMessage());
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users userDetails = snapshot.getValue(Users.class);
+                if (userDetails != null) {
+                    email = user.getEmail();
+                    fullName = userDetails.getFullname();
+                    mobile = userDetails.getPhoneNumber();
+
+                    textViewWelcome.setText("Welcome, " + fullName + "!");
+                    textViewFullName.setText(fullName);
+                    textViewEmail.setText(email);
+                    textViewMobile.setText(mobile);
+                }
+            }
+
+            @Override
+            public void onCancelled (@NonNull DatabaseError error){
+
             }
         });
     }
 
     void showMessage(String title, String message){
         new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
-    }
-    public void write(View view){//με αυτο το write γραφουμε κατω απο το Users για να μην το βλεπουν ολοι παρα μονο ο συγκεκριμενος χρηστης
-        Map<String,String> hashmap = new HashMap<>();
-        hashmap.put("display name", "disp");
-        reference.child(mAuth.getUid()).setValue(hashmap);
-    }
-    public void read(View view){
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                showMessage("DB data change", snapshot.getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
 

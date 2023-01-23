@@ -1,6 +1,7 @@
 package com.unipi.chrisavg.smartalert;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,13 +22,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
     EditText email,fullname,mobilePhone,password,confirmPassword;
     Toolbar toolbar;
     FirebaseAuth mAuth;
-    FirebaseUser user;
+    FirebaseUser firebaseUser;
+    FirebaseDatabase database;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +41,11 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("Users");
 
         email= findViewById(R.id.et_email);
-        fullname=findViewById(R.id.et_username);
+        fullname=findViewById(R.id.et_fullname);
         mobilePhone=findViewById(R.id.et_phone);
         password=findViewById(R.id.et_password);
         confirmPassword=findViewById(R.id.et_confirm_password);
@@ -67,44 +75,35 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void signUp(View view){
         if(TextUtils.isEmpty(email.getText().toString())){
-            Toast.makeText(this, "Please enter your email", Toast.LENGTH_LONG).show();
             email.setError("Email is required");
             email.requestFocus();
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
-            Toast.makeText(this, "Please re-enter your email", Toast.LENGTH_LONG).show();
-            email.setError("Valid email is required");
+            email.setError("Please enter a valid email");
             email.requestFocus();
         }
         else if(TextUtils.isEmpty(fullname.getText().toString())){
-            Toast.makeText(this, "Please enter your full name", Toast.LENGTH_LONG).show();
             fullname.setError("Full name is required");
             fullname.requestFocus();
         }else if(TextUtils.isEmpty(mobilePhone.getText().toString())){
-            Toast.makeText(this, "Please enter your mobile phone number", Toast.LENGTH_LONG).show();
             mobilePhone.setError("Mobile phone number is required");
             mobilePhone.requestFocus();
         }else if(mobilePhone.getText().toString().length() != 10){
-            Toast.makeText(this, "Please re-enter your mobile phone number", Toast.LENGTH_LONG).show();
-            fullname.setError("Full name is required");
-            fullname.requestFocus();
+            mobilePhone.setError("mobile phone number must be 10 characters");
+            mobilePhone.requestFocus();
         }
         else if(TextUtils.isEmpty(password.getText().toString())){
-            Toast.makeText(this, "Please enter your password", Toast.LENGTH_LONG).show();
             password.setError("Password is required");
             password.requestFocus();
         }
         else if(password.getText().toString().length() < 6){
-            Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_LONG).show();
-            password.setError("Password too weak");
+            password.setError("Password must be at least 6 characters");
             password.requestFocus();
         }
         else if(TextUtils.isEmpty(confirmPassword.getText().toString())){
-            Toast.makeText(this, "Please confirm your password", Toast.LENGTH_LONG).show();
             confirmPassword.setError("Password confirmation is required");
             confirmPassword.requestFocus();
         }else if(!(password.getText().toString()).equals(confirmPassword.getText().toString())){
-            Toast.makeText(this, "Please same same password", Toast.LENGTH_LONG).show();
-            confirmPassword.setError("Password confirmation is required");
+            confirmPassword.setError("The passwords do not match");
             confirmPassword.requestFocus();
             //Clear the entered passwords
             password.clearComposingText();
@@ -117,12 +116,28 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                showMessage("Success!","User registered successfully");
-                                user = mAuth.getCurrentUser();
+                                firebaseUser = mAuth.getCurrentUser();
 
-                                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                                startActivity(intent);
-                                finish();
+                                Users user = new Users(fullname.getText().toString(),mobilePhone.getText().toString(),"Citizen");
+                                reference.child(firebaseUser.getUid()).setValue(user, new DatabaseReference.CompletionListener() {
+                                    @Override
+                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                        if (error == null){
+
+                                            Toast.makeText(SignUpActivity.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+
+                                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                            //To prevent User from returning back to Sign Up Activity on pressing back button after registration
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                    | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
+                                            finish();
+                                        }else{
+                                            Toast.makeText(SignUpActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+                                });
 
                             }else {
                                 showMessage("Error",task.getException().getLocalizedMessage());

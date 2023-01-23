@@ -48,6 +48,7 @@ public class MainActivity2 extends AppCompatActivity implements LocationListener
     FirebaseDatabase database;
     DatabaseReference reference;
 
+    Location locationForModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,7 +134,7 @@ public class MainActivity2 extends AppCompatActivity implements LocationListener
                 else{
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                     EmergencyAlerts emergencyAlerts = new EmergencyAlerts(titleEditText.getText().toString(), LocalDateTime.parse(timestampEditText.getText().toString(),formatter),
-                            locationEditText.getText().toString(),dropdown.getSelectedItem().toString(),descriptionEditText.getText().toString());
+                            locationForModel,dropdown.getSelectedItem().toString(),descriptionEditText.getText().toString());
                     reference.push().setValue(emergencyAlerts, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
@@ -176,6 +177,20 @@ public class MainActivity2 extends AppCompatActivity implements LocationListener
         String country = addresses.get(0).getCountryName();*/
         locationEditText.setText(new StringBuilder().append("Latitude: ").append(location.getLatitude()).append("\nLongitude: ").append(location.getLongitude())
                 .append("\n").append(address));
+        locationForModel = location;
         locationManager.removeUpdates(this);
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+
+    }
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+
+    }
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
     }
 }

@@ -18,5 +18,11 @@
     <color name="actionbarOpacity">#00000000</color>
     <color name="md_cyan_A700">#00B8D4</color>
     <color name="md_black_1000">#000000</color>
+
+
+    <!-- for user profile-->
+    <color name="light_gray">#d3d3d3</color>
+
+
 </resources>
 

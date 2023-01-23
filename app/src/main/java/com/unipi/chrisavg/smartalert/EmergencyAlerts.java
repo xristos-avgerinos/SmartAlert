@@ -1,15 +1,17 @@
 package com.unipi.chrisavg.smartalert;
 
+import android.location.Location;
+
 import java.time.LocalDateTime;
 
 public class EmergencyAlerts {
     private String Title;
     private LocalDateTime TimeStamp;
-    private String Location;
+    private Location Location;
     private String Category;
     private String Description;
 
-    public EmergencyAlerts(String title, LocalDateTime timeStamp, String location, String category, String description) {
+    public EmergencyAlerts(String title, LocalDateTime timeStamp, Location location, String category, String description) {
         Title = title;
         TimeStamp = timeStamp;
         Location = location;
@@ -33,11 +35,11 @@ public class EmergencyAlerts {
         TimeStamp = timeStamp;
     }
 
-    public String getLocation() {
+    public android.location.Location getLocation() {
         return Location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(android.location.Location location) {
         Location = location;
     }
 
