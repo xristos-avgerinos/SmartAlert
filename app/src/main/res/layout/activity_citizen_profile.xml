@@ -11,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".MainActivity"
-        android:background="@color/light_gray">
+        tools:context=".CitizenProfileActivity"
+        android:background="@color/light_gray"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,8 +33,8 @@
                     android:layout_height="wrap_content">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="134dp"
+                        android:layout_height="117dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="40dp"
                         android:outlineProvider="none"
@@ -42,22 +43,14 @@
 
                         <ImageView
                             android:id="@+id/imageView_profile_dp"
-                            android:layout_width="160dp"
-                            android:layout_height="160dp"
+                            android:layout_width="130dp"
+                            android:layout_height="118dp"
                             android:background="@drawable/no_profile_pic"
                             android:contentDescription="@string/user_display_picture"
                             android:scaleType="centerCrop" />
                     </androidx.cardview.widget.CardView>
 
-                    <ProgressBar
-                        android:id="@+id/progress_bar_profile_pic"
-                        style="?android:attr/progressBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="110dp"
-                        android:elevation="10dp"
-                        android:visibility="gone" />
+
                 </RelativeLayout>
 
                 <TextView
@@ -69,6 +62,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="30dp"
                     android:hint="@string/loading"
+                    android:text="@string/welcome_citizen"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textColor="@android:color/white" />
@@ -185,8 +179,9 @@
 
             <RelativeLayout
                 android:id="@+id/layout_bottom"
-                android:layout_width="match_parent"
-                android:layout_height="238dp">
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true">
 
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -195,8 +190,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="3dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="17dp"
                     android:clickable="true"
                     android:onClick="floatingActionButtonClick"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -18,8 +18,6 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.DataSnapshot;
@@ -77,11 +75,14 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     String role = snapshot.getValue(String.class);
-                                    Intent intent;
+                                    Intent intent ;
                                     if(role.equals("Citizen")){
-                                        intent = new Intent(LoginActivity.this,MainActivity.class);
+                                        intent = new Intent(LoginActivity.this, CitizenProfileActivity.class);
+                                    }else if(role.equals("Employee")){
+                                        intent = new Intent(LoginActivity.this, EmployeeProfileActivity.class);
                                     }else{
-                                        intent = new Intent(LoginActivity.this,MainActivity.class);
+                                        intent=new Intent(LoginActivity.this, LoginActivity.class);
+                                        Toast.makeText(LoginActivity.this, "This user does not have a role.", Toast.LENGTH_SHORT).show();
                                     }
                                     //To prevent User from returning back to Sign Up Activity on pressing back button after registration
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -118,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         if(mAuth.getCurrentUser() != null){
-            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, CitizenProfileActivity.class);
             startActivity(intent);
             finish();
         }

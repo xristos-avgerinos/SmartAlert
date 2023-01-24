@@ -7,10 +7,8 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.SQLException;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -37,7 +35,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity2 extends AppCompatActivity implements LocationListener {
+public class AddAlertActivity extends AppCompatActivity implements LocationListener {
     EditText titleEditText;
     EditText timestampEditText;
     EditText locationEditText;
@@ -52,7 +50,7 @@ public class MainActivity2 extends AppCompatActivity implements LocationListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_add_alert);
 
         titleEditText = findViewById(R.id.titleEditText);
         timestampEditText = findViewById(R.id.timestampEditText);
@@ -87,7 +85,7 @@ public class MainActivity2 extends AppCompatActivity implements LocationListener
             if(!isGPSEnabled){ //αν δεν εχει ανοιξει το location στο κινητο του τοτε τον στελνω στα settings αν θελει ωστε να το ανοιξει και να παρω την τοποθεσια του
                 showSettingsAlert();
             }
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,this);
         }
     }
 
@@ -118,7 +116,7 @@ public class MainActivity2 extends AppCompatActivity implements LocationListener
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), CitizenProfileActivity.class);
         switch(item.getItemId()) {
             case R.id.CancelButton:
                 finish();
@@ -139,9 +137,9 @@ public class MainActivity2 extends AppCompatActivity implements LocationListener
                         @Override
                         public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                             if (error == null){
-                                Toast.makeText(MainActivity2.this, "Alert Emergency was added to database", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddAlertActivity.this, "Alert Emergency was added to database", Toast.LENGTH_SHORT).show();
                             }else{
-                                Toast.makeText(MainActivity2.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddAlertActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -193,4 +191,7 @@ public class MainActivity2 extends AppCompatActivity implements LocationListener
     public void onStatusChanged(String provider, int status, Bundle extras) {
 
     }
+
+
+
 }

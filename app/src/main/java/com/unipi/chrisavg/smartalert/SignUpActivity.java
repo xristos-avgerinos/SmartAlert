@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -126,7 +125,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                             Toast.makeText(SignUpActivity.this, "User registered successfully", Toast.LENGTH_SHORT).show();
 
-                                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                            Intent intent = new Intent(getApplicationContext(), CitizenProfileActivity.class);
                                             //To prevent User from returning back to Sign Up Activity on pressing back button after registration
                                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
                                                     | Intent.FLAG_ACTIVITY_NEW_TASK);
