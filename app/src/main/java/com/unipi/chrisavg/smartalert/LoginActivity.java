@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -75,11 +76,13 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     String role = snapshot.getValue(String.class);
+                                    PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).edit().putString("role", role).apply();
+
                                     Intent intent ;
                                     if(role.equals("Citizen")){
                                         intent = new Intent(LoginActivity.this, CitizenProfileActivity.class);
                                     }else if(role.equals("Employee")){
-                                        intent = new Intent(LoginActivity.this, EmployeeProfileActivity.class);
+                                        intent = new Intent(LoginActivity.this, AllAlertsActivity.class);
                                     }else{
                                         intent=new Intent(LoginActivity.this, LoginActivity.class);
                                         Toast.makeText(LoginActivity.this, "This user does not have a role.", Toast.LENGTH_SHORT).show();
@@ -118,8 +121,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        if(mAuth.getCurrentUser() != null){
-            Intent intent = new Intent(LoginActivity.this, CitizenProfileActivity.class);
+        String role = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).getString("role", null);
+        if(mAuth.getCurrentUser() != null && role!=null){
+            Intent intent = null;
+            if(role.equals("Citizen")){
+                 intent = new Intent(LoginActivity.this, CitizenProfileActivity.class);
+            }else if(role.equals("Employee")){
+                intent = new Intent(LoginActivity.this, AllAlertsActivity.class);
+            }
             startActivity(intent);
             finish();
         }

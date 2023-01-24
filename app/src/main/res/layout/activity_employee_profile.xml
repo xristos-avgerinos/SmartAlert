@@ -25,7 +25,7 @@
                 android:id="@+id/layout_head"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:background="@color/md_cyan_A700">
+                android:background="#A6CED5">
 
                 <RelativeLayout
                     android:id="@+id/RL_imageView"

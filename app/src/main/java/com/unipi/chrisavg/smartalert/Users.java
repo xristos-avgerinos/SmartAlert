@@ -6,13 +6,16 @@ import android.location.LocationListener;
 public class Users {
     private String fullname;
     private String phoneNumber;
-    private Location location;
+    private double Latitude,Longitude;
     private String role;
 
     public Users(String fullname, String phoneNumber,String role) {
         this.fullname = fullname;
         this.phoneNumber = phoneNumber;
         this.role = role;
+    }
+
+    public Users() {
     }
 
     public String getFullname() {
@@ -23,17 +26,6 @@ public class Users {
         this.fullname = fullname;
     }
 
-    public Users() {
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -42,11 +34,27 @@ public class Users {
         this.phoneNumber = phoneNumber;
     }
 
-    public Location getLocation() {
-        return location;
+    public double getLatitude() {
+        return Latitude;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLatitude(double latitude) {
+        Latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return Longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        Longitude = longitude;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

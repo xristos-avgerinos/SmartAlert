@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -47,6 +48,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
     DatabaseReference reference;
 
     Location locationForModel;
+    Date dateForModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,8 +70,8 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
 
         getSupportActionBar().setTitle("New Emergency Alert");
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        Date date = new Date();
-        timestampEditText.setText(formatter.format(date));
+        dateForModel = new Date();
+        timestampEditText.setText(formatter.format(dateForModel));
 
         timestampEditText.setKeyListener(null);
         locationEditText.setKeyListener(null);
@@ -131,8 +133,8 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
                 }
                 else{
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                    EmergencyAlerts emergencyAlerts = new EmergencyAlerts(titleEditText.getText().toString(), LocalDateTime.parse(timestampEditText.getText().toString(),formatter),
-                            locationForModel,dropdown.getSelectedItem().toString(),descriptionEditText.getText().toString());
+                    EmergencyAlerts emergencyAlerts = new EmergencyAlerts(titleEditText.getText().toString(), dateForModel.getTime() ,
+                            locationForModel.getLatitude(),locationForModel.getLongitude(),dropdown.getSelectedItem().toString(),descriptionEditText.getText().toString());
                     reference.push().setValue(emergencyAlerts, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {

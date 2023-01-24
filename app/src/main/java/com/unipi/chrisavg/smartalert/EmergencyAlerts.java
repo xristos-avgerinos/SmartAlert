@@ -2,19 +2,26 @@ package com.unipi.chrisavg.smartalert;
 
 import android.location.Location;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class EmergencyAlerts {
     private String Title;
-    private LocalDateTime TimeStamp;
-    private Location Location;
+    private long TimeStamp;
+    private double Latitude,Longitude;
     private String Category;
     private String Description;
 
-    public EmergencyAlerts(String title, LocalDateTime timeStamp, Location location, String category, String description) {
+    public EmergencyAlerts() {
+
+    }
+
+    public EmergencyAlerts(String title, long timeStamp, double latitude, double longitude, String category, String description) {
         Title = title;
         TimeStamp = timeStamp;
-        Location = location;
+        Latitude = latitude;
+        Longitude = longitude;
         Category = category;
         Description = description;
     }
@@ -27,20 +34,28 @@ public class EmergencyAlerts {
         Title = title;
     }
 
-    public LocalDateTime getTimeStamp() {
+    public long getTimeStamp() {
         return TimeStamp;
     }
 
-    public void setTimeStamp(LocalDateTime timeStamp) {
+    public void setTimeStamp(long timeStamp) {
         TimeStamp = timeStamp;
     }
 
-    public android.location.Location getLocation() {
-        return Location;
+    public double getLatitude() {
+        return Latitude;
     }
 
-    public void setLocation(android.location.Location location) {
-        Location = location;
+    public void setLatitude(double latitude) {
+        Latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return Longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        Longitude = longitude;
     }
 
     public String getCategory() {
