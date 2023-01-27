@@ -26,6 +26,17 @@ public class EmergencyAlerts {
         Description = description;
     }
 
+    public EmergencyAlerts(EmergencyAlerts emergencyAlert) {
+
+        Title = emergencyAlert.getTitle();
+        TimeStamp   =  emergencyAlert.getTimeStamp();
+        Latitude    =  emergencyAlert.getLatitude();
+        Longitude   =  emergencyAlert.getLongitude();
+        Category    =  emergencyAlert.getCategory();
+        Description =emergencyAlert.getDescription();
+
+    }
+
     public String getTitle() {
         return Title;
     }

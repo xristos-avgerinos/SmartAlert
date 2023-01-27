@@ -7,34 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".AllAlertsActivity"
     android:orientation="horizontal">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:ignore="MissingConstraints">
 
-
-    <ListView
-        android:id="@+id/newListview"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    </ListView>
-
-
-</LinearLayout>
-
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="335dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="656dp"
-        android:onClick="go"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:ignore="MissingConstraints">
+
+
+        <ListView
+            android:id="@+id/newListview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </ListView>
+
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/button2"
@@ -42,7 +33,9 @@
         android:layout_height="wrap_content"
         android:onClick="go2"
         android:text="Button"
-        tools:layout_editor_absoluteX="383dp"
-        tools:layout_editor_absoluteY="393dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.955"
+        tools:layout_editor_absoluteX="158dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
