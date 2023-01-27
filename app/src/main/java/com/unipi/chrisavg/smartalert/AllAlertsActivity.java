@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -37,7 +38,7 @@ public class AllAlertsActivity extends AppCompatActivity {
     List<String> ListViewItems = new ArrayList<>();
     private ListView listView;
     final static long locationRange = 50000;
-    final static long timeRange = 48 * 1000;
+    final static long timeRange = 48 * 60 * 60 *  1000;
 
     List<EmergencyAlerts> temp_list;
     Map< String,List<List<Location>> >AllGroups = new HashMap<>();
@@ -122,6 +123,7 @@ public class AllAlertsActivity extends AppCompatActivity {
                 firstLoc.setLongitude(entry.getValue().get(0).getLongitude());
                 firstLoc.setLatitude(entry.getValue().get(0).getLatitude());
 
+                Long firstTimestamp = entry.getValue().get(0).getTimeStamp();
                 differentRegionAlerts.add(firstLoc);
 
                 for (int i = 1; i < temp_list.size(); i++) {
@@ -129,8 +131,11 @@ public class AllAlertsActivity extends AppCompatActivity {
                     itemsLocation.setLongitude(entry.getValue().get(i).getLongitude());
                     itemsLocation.setLatitude(entry.getValue().get(i).getLatitude());
 
-                    int distance = (int) itemsLocation.distanceTo(firstLoc);
-                    if (distance <= locationRange) {
+
+                    int location_distance = (int) itemsLocation.distanceTo(firstLoc);
+                    long time_difference = firstTimestamp - entry.getValue().get(i).getTimeStamp();
+
+                    if (location_distance <= locationRange && time_difference <= timeRange) {
                         differentRegionAlerts.add(itemsLocation);
                     }
                 }
