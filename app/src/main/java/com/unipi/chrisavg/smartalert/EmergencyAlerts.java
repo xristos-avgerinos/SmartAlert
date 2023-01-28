@@ -2,11 +2,12 @@ package com.unipi.chrisavg.smartalert;
 
 import android.location.Location;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public class EmergencyAlerts {
+public class EmergencyAlerts implements Serializable {
     private String Title;
     private long TimeStamp;
     private double Latitude,Longitude;
