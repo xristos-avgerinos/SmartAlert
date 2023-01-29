@@ -1,7 +1,6 @@
 package com.unipi.chrisavg.smartalert;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,11 +15,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -34,26 +33,31 @@ import java.util.stream.Collectors;
 
 public class AllAlertsActivity extends AppCompatActivity {
 
+    final static long locationRange = 50000;
+    final static long timeRange = 48 * 60 * 60 *  1000;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference reference;
     List<EmergencyAlerts> emergencyAlertsList = new ArrayList<>();
     List<String> ListViewItems = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
-    private ListView listView;
-    final static long locationRange = 50000;
-    final static long timeRange = 48 * 60 * 60 *  1000;
+    ListView listView;
 
     List<EmergencyAlerts> temp_list;
     Map< String,List<List<EmergencyAlerts>> >AllGroups = new HashMap<>();
-
     List<List<EmergencyAlerts>> categoryLocationList = new ArrayList<>();
     List<EmergencyAlerts> differentRegionAlerts = new ArrayList<>();
-
     Map<String, List<EmergencyAlerts>> groupedByCategory;
+    SimpleDateFormat formatter;
+
+    Location centreLocation;
+    Geocoder geocoder;
+    List<Address> addresses=null;
+    List<String[]> pos=new ArrayList<>();
+    String [] mapIndexes;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_alerts);
 
@@ -62,33 +66,21 @@ public class AllAlertsActivity extends AppCompatActivity {
         reference = database.getReference("Emergency Alerts");
 
         listView= (ListView) findViewById(R.id.SpecListview);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
+        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,ListViewItems);
+        listView.setAdapter(arrayAdapter);
 
-
-        reference.orderByChild("category").addChildEventListener(new ChildEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                EmergencyAlerts emergencyAlert = snapshot.getValue(EmergencyAlerts.class);
-                emergencyAlertsList.add(new EmergencyAlerts(emergencyAlert));
-
-                // ListViewItems.add( emergencyAlert.getTitle() +"\n" +  emergencyAlert.getCategory() + "\n" + formatter.format(new Date(emergencyAlert.getTimeStamp())));
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                emergencyAlertsList.clear();
+                ListViewItems.clear();
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    EmergencyAlerts em = ds.getValue(EmergencyAlerts.class);
+                    emergencyAlertsList.add(em);
+                }
+                ShowGroupedEAinListView();
             }
 
             @Override
@@ -96,14 +88,14 @@ public class AllAlertsActivity extends AppCompatActivity {
 
             }
 
-
-
-
         });
-
     }
 
-    public void go2(View view){
+
+    void showMessage(String title, String message){
+        new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
+    }
+    public void ShowGroupedEAinListView(){
 
         groupedByCategory = emergencyAlertsList.stream().collect(Collectors.groupingBy(w -> w.getCategory()));
 
@@ -151,12 +143,11 @@ public class AllAlertsActivity extends AppCompatActivity {
 
         }
 
-        Location centreLocation=new Location("");
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());;
-        List<Address> addresses=null;
+        centreLocation=new Location("");
+        geocoder = new Geocoder(this, Locale.getDefault());;
         String address;
-        List<String[]> pos=new ArrayList<>();
-        String [] map;
+
+
 
         for ( Map.Entry<String,List<List<EmergencyAlerts>>> entry: AllGroups.entrySet()) {
 
@@ -181,36 +172,22 @@ public class AllAlertsActivity extends AppCompatActivity {
                 }
                 //απο τις συντεταγμενες latitude και longitude παιρνω την διευθνυση του και οτι αλλη πληροφορια θελω
 
-                    if (addresses.size()==0){
-                        address="Untrackable Location";
-                    }else{
-                        address = addresses.get(0).getLocality();
-                    }
+                if (addresses.size()==0){
+                    address="Untrackable Location";
+                }else{
+                    address = addresses.get(0).getLocality();
+                }
 
-                    System.out.println(entry.getKey() + " " + address);
+                System.out.println(entry.getKey() + " " + address);
 
-                    ListViewItems.add(entry.getKey()+" "+address);
+                ListViewItems.add(entry.getKey()+" κοντά στην περιοχή "+address);
 
-                    map= new String[]{entry.getKey(), String.valueOf(i)};
-                    pos.add(map);
-
-
-
-
+                mapIndexes= new String[]{entry.getKey(), String.valueOf(i)};
+                pos.add(mapIndexes);
             }
-
-
         }
 
 
-
-
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,ListViewItems);
-        listView.setAdapter(arrayAdapter);
-
-
-
-        ////////////////////////////
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 
@@ -243,7 +220,4 @@ public class AllAlertsActivity extends AppCompatActivity {
         return Basic_List;
     }
 
-    void showMessage(String title, String message){
-        new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
-    }
 }
