@@ -58,6 +58,12 @@ public class AllAlertsActivity extends AppCompatActivity {
     List<String[]> pos=new ArrayList<>();
     String [] mapIndexes;
 
+    final static long _5hours = 5 * 60 * 60 *  1000;
+    final static long _10hours = 10 * 60 * 60 *  1000;
+    final static long _15hours = 15 * 60 * 60 *  1000;
+    final static long _24hours = 24 * 60 * 60 *  1000;
+    final static long _36hours = 36 * 60 * 60 *  1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -114,7 +120,7 @@ public class AllAlertsActivity extends AppCompatActivity {
                 firstLoc.setLongitude(firstEmergencyAlert.getLongitude());
                 firstLoc.setLatitude(firstEmergencyAlert.getLatitude());
 
-                Long firstTimestamp = entry.getValue().get(0).getTimeStamp();
+                long firstTimestamp = entry.getValue().get(0).getTimeStamp();
                 differentRegionAlerts.add(firstEmergencyAlert);
 
                 for (int i = 1; i < temp_list.size(); i++) {
@@ -125,10 +131,8 @@ public class AllAlertsActivity extends AppCompatActivity {
                     itemsLocation.setLongitude(currEmergencyAlert.getLongitude());
                     itemsLocation.setLatitude(currEmergencyAlert.getLatitude());
 
-
-
                     int location_distance = (int) itemsLocation.distanceTo(firstLoc);
-                    long time_difference = firstTimestamp - currEmergencyAlert.getTimeStamp();
+                    long time_difference = Math.abs(firstTimestamp - currEmergencyAlert.getTimeStamp());
 
                     if (location_distance <= locationRange && time_difference <= timeRange) {
                         differentRegionAlerts.add(currEmergencyAlert);
@@ -139,21 +143,24 @@ public class AllAlertsActivity extends AppCompatActivity {
 
                 categoryLocationList.add(new ArrayList<>(differentRegionAlerts));
 
-
             }
             AllGroups.put(entry.getKey(),new ArrayList<>(categoryLocationList));
 
         }
 
         centreLocation=new Location("");
-        geocoder = new Geocoder(this, Locale.getDefault());;
+        geocoder = new Geocoder(this, Locale.getDefault());
         String address;
 
         double sumX,sumY;
-        OptionalLong max;
-        OptionalLong min;
-        int count;
-        int danger;
+        OptionalLong maxTime;
+        OptionalLong minTime;
+        int countAlerts;
+        int dangerForUsers;
+        int dangerForTime;
+        int totalDanger;
+        long differenceForMaxMinTime;
+
 
         for ( Map.Entry<String,List<List<EmergencyAlerts>>> entry: AllGroups.entrySet()) {
 
@@ -162,9 +169,9 @@ public class AllAlertsActivity extends AppCompatActivity {
 
                 sumX = entry.getValue().get(i).stream().collect(Collectors.summingDouble(x -> x.getLongitude()));
                 sumY = entry.getValue().get(i).stream().collect(Collectors.summingDouble(y -> y.getLatitude()));
-                count   = entry.getValue().get(i).size();
-                double resX = sumX / count;
-                double resY = sumY / count;
+                countAlerts   = entry.getValue().get(i).size();
+                double resX = sumX / countAlerts;
+                double resY = sumY / countAlerts;
 
 
                 centreLocation.setLongitude(resX);
@@ -186,30 +193,53 @@ public class AllAlertsActivity extends AppCompatActivity {
 
                 //System.out.println(entry.getKey() + " " + address);
 
-                // Βαθμος για αιτήσεις 5/10
-                /*if (count >= 500){
-                    danger=5;
-                }else if (count>=400){
-                    danger=4;
-                }else if (count >=300){
-                    danger=3;
-                }else if(count >=200){
-                    danger=2;
-                }else if(count>=100){
-                    danger=1;
+                // Βαθμος για αιτήσεις 5/10 απο τον αριθμο των αιτησεων του καθε περιστατικου
+                if (countAlerts >= 5){
+                    dangerForUsers = 5;
+                }else if (countAlerts >= 4){
+                    dangerForUsers = 4;
+                }else if (countAlerts >= 3){
+                    dangerForUsers = 3;
+                }else if(countAlerts >= 2){
+                    dangerForUsers = 2;
+                }else if(countAlerts >= 1){
+                    dangerForUsers = 1;
                 }else {
-                    danger =0;
-                }*/
+                    dangerForUsers = 0;
+                }
 
-                danger= count / 100;
+                //danger= count / 100;
 
-                max = entry.getValue().get(i).stream().mapToLong(x-> (long) x.getTimeStamp()).max();
-                min = entry.getValue().get(i).stream().mapToLong(x-> (long) x.getTimeStamp()).min();
+                maxTime = entry.getValue().get(i).stream().mapToLong(x-> (long) x.getTimeStamp()).max();
+                minTime = entry.getValue().get(i).stream().mapToLong(x-> (long) x.getTimeStamp()).min();
+
+                differenceForMaxMinTime = maxTime.getAsLong() - minTime.getAsLong();
 
                 //implementation here for time , variable danger
+                if(dangerForUsers >= 3){
+                    if (differenceForMaxMinTime <= _5hours){
+                        dangerForTime = 5;
+                    }else if (differenceForMaxMinTime <= _10hours){
+                        dangerForTime = 4;
+                    }else if (differenceForMaxMinTime <= _15hours){
+                        dangerForTime = 3;
+                    }else if(differenceForMaxMinTime <= _24hours){
+                        dangerForTime = 2;
+                    }else if(differenceForMaxMinTime <= _36hours){
+                        dangerForTime = 1;
+                    }else {
+                        dangerForTime = 0;
+                    }
+                }else{
+                    dangerForTime = 0;
+                }
 
-                System.out.println("Min time: "+min +"\nMax time:"+max);
-                ListViewItems.add(entry.getKey()+" \nΠεριοχή: "+address+"\nΒαθμός Επικυνδυνότητας: "+danger+"\nΜετρητής αιτήσεων:"+count);
+                totalDanger = dangerForUsers + dangerForTime;
+
+
+                System.out.println("Min time: "+minTime +"\nMax time:"+maxTime);
+                System.out.println("total:" + differenceForMaxMinTime);
+                ListViewItems.add(entry.getKey()+" \nΠεριοχή: "+address+"\nΒαθμός Επικυνδυνότητας: "+totalDanger+"/10 \nΜετρητής αιτήσεων:"+countAlerts);
 
                 mapIndexes= new String[]{entry.getKey(), String.valueOf(i)};
                 pos.add(mapIndexes);
@@ -219,7 +249,6 @@ public class AllAlertsActivity extends AppCompatActivity {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-
             public void onItemClick(AdapterView arg0, View arg1, int i, long arg3) {
 
                 System.out.println(pos.get(i)[0] + pos.get(i)[1]);
@@ -228,16 +257,9 @@ public class AllAlertsActivity extends AppCompatActivity {
                 Intent intent = new Intent(AllAlertsActivity.this,SpecificItemsAlerts.class);
                 intent.putExtra("SpecificItem", (Serializable) AllGroups.get(pos.get(i)[0]).get(Integer.parseInt(pos.get(i)[1])));
                 startActivity(intent);
-
-
             }
         });
-
-
-
         arrayAdapter.notifyDataSetChanged();
-
-
     }
 
     public List<EmergencyAlerts> removeItemsFromList(List<EmergencyAlerts> Basic_List, List<EmergencyAlerts> Second_List){

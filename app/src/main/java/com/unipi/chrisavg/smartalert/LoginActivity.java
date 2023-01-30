@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    //check if user is already logged in.In such case, straightaway take the User to the User's profile activity;
+   //check if user is already logged in.In such case, straightaway take the User to the User's profile activity;
     @Override
     protected void onStart(){
         super.onStart();
@@ -133,6 +133,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
     }
+
 
     public void GoSignUpActivity(View view){
         Intent intent = new Intent(this,SignUpActivity.class);
