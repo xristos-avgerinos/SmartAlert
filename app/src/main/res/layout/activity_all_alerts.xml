@@ -10,15 +10,16 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="413dp"
-        android:layout_height="788dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         tools:ignore="MissingConstraints">
 
 
         <ListView
             android:id="@+id/SpecListview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fadeScrollbars="false">
 
 
         </ListView>

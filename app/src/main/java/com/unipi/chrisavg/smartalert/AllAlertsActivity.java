@@ -29,6 +29,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.OptionalInt;
+import java.util.OptionalLong;
 import java.util.stream.Collectors;
 
 public class AllAlertsActivity extends AppCompatActivity {
@@ -147,16 +149,20 @@ public class AllAlertsActivity extends AppCompatActivity {
         geocoder = new Geocoder(this, Locale.getDefault());;
         String address;
 
-
+        double sumX,sumY;
+        OptionalLong max;
+        OptionalLong min;
+        int count;
+        int danger;
 
         for ( Map.Entry<String,List<List<EmergencyAlerts>>> entry: AllGroups.entrySet()) {
 
             for(int i =0;i < entry.getValue().size(); i++) {
 
 
-                double sumX = entry.getValue().get(i).stream().collect(Collectors.summingDouble(x -> x.getLongitude()));
-                double sumY = entry.getValue().get(i).stream().collect(Collectors.summingDouble(y -> y.getLatitude()));
-                int count = entry.getValue().get(i).size();
+                sumX = entry.getValue().get(i).stream().collect(Collectors.summingDouble(x -> x.getLongitude()));
+                sumY = entry.getValue().get(i).stream().collect(Collectors.summingDouble(y -> y.getLatitude()));
+                count   = entry.getValue().get(i).size();
                 double resX = sumX / count;
                 double resY = sumY / count;
 
@@ -178,9 +184,32 @@ public class AllAlertsActivity extends AppCompatActivity {
                     address = addresses.get(0).getLocality();
                 }
 
-                System.out.println(entry.getKey() + " " + address);
+                //System.out.println(entry.getKey() + " " + address);
 
-                ListViewItems.add(entry.getKey()+" κοντά στην περιοχή "+address);
+                // Βαθμος για αιτήσεις 5/10
+                /*if (count >= 500){
+                    danger=5;
+                }else if (count>=400){
+                    danger=4;
+                }else if (count >=300){
+                    danger=3;
+                }else if(count >=200){
+                    danger=2;
+                }else if(count>=100){
+                    danger=1;
+                }else {
+                    danger =0;
+                }*/
+
+                danger= count / 100;
+
+                max = entry.getValue().get(i).stream().mapToLong(x-> (long) x.getTimeStamp()).max();
+                min = entry.getValue().get(i).stream().mapToLong(x-> (long) x.getTimeStamp()).min();
+
+                //implementation here for time , variable danger
+
+                System.out.println("Min time: "+min +"\nMax time:"+max);
+                ListViewItems.add(entry.getKey()+" \nΠεριοχή: "+address+"\nΒαθμός Επικυνδυνότητας: "+danger+"\nΜετρητής αιτήσεων:"+count);
 
                 mapIndexes= new String[]{entry.getKey(), String.valueOf(i)};
                 pos.add(mapIndexes);
