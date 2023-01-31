@@ -25,11 +25,12 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.OptionalInt;
 import java.util.OptionalLong;
 import java.util.stream.Collectors;
 
@@ -41,10 +42,12 @@ public class AllAlertsActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     List<EmergencyAlerts> emergencyAlertsList = new ArrayList<>();
-    List<String> ListViewItems = new ArrayList<>();
+    List<String> ListViewItems  = new ArrayList<>();
+    Map< String, Integer> ListViewItemsMap = new LinkedHashMap<>();
+    List<Map.Entry<String, Integer>> ListViewItemsList;
+
     ArrayAdapter<String> arrayAdapter;
     ListView listView;
-
     List<EmergencyAlerts> temp_list;
     Map< String,List<List<EmergencyAlerts>> >AllGroups = new HashMap<>();
     List<List<EmergencyAlerts>> categoryLocationList = new ArrayList<>();
@@ -55,10 +58,12 @@ public class AllAlertsActivity extends AppCompatActivity {
     Location centreLocation;
     Geocoder geocoder;
     List<Address> addresses=null;
-    List<String[]> pos=new ArrayList<>();
+    List<String[]> positions;
+    Map< String[], Integer> positionMap = new LinkedHashMap<>();
+    List<Map.Entry<String[], Integer>> positionList;
     String [] mapIndexes;
 
-    final static long _5hours = 5 * 60 * 60 *  1000;
+    final static long _5hours  = 5 * 60 * 60 *  1000;
     final static long _10hours = 10 * 60 * 60 *  1000;
     final static long _15hours = 15 * 60 * 60 *  1000;
     final static long _24hours = 24 * 60 * 60 *  1000;
@@ -76,8 +81,7 @@ public class AllAlertsActivity extends AppCompatActivity {
         listView= (ListView) findViewById(R.id.SpecListview);
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,ListViewItems);
-        listView.setAdapter(arrayAdapter);
+
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -89,6 +93,7 @@ public class AllAlertsActivity extends AppCompatActivity {
                     emergencyAlertsList.add(em);
                 }
                 ShowGroupedEAinListView();
+
             }
 
             @Override
@@ -158,7 +163,7 @@ public class AllAlertsActivity extends AppCompatActivity {
         int countAlerts;
         int dangerForUsers;
         int dangerForTime;
-        int totalDanger;
+        Integer totalDanger;
         long differenceForMaxMinTime;
 
 
@@ -210,12 +215,11 @@ public class AllAlertsActivity extends AppCompatActivity {
 
                 //danger= count / 100;
 
-                maxTime = entry.getValue().get(i).stream().mapToLong(x-> (long) x.getTimeStamp()).max();
-                minTime = entry.getValue().get(i).stream().mapToLong(x-> (long) x.getTimeStamp()).min();
-
+                maxTime = entry.getValue().get(i).stream().mapToLong(EmergencyAlerts::getTimeStamp).max();
+                minTime = entry.getValue().get(i).stream().mapToLong(EmergencyAlerts::getTimeStamp).min();
                 differenceForMaxMinTime = maxTime.getAsLong() - minTime.getAsLong();
 
-                //implementation here for time , variable danger
+                // Βαθμος για αιτήσεις 5/10 απο την ωρα που υποβληθηκε το πρωτο και το τελευταιο alert για καποιο γεγονος(διαφορα χρονου)
                 if(dangerForUsers >= 3){
                     if (differenceForMaxMinTime <= _5hours){
                         dangerForTime = 5;
@@ -234,31 +238,56 @@ public class AllAlertsActivity extends AppCompatActivity {
                     dangerForTime = 0;
                 }
 
-                totalDanger = dangerForUsers + dangerForTime;
+                totalDanger = dangerForUsers + dangerForTime; //αποτελεσμα (dangerForUsers + dangerForTime)/10
 
 
-                System.out.println("Min time: "+minTime +"\nMax time:"+maxTime);
-                System.out.println("total:" + differenceForMaxMinTime);
-                ListViewItems.add(entry.getKey()+" \nΠεριοχή: "+address+"\nΒαθμός Επικυνδυνότητας: "+totalDanger+"/10 \nΜετρητής αιτήσεων:"+countAlerts);
+                /*System.out.println("Min time: "+minTime +"\nMax time:"+maxTime);
+                System.out.println("total:" + differenceForMaxMinTime);*/
+                String s = entry.getKey()+" \nΠεριοχή: "+address+"\nΒαθμός Επικυνδυνότητας: "+totalDanger+"/10 \nΜετρητής αιτήσεων:"+countAlerts;
+
+                ListViewItemsMap.put(s,totalDanger);
 
                 mapIndexes= new String[]{entry.getKey(), String.valueOf(i)};
-                pos.add(mapIndexes);
+                positionMap.put(mapIndexes,totalDanger);
+
             }
         }
+
+        positionList = new ArrayList<>(positionMap.entrySet());
+        positionList.sort(Map.Entry.comparingByValue (Comparator.reverseOrder()));
+        positionMap.clear();
+        for (Map.Entry<String[], Integer> posListItem: positionList) {
+            positionMap.put(posListItem.getKey(),posListItem.getValue());
+        }
+
+
+        ListViewItemsList = new ArrayList<>(ListViewItemsMap.entrySet());
+        ListViewItemsList.sort(Map.Entry.comparingByValue (Comparator.reverseOrder()));
+        ListViewItemsMap.clear();
+        for (Map.Entry<String, Integer> posListItem: ListViewItemsList) {
+            ListViewItemsMap.put(posListItem.getKey(),posListItem.getValue());
+        }
+
+
+        positions = new ArrayList<>(positionMap.keySet());
+        ListViewItems = new ArrayList<>(ListViewItemsMap.keySet());
+
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView arg0, View arg1, int i, long arg3) {
 
-                System.out.println(pos.get(i)[0] + pos.get(i)[1]);
-                System.out.println(AllGroups.get(pos.get(i)[0]).get(Integer.parseInt(pos.get(i)[1])));
+                /*System.out.println(position.get(i)[0] + pos.get(i)[1]);
+                System.out.println(AllGroups.get(pos.get(i)[0]).get(Integer.parseInt(pos.get(i)[1])));*/
 
                 Intent intent = new Intent(AllAlertsActivity.this,SpecificItemsAlerts.class);
-                intent.putExtra("SpecificItem", (Serializable) AllGroups.get(pos.get(i)[0]).get(Integer.parseInt(pos.get(i)[1])));
+                intent.putExtra("SpecificItem", (Serializable) AllGroups.get(positions.get(i)[0]).get(Integer.parseInt(positions.get(i)[1])));
                 startActivity(intent);
             }
         });
+        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,ListViewItems);
+        listView.setAdapter(arrayAdapter);
         arrayAdapter.notifyDataSetChanged();
     }
 
