@@ -1,18 +1,15 @@
 package com.unipi.chrisavg.smartalert;
 
-import android.location.Location;
-
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 public class EmergencyAlerts implements Serializable {
+    private String key;
     private String Title;
     private long TimeStamp;
     private double Latitude,Longitude;
     private String Category;
     private String Description;
+    private String status;
 
     public EmergencyAlerts() {
 
@@ -27,15 +24,20 @@ public class EmergencyAlerts implements Serializable {
         Description = description;
     }
 
-    public EmergencyAlerts(EmergencyAlerts emergencyAlert) {
+    public String getKey() {
+        return key;
+    }
 
-        Title = emergencyAlert.getTitle();
-        TimeStamp   =  emergencyAlert.getTimeStamp();
-        Latitude    =  emergencyAlert.getLatitude();
-        Longitude   =  emergencyAlert.getLongitude();
-        Category    =  emergencyAlert.getCategory();
-        Description =emergencyAlert.getDescription();
+    public void setKey(String key) {
+        this.key = key;
+    }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getTitle() {

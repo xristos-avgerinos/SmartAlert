@@ -10,6 +10,8 @@
     <string name="title">Title</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="Decline">Decline</string>
+    <string name="Accept">Accept</string>
     <string name="search">Search</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>

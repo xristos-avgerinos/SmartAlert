@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/my_toolbar">
 
     <item
-        android:id="@+id/CancelButton"
-        android:title="@string/cancel"
+        android:id="@+id/DeclineButton"
+        android:title="@string/Decline"
         app:showAsAction="always" />
     <item
-        android:id="@+id/SaveButton"
-        android:title="@string/save"
+        android:id="@+id/AcceptButton"
+        android:title="@string/Accept"
         app:showAsAction="always" />
 </menu>

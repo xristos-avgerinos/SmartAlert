@@ -31,6 +31,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.OptionalLong;
 import java.util.stream.Collectors;
 
@@ -89,8 +90,13 @@ public class AllAlertsActivity extends AppCompatActivity {
                 emergencyAlertsList.clear();
                 ListViewItems.clear();
                 for(DataSnapshot ds : snapshot.getChildren()) {
+
                     EmergencyAlerts em = ds.getValue(EmergencyAlerts.class);
-                    emergencyAlertsList.add(em);
+
+                    if(em.getStatus()==null){
+                        em.setKey(ds.getKey());
+                        emergencyAlertsList.add(em);
+                    }
                 }
                 ShowGroupedEAinListView();
 
@@ -294,7 +300,7 @@ public class AllAlertsActivity extends AppCompatActivity {
     public List<EmergencyAlerts> removeItemsFromList(List<EmergencyAlerts> Basic_List, List<EmergencyAlerts> Second_List){
 
         for (EmergencyAlerts ea:Second_List) {
-            Basic_List.removeIf(x -> x.getLongitude() == ea.getLongitude() && x.getLatitude() == ea.getLatitude() && x.getTimeStamp()==ea.getTimeStamp());
+            Basic_List.removeIf(x -> x.getKey().equals(ea.getKey()));
         }
 
         return Basic_List;
