@@ -19,6 +19,8 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.DataSnapshot;
@@ -26,12 +28,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginActivity extends AppCompatActivity {
     EditText email,password;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference reference;
+    String currentToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,17 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.et_email);
         password = findViewById(R.id.et_password);
         setStatusBarTransparent(this);
+
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if(task.isSuccessful()){
+                    currentToken = task.getResult();
+                   // System.out.println(currentToken);
+                }
+            }
+        });
+
     }
 
     private void setStatusBarTransparent(AppCompatActivity activity){
@@ -72,15 +87,36 @@ public class LoginActivity extends AppCompatActivity {
             mAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                     .addOnCompleteListener((task)->{
                         if(task.isSuccessful()){
-                            reference.child(mAuth.getUid()).child("role").addListenerForSingleValueEvent(new ValueEventListener() {
+
+                            reference.child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    String role = snapshot.getValue(String.class);
+                                    Users user = snapshot.getValue(Users.class);
+                                    String role = user.getRole();
+                                    String dbUserToken = user.getToken();
+                                    if(dbUserToken==null){
+                                        dbUserToken = "";
+                                    }
                                     PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).edit().putString("role", role).apply();
 
                                     Intent intent ;
                                     if(role.equals("Citizen")){
+
+                                        if(!dbUserToken.equals(currentToken)){
+                                            Users temp_user = new Users(user.getFullname(),user.getPhoneNumber(),user.getRole());
+                                            temp_user.setToken(currentToken); //update token to database
+                                            reference.child(mAuth.getUid()).setValue(temp_user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (!task.isSuccessful()){
+                                                        System.out.println("Something went wrong");
+                                                    }
+
+                                                }
+                                            });
+                                        }
                                         intent = new Intent(LoginActivity.this, CitizenProfileActivity.class);
+
                                     }else if(role.equals("Employee")){
                                         intent = new Intent(LoginActivity.this, AllAlertsActivity.class);
                                     }else{
@@ -118,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
    //check if user is already logged in.In such case, straightaway take the User to the User's profile activity;
-    @Override
+   /* @Override
     protected void onStart(){
         super.onStart();
         String role = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).getString("role", null);
@@ -132,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-    }
+    }*/
 
 
     public void GoSignUpActivity(View view){

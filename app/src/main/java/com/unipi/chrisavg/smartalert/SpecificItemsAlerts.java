@@ -16,9 +16,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -40,8 +45,11 @@ public class SpecificItemsAlerts extends AppCompatActivity {
     SimpleDateFormat formatter;
     FirebaseDatabase database;
     DatabaseReference reference;
+    DatabaseReference referenceUsers;
     EmergencyAlerts tempEmergencyAlert;
     String message;
+
+    List<String> AllUsersTokens = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +57,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Emergency Alerts");
+        referenceUsers = database.getReference("Users");
 
         listView=(ListView) findViewById(R.id.SpecListview);
         geocoder = new Geocoder(SpecificItemsAlerts.this, Locale.getDefault());
@@ -141,6 +150,44 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                 finish();
                 startActivity(intent);
                 break;
+            case R.id.test:
+                AllUsersTokens.clear();
+                referenceUsers.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        for(DataSnapshot ds : snapshot.getChildren()) {
+
+                            Users user = ds.getValue(Users.class);
+
+                            if(user.getRole().equals("Citizen")){
+                                AllUsersTokens.add(user.getToken());
+                            }
+                        }
+                        String[] regIds = new String[AllUsersTokens.size()];
+                        AllUsersTokens.toArray(regIds);
+
+                        JSONArray regArray = null;
+                        try {
+                            regArray = new JSONArray(regIds);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        FCMsend.sendMessage(regArray,"Hello","How r u","My Name is Vishal");
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+
+                });
+
+
+
+
+               break;
             default:
                 return super.onOptionsItemSelected(item);
         }

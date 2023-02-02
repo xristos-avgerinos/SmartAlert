@@ -8,6 +8,7 @@ public class Users {
     private String phoneNumber;
     private double Latitude,Longitude;
     private String role;
+    private String token;
 
     public Users(String fullname, String phoneNumber,String role) {
         this.fullname = fullname;
@@ -16,6 +17,14 @@ public class Users {
     }
 
     public Users() {
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getFullname() {

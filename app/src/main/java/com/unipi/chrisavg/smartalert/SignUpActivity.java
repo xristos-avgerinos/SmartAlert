@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -33,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     FirebaseDatabase database;
     DatabaseReference reference;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,15 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
         setStatusBarWhite(this);
+
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if(task.isSuccessful()){
+                    token = task.getResult();
+                }
+            }
+        });
     }
 
     private void setStatusBarWhite(AppCompatActivity activity){
@@ -116,8 +127,9 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 firebaseUser = mAuth.getCurrentUser();
-
                                 Users user = new Users(fullname.getText().toString(),mobilePhone.getText().toString(),"Citizen");
+
+                                user.setToken(token);
                                 reference.child(firebaseUser.getUid()).setValue(user, new DatabaseReference.CompletionListener() {
                                     @Override
                                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
