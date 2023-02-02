@@ -32,6 +32,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class SpecificItemsAlerts extends AppCompatActivity {
     ArrayAdapter arrayAdapter;
@@ -164,6 +165,8 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                                 AllUsersTokens.add(user.getToken());
                             }
                         }
+
+                        AllUsersTokens = AllUsersTokens.stream().distinct().collect(Collectors.toList());
                         String[] regIds = new String[AllUsersTokens.size()];
                         AllUsersTokens.toArray(regIds);
 
