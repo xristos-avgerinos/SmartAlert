@@ -12,6 +12,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
 
@@ -20,19 +21,28 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessagingService;
+
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.concurrent.Executor;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService implements LocationListener {
+
+public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference reference;
     LocationManager locationManager;
+
+    FusedLocationProviderClient fusedlocationProviderClient;
+    Location locations;
 
 
     private static final String TAG = "MyFirebaseMsgService";
@@ -55,7 +65,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService impleme
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
 
         }
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+
+        fusedlocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -66,16 +78,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService impleme
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        fusedlocationProviderClient.getLastLocation()
+                .addOnSuccessListener( new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                           // System.out.println(location.getLatitude()+" "+location.getLongitude());
+                            locations=location;
+                            System.out.println(location.getLatitude()+" "+location.getLongitude());
+                            sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody(), locations);
+                        }
+                    }
 
+                });
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
-        sendNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
+
 
     }
     // [END receive_message]
 
     // [START on_new_token]
+
     /**
      * There are two scenarios when onNewToken is called:
      * 1) When a new token is generated on initial app startup
@@ -102,18 +127,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService impleme
         // TODO: Implement this method to send token to your app server.
     }
 
-    private void sendNotification(String messageTitle,String messageBody) {
+    private void sendNotification(String messageTitle, String messageBody,Location location) {
         /*Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 *//* Request code *//*, intent,
                 PendingIntent.FLAG_IMMUTABLE);*/
+
 
         String channelId = "fcm_default_channel";
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
                         .setContentTitle(messageTitle)
-                        .setContentText(messageBody)
+                        .setContentText(location.getLatitude()+" "+location.getLongitude())
                         .setAutoCancel(true)
                         .setSmallIcon(R.drawable.danger)
                         .setSound(defaultSoundUri);
@@ -132,8 +158,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService impleme
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
-        System.out.println(location.getLatitude()+" "+location.getLongitude());
-    }
+
+
+
 }
