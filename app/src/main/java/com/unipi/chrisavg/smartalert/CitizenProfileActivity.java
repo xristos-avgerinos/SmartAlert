@@ -75,21 +75,9 @@ public class CitizenProfileActivity extends AppCompatActivity implements Locatio
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, locationRequestCode1);
                 return;
             }
-            //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
 
 
-
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if (location!=null){
-                        System.out.println(location.getLatitude()+" "+location.getLongitude());
-                    }else{
-                        System.out.println("Location null");
-                    }
-                }
-            });
         }
 
 
