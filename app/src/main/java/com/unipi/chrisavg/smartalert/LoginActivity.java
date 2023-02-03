@@ -156,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
    //check if user is already logged in.In such case, straightaway take the User to the User's profile activity;
-    @Override
+   /* @Override
     protected void onStart(){
         super.onStart();
         String role = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).getString("role", null);
@@ -170,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-    }
+    }*/
 
 
     public void GoSignUpActivity(View view){

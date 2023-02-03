@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -33,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class CitizenProfileActivity extends AppCompatActivity implements LocationListener {
+public class CitizenProfileActivity extends AppCompatActivity /*implements LocationListener*/ {
     FirebaseAuth mAuth;
     FirebaseUser user;
     FirebaseDatabase database;
@@ -43,7 +44,7 @@ public class CitizenProfileActivity extends AppCompatActivity implements Locatio
     TextView textViewFullName, textViewEmail, textViewMobile;
     String fullName, email, mobile;
     FusedLocationProviderClient fusedLocationProviderClient;
-    LocationManager locationManager;
+    //LocationManager locationManager;
     static final int locationRequestCode1 = 111;
     static final int locationRequestCode2 = 123;
 
@@ -63,23 +64,25 @@ public class CitizenProfileActivity extends AppCompatActivity implements Locatio
         textViewFullName = findViewById(R.id.textView_show_full_name);
         textViewEmail = findViewById(R.id.textView_show_email);
         textViewMobile = findViewById(R.id.textView_show_mobile);
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        //locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (user == null) {
             Toast.makeText(this, "Something went wrong! User's details are not available at the moment.", Toast.LENGTH_SHORT).show();
         } else {
             showUserProfile();
 
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 //Αν δεν εχω τα permissions τα ζηταω
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, locationRequestCode1);
                 return;
-            }
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+            }*/
+            //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
 
+            updateLocationToDB();
 
         }
-
 
 
     }
@@ -88,7 +91,7 @@ public class CitizenProfileActivity extends AppCompatActivity implements Locatio
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //Αν δεν εχω τα permissions τα ζηταω
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, locationRequestCode2);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, locationRequestCode2);
         } else {
             //αν τα εχω τον στελνω κατευθειαν στο επομενο activity
             Intent intent = new Intent(getApplicationContext(), AddAlertActivity.class);
@@ -132,7 +135,7 @@ public class CitizenProfileActivity extends AppCompatActivity implements Locatio
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == locationRequestCode2) { //ελεγχουμε αν εχει ερθει απο το παραπανω requestPermission με requestCode = 123 που ειναι του floatingActionButton
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
                 //Αν ο χρηστης πατησει allow τον στελνουμε στο αλλο activity
                 Intent intent = new Intent(getApplicationContext(), AddAlertActivity.class);
                 startActivity(intent);
@@ -141,13 +144,15 @@ public class CitizenProfileActivity extends AppCompatActivity implements Locatio
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         } else if (requestCode == locationRequestCode1) {//ελεγχουμε αν εχει ερθει απο το παραπανω requestPermission με requestCode = 111 που ειναι του onCreate
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
                 //Αν ο χρηστης πατησει allow
                 Toast.makeText(this, "Permission accepted", Toast.LENGTH_SHORT).show();
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+                //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+                updateLocationToDB();
+
             } else {
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
@@ -156,6 +161,49 @@ public class CitizenProfileActivity extends AppCompatActivity implements Locatio
 
     }
 
+    public void updateLocationToDB() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //Αν δεν εχω τα permissions τα ζηταω
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, locationRequestCode1);
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            reference.child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Users user = snapshot.getValue(Users.class);
+                                    Users temp_user = new Users(user.getFullname(), user.getPhoneNumber(), user.getRole());
+                                    temp_user.setToken(user.getToken());
+                                    temp_user.setLongitude(location.getLongitude());
+                                    temp_user.setLatitude(location.getLatitude());
+                                    reference.child(mAuth.getUid()).setValue(temp_user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (!task.isSuccessful()) {
+                                                System.out.println("Something went wrong");
+                                            }
+
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                    }
+
+                });
+    }
+/*
     @Override
     public void onLocationChanged(@NonNull Location location) {
         reference.child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -200,5 +248,5 @@ public class CitizenProfileActivity extends AppCompatActivity implements Locatio
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
 
-    }
+    }*/
 }
