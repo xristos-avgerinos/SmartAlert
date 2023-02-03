@@ -8,8 +8,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -26,7 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity  {
 
     EditText email,fullname,mobilePhone,password,confirmPassword;
     Toolbar toolbar;
@@ -35,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     String token;
+    LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,8 @@ public class SignUpActivity extends AppCompatActivity {
         mobilePhone=findViewById(R.id.et_phone);
         password=findViewById(R.id.et_password);
         confirmPassword=findViewById(R.id.et_confirm_password);
+
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
 
         toolbar = findViewById(R.id.toolbar);
@@ -84,6 +90,10 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void signUp(View view){
+
+        boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+
         if(TextUtils.isEmpty(email.getText().toString())){
             email.setError("Email is required");
             email.requestFocus();
@@ -120,7 +130,12 @@ public class SignUpActivity extends AppCompatActivity {
             confirmPassword.clearComposingText();
 
         }
+        else if(!isGPSEnabled){
+            showSettingsAlert();
+        }
         else{
+
+
             mAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() { //κανουμε ολους τους ελεγχους se αυτον τον listener.γινεται και ελεγχος αν το email ειναι μοναδικο
                         @Override
@@ -162,4 +177,17 @@ public class SignUpActivity extends AppCompatActivity {
     void showMessage(String title, String message){
         new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
     }
+    public void showSettingsAlert() {
+        android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(this);
+        alertDialog.setTitle("GPS settings");
+        alertDialog.setMessage("GPS is necessary for signing up. Do you want to go to settings menu?");
+        alertDialog.setPositiveButton("Settings", (dialog, which) -> {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        });
+        alertDialog.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        alertDialog.show();
+    }
+
+
 }

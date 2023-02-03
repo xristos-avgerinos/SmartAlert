@@ -105,6 +105,8 @@ public class LoginActivity extends AppCompatActivity {
                                         if(!dbUserToken.equals(currentToken)){
                                             Users temp_user = new Users(user.getFullname(),user.getPhoneNumber(),user.getRole());
                                             temp_user.setToken(currentToken); //update token to database
+                                            temp_user.setLatitude(user.getLatitude());
+                                            temp_user.setLongitude(user.getLongitude());
                                             reference.child(mAuth.getUid()).setValue(temp_user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
@@ -154,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
    //check if user is already logged in.In such case, straightaway take the User to the User's profile activity;
-   /* @Override
+    /*@Override
     protected void onStart(){
         super.onStart();
         String role = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).getString("role", null);

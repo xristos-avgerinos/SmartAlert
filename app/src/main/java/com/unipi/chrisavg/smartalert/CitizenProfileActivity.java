@@ -17,7 +17,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +42,7 @@ public class CitizenProfileActivity extends AppCompatActivity implements Locatio
 
     TextView textViewFullName, textViewEmail, textViewMobile;
     String fullName, email, mobile;
-
+    FusedLocationProviderClient fusedLocationProviderClient;
     LocationManager locationManager;
     static final int locationRequestCode1 = 111;
     static final int locationRequestCode2 = 123;
@@ -72,8 +75,24 @@ public class CitizenProfileActivity extends AppCompatActivity implements Locatio
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, locationRequestCode1);
                 return;
             }
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+            //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+
+
+
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location!=null){
+                        System.out.println(location.getLatitude()+" "+location.getLongitude());
+                    }else{
+                        System.out.println("Location null");
+                    }
+                }
+            });
         }
+
+
 
     }
 
@@ -112,6 +131,7 @@ public class CitizenProfileActivity extends AppCompatActivity implements Locatio
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
         });
     }
 
@@ -144,6 +164,7 @@ public class CitizenProfileActivity extends AppCompatActivity implements Locatio
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }
+
 
     }
 
@@ -179,4 +200,17 @@ public class CitizenProfileActivity extends AppCompatActivity implements Locatio
         locationManager.removeUpdates(this);
     }
 
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+
+    }
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
 }
