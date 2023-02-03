@@ -8,11 +8,17 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,7 +28,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class CitizenProfileActivity extends AppCompatActivity {
+import java.util.List;
+
+public class CitizenProfileActivity extends AppCompatActivity implements LocationListener {
     FirebaseAuth mAuth;
     FirebaseUser user;
     FirebaseDatabase database;
@@ -31,7 +39,10 @@ public class CitizenProfileActivity extends AppCompatActivity {
 
     TextView textViewFullName, textViewEmail, textViewMobile;
     String fullName, email, mobile;
-    static final int locationRequestCode = 123;
+
+    LocationManager locationManager;
+    static final int locationRequestCode1 = 111;
+    static final int locationRequestCode2 = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,28 +60,37 @@ public class CitizenProfileActivity extends AppCompatActivity {
         textViewFullName = findViewById(R.id.textView_show_full_name);
         textViewEmail = findViewById(R.id.textView_show_email);
         textViewMobile = findViewById(R.id.textView_show_mobile);
-        
-        if(user == null){
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (user == null) {
             Toast.makeText(this, "Something went wrong! User's details are not available at the moment.", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             showUserProfile();
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                //Αν δεν εχω τα permissions τα ζηταω
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, locationRequestCode1);
+                return;
+            }
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         }
 
     }
-    public void floatingActionButtonClick(View view){
+
+    public void floatingActionButtonClick(View view) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //Αν δεν εχω τα permissions τα ζηταω
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},locationRequestCode);
-        }
-        else{
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, locationRequestCode2);
+        } else {
             //αν τα εχω τον στελνω κατευθειαν στο επομενο activity
             Intent intent = new Intent(getApplicationContext(), AddAlertActivity.class);
             startActivity(intent);
         }
 
     }
-    private void showUserProfile () {
+
+    private void showUserProfile() {
 
         //Extracting User Reference from Database for "Registered Users"
         reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -89,13 +109,13 @@ public class CitizenProfileActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled (@NonNull DatabaseError error){
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
 
-    void showMessage(String title, String message){
+    void showMessage(String title, String message) {
         new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
     }
 
@@ -103,7 +123,7 @@ public class CitizenProfileActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 123) { //ελεγχουμε αν εχει ερθει απο το παραπανω requestPermission με requestCode = 123
+        if (requestCode == locationRequestCode2) { //ελεγχουμε αν εχει ερθει απο το παραπανω requestPermission με requestCode = 123 που ειναι του floatingActionButton
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //Αν ο χρηστης πατησει allow τον στελνουμε στο αλλο activity
                 Intent intent = new Intent(getApplicationContext(), AddAlertActivity.class);
@@ -112,8 +132,51 @@ public class CitizenProfileActivity extends AppCompatActivity {
                 //Αν ο χρηστης αρνηθει τα δικαιωματα παραμενω στο activity αυτο και εμφανιζω καταλληλο μηνυμα.
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
+        } else if (requestCode == locationRequestCode1) {//ελεγχουμε αν εχει ερθει απο το παραπανω requestPermission με requestCode = 111 που ειναι του onCreate
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Αν ο χρηστης πατησει allow
+                Toast.makeText(this, "Permission accepted", Toast.LENGTH_SHORT).show();
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
         }
 
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        reference.child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users user = snapshot.getValue(Users.class);
+                Users temp_user = new Users(user.getFullname(),user.getPhoneNumber(), user.getRole());
+                temp_user.setToken(user.getToken());
+                temp_user.setLongitude(location.getLongitude());
+                temp_user.setLatitude(location.getLatitude());
+                reference.child(mAuth.getUid()).setValue(temp_user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (!task.isSuccessful()){
+                            System.out.println("Something went wrong");
+                        }
+
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        System.out.println(location.getLatitude());
+        locationManager.removeUpdates(this);
     }
 
 }
