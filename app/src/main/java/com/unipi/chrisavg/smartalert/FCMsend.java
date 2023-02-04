@@ -2,6 +2,8 @@ package com.unipi.chrisavg.smartalert;
 
 import static android.content.ContentValues.TAG;
 
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -27,12 +29,16 @@ public class FCMsend {
         new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... params) {
+                Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 try {
                     JSONObject root = new JSONObject();
                     JSONObject notification = new JSONObject();
                     notification.put("body", body);
                     notification.put("title", title);
                     notification.put("icon", R.drawable.danger);
+                    notification.put("sound", defaultSoundUri);
+                    notification.put("default_vibrate_timings", false);
+                    notification.put("vibrate_timings", new long[] { 1000, 1000, 1000, 1000, 1000 });
 
                     JSONObject data = new JSONObject();
                     data.put("message", message);

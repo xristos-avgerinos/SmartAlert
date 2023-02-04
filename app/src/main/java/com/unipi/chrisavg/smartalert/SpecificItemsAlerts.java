@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
@@ -40,15 +42,23 @@ public class SpecificItemsAlerts extends AppCompatActivity {
     List<EmergencyAlerts> emergencyAlertsList;
     List<String> ListViewItems;
     List<Address> addresses;
+    List<Address> centreLocationAddresses;
     String address;
+    String centreLocationAddress;
     Geocoder geocoder;
     Date date;
+    String description;
     SimpleDateFormat formatter;
     FirebaseDatabase database;
     DatabaseReference reference;
     DatabaseReference referenceUsers;
     EmergencyAlerts tempEmergencyAlert;
     String message;
+    String SpecificItemCategory;
+    String SpecificItemLongitude;
+    String SpecificItemLatitude;
+    Location centreLocation;
+    final static long locationRange = 50000;
 
     List<String> AllUsersTokens = new ArrayList<>();
     @Override
@@ -67,8 +77,27 @@ public class SpecificItemsAlerts extends AppCompatActivity {
         ListViewItems =new ArrayList<>();
 
         Intent i=getIntent();
-        emergencyAlertsList = (List<EmergencyAlerts>) i.getSerializableExtra("SpecificItem");
+        emergencyAlertsList = (List<EmergencyAlerts>) i.getSerializableExtra("SpecificItemList");
+        SpecificItemCategory = i.getStringExtra("SpecificItemCategory");
+        SpecificItemLongitude = i.getStringExtra("SpecificItemLongitude");
+        SpecificItemLatitude = i.getStringExtra("SpecificItemLatitude");
 
+        centreLocation=new Location("");
+        centreLocation.setLongitude(Double.parseDouble(SpecificItemLongitude));
+        centreLocation.setLatitude(Double.parseDouble(SpecificItemLatitude));
+
+        try {
+            centreLocationAddresses = geocoder.getFromLocation(centreLocation.getLatitude(), centreLocation.getLongitude(), 1);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        //απο τις συντεταγμενες latitude και longitude παιρνω την διευθνυση του και οτι αλλη πληροφορια θελω
+
+        if (centreLocationAddresses.size()==0){
+            centreLocationAddress="Untrackable Location";
+        }else{
+            centreLocationAddress = centreLocationAddresses.get(0).getLocality();
+        }
 
 
         for (EmergencyAlerts e: emergencyAlertsList) {
@@ -87,7 +116,12 @@ public class SpecificItemsAlerts extends AppCompatActivity {
             }
             formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
             date=new Date(e.getTimeStamp());
-            ListViewItems.add("Title: "+e.getTitle()+"\n"+"Location: "+address+"\n"+"Date: "+formatter.format(date)+"\n"+"Description: "+e.getDescription());
+            if(e.getDescription().isEmpty()){
+                description = "-";
+            }else{
+                description = e.getDescription();
+            }
+            ListViewItems.add("Title: "+e.getTitle()+"\n"+"Location: "+address+"\n"+"Date: "+formatter.format(date)+"\n"+"Description: "+description);
         }
 
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ListViewItems);
@@ -146,12 +180,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                     });
 
                 }
-                message = "Emergency Alert was Accepted";
-                Toast.makeText(SpecificItemsAlerts.this, message, Toast.LENGTH_SHORT).show();
-                finish();
-                startActivity(intent);
-                break;
-            case R.id.test:
+
                 AllUsersTokens.clear();
                 referenceUsers.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -161,7 +190,12 @@ public class SpecificItemsAlerts extends AppCompatActivity {
 
                             Users user = ds.getValue(Users.class);
 
-                            if(user.getRole().equals("Citizen")){
+                            Location userLocation = new Location("");
+                            userLocation.setLongitude(user.getLongitude());
+                            userLocation.setLatitude(user.getLatitude());
+                            int location_distance = (int) userLocation.distanceTo(centreLocation);
+
+                            if(user.getRole().equals("Citizen") && location_distance <= locationRange){
                                 AllUsersTokens.add(user.getToken());
                             }
                         }
@@ -176,7 +210,9 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        FCMsend.sendMessage(regArray,"Hello","How r u","My Name is Vishal");
+
+
+                        FCMsend.sendMessage(regArray,"GR-ALERT: Επείγουσα Ειδοποίηση Εκτακτης Ανάγκης","Προειδοπειητικό μήνυμα για " + SpecificItemCategory + " τις επόμενες ώρες κοντα στην περιοχη " + centreLocationAddress + ". Περιορίστε τις μετακινήσεις στις απολύτως απαραίτητες και ακολουθήστε τις οδηγίες των αρχών. Οδηγίες αυτοπροστασίας: https://www.civilprotection.gr/el/entona-kairika-fainomena.","");
 
                     }
 
@@ -186,11 +222,11 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                     }
 
                 });
-
-
-
-
-               break;
+                message = "Emergency Alert was Accepted and notification was sent to close region users";
+                Toast.makeText(SpecificItemsAlerts.this, message, Toast.LENGTH_SHORT).show();
+                finish();
+                startActivity(intent);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }

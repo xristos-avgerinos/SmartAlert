@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -14,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.regex.Pattern;
 
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -92,7 +95,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setContentText(messageBody)
                         .setAutoCancel(true)
                         .setSmallIcon(R.drawable.danger)
-                        .setSound(defaultSoundUri);
+                        .setSound(defaultSoundUri)
+                        .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                        .setLights(Color.RED, 3000, 3000);
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

@@ -10,8 +10,5 @@
         android:id="@+id/AcceptButton"
         android:title="@string/Accept"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/test"
-        android:title="test"
-        app:showAsAction="always" />
+
 </menu>

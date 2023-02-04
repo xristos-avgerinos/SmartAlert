@@ -9,6 +9,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -44,8 +46,8 @@ public class AllAlertsActivity extends AppCompatActivity {
     DatabaseReference reference;
     List<EmergencyAlerts> emergencyAlertsList = new ArrayList<>();
     List<String> ListViewItems  = new ArrayList<>();
-    Map< String, Integer> ListViewItemsMap = new LinkedHashMap<>();
-    List<Map.Entry<String, Integer>> ListViewItemsList;
+    Map< String[], Integer> ListViewItemsMap = new LinkedHashMap<>();
+    List<Map.Entry<String[], Integer>> ListViewItemsList;
 
     ArrayAdapter<String> arrayAdapter;
     ListView listView;
@@ -89,6 +91,10 @@ public class AllAlertsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 emergencyAlertsList.clear();
                 ListViewItems.clear();
+                ListViewItemsMap.clear();
+                positionMap.clear();
+                AllGroups.clear();
+
                 for(DataSnapshot ds : snapshot.getChildren()) {
 
                     EmergencyAlerts em = ds.getValue(EmergencyAlerts.class);
@@ -249,8 +255,10 @@ public class AllAlertsActivity extends AppCompatActivity {
 
                 /*System.out.println("Min time: "+minTime +"\nMax time:"+maxTime);
                 System.out.println("total:" + differenceForMaxMinTime);*/
-                String s = entry.getKey()+" \nΠεριοχή: "+address+"\nΒαθμός Επικυνδυνότητας: "+totalDanger+"/10 \nΜετρητής αιτήσεων:"+countAlerts;
-
+               // String s = entry.getKey()+" \nΠεριοχή: "+address+"\nΒαθμός Επικυνδυνότητας: "+totalDanger+"/10 \nΜετρητής αιτήσεων:"+countAlerts;
+                
+                String[] s = new String[]{entry.getKey(),"Περιοχή: "+address,"Βαθμός Επικυνδυνότητας: "+totalDanger+"/10","Μετρητής αιτήσεων:"+countAlerts,
+                        String.valueOf(centreLocation.getLongitude()), String.valueOf(centreLocation.getLatitude())};
                 ListViewItemsMap.put(s,totalDanger);
 
                 mapIndexes= new String[]{entry.getKey(), String.valueOf(i)};
@@ -270,14 +278,18 @@ public class AllAlertsActivity extends AppCompatActivity {
         ListViewItemsList = new ArrayList<>(ListViewItemsMap.entrySet());
         ListViewItemsList.sort(Map.Entry.comparingByValue (Comparator.reverseOrder()));
         ListViewItemsMap.clear();
-        for (Map.Entry<String, Integer> posListItem: ListViewItemsList) {
+        for (Map.Entry<String[], Integer> posListItem: ListViewItemsList) {
             ListViewItemsMap.put(posListItem.getKey(),posListItem.getValue());
         }
 
 
         positions = new ArrayList<>(positionMap.keySet());
-        ListViewItems = new ArrayList<>(ListViewItemsMap.keySet());
-
+        
+        
+        //ListViewItems = new ArrayList<>(ListViewItemsMap.keySet().iterator().forEachRemaining(key -> String.join(",", key)));
+        for (String[] key : ListViewItemsMap.keySet()) {
+            ListViewItems.add(String.join("\n",  Arrays.copyOf(key, key.length - 2)));
+        }
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -288,7 +300,11 @@ public class AllAlertsActivity extends AppCompatActivity {
                 System.out.println(AllGroups.get(pos.get(i)[0]).get(Integer.parseInt(pos.get(i)[1])));*/
 
                 Intent intent = new Intent(AllAlertsActivity.this,SpecificItemsAlerts.class);
-                intent.putExtra("SpecificItem", (Serializable) AllGroups.get(positions.get(i)[0]).get(Integer.parseInt(positions.get(i)[1])));
+                intent.putExtra("SpecificItemList", (Serializable) AllGroups.get(positions.get(i)[0]).get(Integer.parseInt(positions.get(i)[1])));
+                intent.putExtra("SpecificItemCategory",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[0]);
+                intent.putExtra("SpecificItemLongitude",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[4]);
+                intent.putExtra("SpecificItemLatitude",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[5]);
+
                 startActivity(intent);
             }
         });
@@ -296,6 +312,7 @@ public class AllAlertsActivity extends AppCompatActivity {
         listView.setAdapter(arrayAdapter);
         arrayAdapter.notifyDataSetChanged();
     }
+
 
     public List<EmergencyAlerts> removeItemsFromList(List<EmergencyAlerts> Basic_List, List<EmergencyAlerts> Second_List){
 
