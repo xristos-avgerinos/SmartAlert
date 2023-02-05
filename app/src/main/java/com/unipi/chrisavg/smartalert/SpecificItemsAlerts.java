@@ -11,7 +11,9 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -41,8 +43,8 @@ public class SpecificItemsAlerts extends AppCompatActivity {
     ListView listView;
     List<EmergencyAlerts> emergencyAlertsList;
     List<String> ListViewItems;
-    List<Address> addresses;
-    List<Address> centreLocationAddresses;
+    List<Address> addresses = new ArrayList<>();
+    List<Address> centreLocationAddresses = new ArrayList<>();
     String address;
     String centreLocationAddress;
     Geocoder geocoder;
@@ -61,10 +63,15 @@ public class SpecificItemsAlerts extends AppCompatActivity {
     final static long locationRange = 50000;
 
     List<String> AllUsersTokens = new ArrayList<>();
+
+    LinearLayout linearLayoutPb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specific_items_alerts);
+
+        linearLayoutPb = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
+        linearLayoutPb.setVisibility(View.VISIBLE);
 
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Emergency Alerts");
@@ -123,7 +130,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
             }
             ListViewItems.add("Title: "+e.getTitle()+"\n"+"Location: "+address+"\n"+"Date: "+formatter.format(date)+"\n"+"Description: "+description);
         }
-
+        linearLayoutPb.setVisibility(View.GONE);
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ListViewItems);
         listView.setAdapter(arrayAdapter);
         arrayAdapter.notifyDataSetChanged();

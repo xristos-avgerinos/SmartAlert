@@ -13,7 +13,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -60,7 +62,7 @@ public class AllAlertsActivity extends AppCompatActivity {
 
     Location centreLocation;
     Geocoder geocoder;
-    List<Address> addresses=null;
+    List<Address> addresses= new ArrayList<>();
     List<String[]> positions;
     Map< String[], Integer> positionMap = new LinkedHashMap<>();
     List<Map.Entry<String[], Integer>> positionList;
@@ -71,6 +73,8 @@ public class AllAlertsActivity extends AppCompatActivity {
     final static long _15hours = 15 * 60 * 60 *  1000;
     final static long _24hours = 24 * 60 * 60 *  1000;
     final static long _36hours = 36 * 60 * 60 *  1000;
+
+    LinearLayout linearLayoutPb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -84,11 +88,13 @@ public class AllAlertsActivity extends AppCompatActivity {
         listView= (ListView) findViewById(R.id.SpecListview);
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
+        linearLayoutPb = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
 
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                linearLayoutPb.setVisibility(View.VISIBLE);
                 emergencyAlertsList.clear();
                 ListViewItems.clear();
                 ListViewItemsMap.clear();
@@ -105,7 +111,7 @@ public class AllAlertsActivity extends AppCompatActivity {
                     }
                 }
                 ShowGroupedEAinListView();
-
+                linearLayoutPb.setVisibility(View.GONE);
             }
 
             @Override

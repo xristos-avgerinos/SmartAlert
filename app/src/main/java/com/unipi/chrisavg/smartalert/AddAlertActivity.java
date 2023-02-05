@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -158,7 +159,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
     @Override
     public void onLocationChanged(@NonNull Location location) {
         Geocoder geocoder;
-        List<Address> addresses = null;
+        List<Address> addresses = new ArrayList<>();
         geocoder = new Geocoder(this, Locale.getDefault());
 
         try {
