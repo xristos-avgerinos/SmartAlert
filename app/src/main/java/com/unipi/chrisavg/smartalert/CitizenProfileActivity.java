@@ -1,6 +1,7 @@
 package com.unipi.chrisavg.smartalert;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -8,12 +9,15 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class CitizenProfileActivity extends AppCompatActivity /*implements LocationListener*/ {
@@ -47,6 +52,8 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
     //LocationManager locationManager;
     static final int locationRequestCode1 = 111;
     static final int locationRequestCode2 = 123;
+
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,6 +210,37 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
 
                 });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar3,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+
+            case R.id.Profile:
+                break;
+            case R.id.statistics:
+                intent = new Intent(getApplicationContext(), CitizenStatisticsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.logout:
+                mAuth.signOut();
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().remove("role").apply();
+                intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+        return true;
+    }
+
 /*
     @Override
     public void onLocationChanged(@NonNull Location location) {

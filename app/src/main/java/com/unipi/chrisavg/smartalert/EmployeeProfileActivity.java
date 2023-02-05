@@ -3,7 +3,11 @@ package com.unipi.chrisavg.smartalert;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +26,8 @@ FirebaseUser user;
 DatabaseReference reference;
 TextView  textViewFullName, textViewEmail, textViewMobile;
 String fullName, email, mobile;
+
+Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,5 +79,35 @@ String fullName, email, mobile;
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar4,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+
+            case R.id.Profile:
+                break;
+            case R.id.EmergencyAlerts:
+                intent = new Intent(getApplicationContext(), AllAlertsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.logout:
+                mAuth.signOut();
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().remove("role").apply();
+                intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+        return true;
     }
 }

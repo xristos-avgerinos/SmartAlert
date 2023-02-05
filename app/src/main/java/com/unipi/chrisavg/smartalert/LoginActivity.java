@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     String currentToken;
+    TextInputLayout passwordLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
         email = findViewById(R.id.et_email);
         password = findViewById(R.id.et_password);
+        passwordLayout = findViewById(R.id.passwordLayout);
         setStatusBarTransparent(this);
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
@@ -81,8 +84,8 @@ public class LoginActivity extends AppCompatActivity {
             email.setError("Please enter a valid email");
             email.requestFocus();
         }else if(TextUtils.isEmpty(password.getText().toString())){
-            password.setError("Password is required");
-            password.requestFocus();
+            passwordLayout.setError("Password is required");
+            passwordLayout.requestFocus();
         }else{
             mAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                     .addOnCompleteListener((task)->{
@@ -97,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                                     if(dbUserToken==null){
                                         dbUserToken = "";
                                     }
-                                    PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).edit().putString("role", role).apply();
+                                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("role", role).apply();
 
                                     Intent intent ;
                                     if(role.equals("Citizen")){
@@ -120,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                                         intent = new Intent(LoginActivity.this, CitizenProfileActivity.class);
 
                                     }else if(role.equals("Employee")){
-                                        intent = new Intent(LoginActivity.this, AllAlertsActivity.class);
+                                        intent = new Intent(LoginActivity.this, EmployeeProfileActivity.class);
                                     }else{
                                         intent=new Intent(LoginActivity.this, LoginActivity.class);
                                         Toast.makeText(LoginActivity.this, "This user does not have a role.", Toast.LENGTH_SHORT).show();
@@ -155,13 +158,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        String role = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).getString("role", null);
+        String role = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("role", null);
         if(mAuth.getCurrentUser() != null && role!=null){
             Intent intent = null;
             if(role.equals("Citizen")){
                  intent = new Intent(LoginActivity.this, CitizenProfileActivity.class);
             }else if(role.equals("Employee")){
-                intent = new Intent(LoginActivity.this, AllAlertsActivity.class);
+                intent = new Intent(LoginActivity.this, EmployeeProfileActivity.class);
             }
             startActivity(intent);
             finish();

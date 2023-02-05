@@ -1,8 +1,5 @@
 package com.unipi.chrisavg.smartalert;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.location.Address;
@@ -10,16 +7,14 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,21 +23,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
-import java.io.Serializable;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.OptionalLong;
 import java.util.stream.Collectors;
 
-public class AllAlertsActivity extends AppCompatActivity {
+public class CitizenStatisticsActivity extends AppCompatActivity {
 
     final static long locationRange = 50000;
     final static long timeRange = 48 * 60 * 60 *  1000;
@@ -51,8 +42,7 @@ public class AllAlertsActivity extends AppCompatActivity {
     DatabaseReference reference;
     List<EmergencyAlerts> emergencyAlertsList = new ArrayList<>();
     List<String> ListViewItems  = new ArrayList<>();
-    Map< String[], Integer> ListViewItemsMap = new LinkedHashMap<>();
-    List<Map.Entry<String[], Integer>> ListViewItemsList;
+    Intent intent;
 
     ArrayAdapter<String> arrayAdapter;
     ListView listView;
@@ -62,35 +52,24 @@ public class AllAlertsActivity extends AppCompatActivity {
     List<EmergencyAlerts> differentRegionAlerts = new ArrayList<>();
     Map<String, List<EmergencyAlerts>> groupedByCategory;
     SimpleDateFormat formatter;
+    Date date;
 
     Location centreLocation;
     Geocoder geocoder;
     List<Address> addresses= new ArrayList<>();
-    List<String[]> positions;
-    Map< String[], Integer> positionMap = new LinkedHashMap<>();
-    List<Map.Entry<String[], Integer>> positionList;
-    String [] mapIndexes;
-
-    final static long _5hours  = 5 * 60 * 60 *  1000;
-    final static long _10hours = 10 * 60 * 60 *  1000;
-    final static long _15hours = 15 * 60 * 60 *  1000;
-    final static long _24hours = 24 * 60 * 60 *  1000;
-    final static long _36hours = 36 * 60 * 60 *  1000;
 
     LinearLayout linearLayoutPb;
-
-    Intent intent1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_alerts);
+        setContentView(R.layout.activity_citizen_statistics);
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Emergency Alerts");
 
-        listView= (ListView) findViewById(R.id.SpecListview);
+        listView= (ListView) findViewById(R.id.StatisticsListview);
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
         linearLayoutPb = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
@@ -102,15 +81,13 @@ public class AllAlertsActivity extends AppCompatActivity {
                 linearLayoutPb.setVisibility(View.VISIBLE);
                 emergencyAlertsList.clear();
                 ListViewItems.clear();
-                ListViewItemsMap.clear();
-                positionMap.clear();
                 AllGroups.clear();
 
                 for(DataSnapshot ds : snapshot.getChildren()) {
 
                     EmergencyAlerts em = ds.getValue(EmergencyAlerts.class);
 
-                    if(em.getStatus()==null){
+                    if(em.getStatus() != null && em.getStatus().equals("Accepted")){
                         em.setKey(ds.getKey());
                         emergencyAlertsList.add(em);
                     }
@@ -128,9 +105,6 @@ public class AllAlertsActivity extends AppCompatActivity {
     }
 
 
-    void showMessage(String title, String message){
-        new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
-    }
     public void ShowGroupedEAinListView(){
 
         groupedByCategory = emergencyAlertsList.stream().collect(Collectors.groupingBy(w -> w.getCategory()));
@@ -181,13 +155,9 @@ public class AllAlertsActivity extends AppCompatActivity {
         String address;
 
         double sumX,sumY;
-        OptionalLong maxTime;
-        OptionalLong minTime;
         int countAlerts;
-        int dangerForUsers;
-        int dangerForTime;
-        Integer totalDanger;
-        long differenceForMaxMinTime;
+
+
 
 
         for ( Map.Entry<String,List<List<EmergencyAlerts>>> entry: AllGroups.entrySet()) {
@@ -216,109 +186,18 @@ public class AllAlertsActivity extends AppCompatActivity {
                 if (addresses.size()==0){
                     address="Untrackable Location";
                 }else{
-                    address = addresses.get(0).getLocality();
+                    address = addresses.get(0).getAddressLine(0);
                 }
 
-                //System.out.println(entry.getKey() + " " + address);
+                formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
+                date=new Date((entry.getValue().get(i).stream().mapToLong(EmergencyAlerts::getTimeStamp).max()).getAsLong());
 
-                // Βαθμος για αιτήσεις 5/10 απο τον αριθμο των αιτησεων του καθε περιστατικου
-                if (countAlerts >= 5){
-                    dangerForUsers = 5;
-                }else if (countAlerts >= 4){
-                    dangerForUsers = 4;
-                }else if (countAlerts >= 3){
-                    dangerForUsers = 3;
-                }else if(countAlerts >= 2){
-                    dangerForUsers = 2;
-                }else if(countAlerts >= 1){
-                    dangerForUsers = 1;
-                }else {
-                    dangerForUsers = 0;
-                }
-
-                //danger= count / 100;
-
-                maxTime = entry.getValue().get(i).stream().mapToLong(EmergencyAlerts::getTimeStamp).max();
-                minTime = entry.getValue().get(i).stream().mapToLong(EmergencyAlerts::getTimeStamp).min();
-                differenceForMaxMinTime = maxTime.getAsLong() - minTime.getAsLong();
-
-                // Βαθμος για αιτήσεις 5/10 απο την ωρα που υποβληθηκε το πρωτο και το τελευταιο alert για καποιο γεγονος(διαφορα χρονου)
-                if(dangerForUsers >= 3){
-                    if (differenceForMaxMinTime <= _5hours){
-                        dangerForTime = 5;
-                    }else if (differenceForMaxMinTime <= _10hours){
-                        dangerForTime = 4;
-                    }else if (differenceForMaxMinTime <= _15hours){
-                        dangerForTime = 3;
-                    }else if(differenceForMaxMinTime <= _24hours){
-                        dangerForTime = 2;
-                    }else if(differenceForMaxMinTime <= _36hours){
-                        dangerForTime = 1;
-                    }else {
-                        dangerForTime = 0;
-                    }
-                }else{
-                    dangerForTime = 0;
-                }
-
-                totalDanger = dangerForUsers + dangerForTime; //αποτελεσμα (dangerForUsers + dangerForTime)/10
-
-
-                /*System.out.println("Min time: "+minTime +"\nMax time:"+maxTime);
-                System.out.println("total:" + differenceForMaxMinTime);*/
-               // String s = entry.getKey()+" \nΠεριοχή: "+address+"\nΒαθμός Επικυνδυνότητας: "+totalDanger+"/10 \nΜετρητής αιτήσεων:"+countAlerts;
-                
-                String[] s = new String[]{entry.getKey(),"Περιοχή: "+address,"Βαθμός Επικυνδυνότητας: "+totalDanger+"/10","Μετρητής αιτήσεων:"+countAlerts,
-                        String.valueOf(centreLocation.getLongitude()), String.valueOf(centreLocation.getLatitude())};
-                ListViewItemsMap.put(s,totalDanger);
-
-                mapIndexes= new String[]{entry.getKey(), String.valueOf(i)};
-                positionMap.put(mapIndexes,totalDanger);
+                String s = entry.getKey() + "\nΠεριοχή: " + address + "\nΩρα: " + formatter.format(date);
+                ListViewItems.add(s);
 
             }
         }
 
-        positionList = new ArrayList<>(positionMap.entrySet());
-        positionList.sort(Map.Entry.comparingByValue (Comparator.reverseOrder()));
-        positionMap.clear();
-        for (Map.Entry<String[], Integer> posListItem: positionList) {
-            positionMap.put(posListItem.getKey(),posListItem.getValue());
-        }
-
-
-        ListViewItemsList = new ArrayList<>(ListViewItemsMap.entrySet());
-        ListViewItemsList.sort(Map.Entry.comparingByValue (Comparator.reverseOrder()));
-        ListViewItemsMap.clear();
-        for (Map.Entry<String[], Integer> posListItem: ListViewItemsList) {
-            ListViewItemsMap.put(posListItem.getKey(),posListItem.getValue());
-        }
-
-
-        positions = new ArrayList<>(positionMap.keySet());
-        
-        
-        //ListViewItems = new ArrayList<>(ListViewItemsMap.keySet().iterator().forEachRemaining(key -> String.join(",", key)));
-        for (String[] key : ListViewItemsMap.keySet()) {
-            ListViewItems.add(String.join("\n",  Arrays.copyOf(key, key.length - 2)));
-        }
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            public void onItemClick(AdapterView arg0, View arg1, int i, long arg3) {
-
-                /*System.out.println(position.get(i)[0] + pos.get(i)[1]);
-                System.out.println(AllGroups.get(pos.get(i)[0]).get(Integer.parseInt(pos.get(i)[1])));*/
-
-                Intent intent = new Intent(AllAlertsActivity.this,SpecificItemsAlerts.class);
-                intent.putExtra("SpecificItemList", (Serializable) AllGroups.get(positions.get(i)[0]).get(Integer.parseInt(positions.get(i)[1])));
-                intent.putExtra("SpecificItemCategory",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[0]);
-                intent.putExtra("SpecificItemLongitude",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[4]);
-                intent.putExtra("SpecificItemLatitude",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[5]);
-
-                startActivity(intent);
-            }
-        });
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,ListViewItems);
         listView.setAdapter(arrayAdapter);
         arrayAdapter.notifyDataSetChanged();
@@ -336,7 +215,7 @@ public class AllAlertsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar4,menu);
+        getMenuInflater().inflate(R.menu.actionbar3,menu);
         return true;
     }
 
@@ -347,13 +226,13 @@ public class AllAlertsActivity extends AppCompatActivity {
             case R.id.Profile:
                 finish();
                 break;
-            case R.id.EmergencyAlerts:
+            case R.id.statistics:
                 break;
             case R.id.logout:
                 mAuth.signOut();
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().remove("role").apply();
-                intent1 = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent1);
+                intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
                 finish();
                 break;
             default:
