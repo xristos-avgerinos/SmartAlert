@@ -7,13 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -27,7 +23,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,15 +31,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class CitizenProfileActivity extends AppCompatActivity /*implements LocationListener*/ {
     FirebaseAuth mAuth;
     FirebaseUser user;
     FirebaseDatabase database;
     DatabaseReference reference;
-    FloatingActionButton floatingActionButton;
 
     TextView textViewFullName, textViewEmail, textViewMobile;
     String fullName, email, mobile;
@@ -63,8 +55,6 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
         user = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Users");
-
-        floatingActionButton = findViewById(R.id.floatingActionButton);
 
         getSupportActionBar().setTitle("User Profile");
 
@@ -94,7 +84,7 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
 
     }
 
-    public void floatingActionButtonClick(View view) {
+    public void AddAlert(View view) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //Αν δεν εχω τα permissions τα ζηταω
@@ -141,7 +131,7 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == locationRequestCode2) { //ελεγχουμε αν εχει ερθει απο το παραπανω requestPermission με requestCode = 123 που ειναι του floatingActionButton
+        if (requestCode == locationRequestCode2) { //ελεγχουμε αν εχει ερθει απο το παραπανω requestPermission με requestCode = 123 που ειναι του AddAlertButton
             if (grantResults.length > 0 && (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
                 //Αν ο χρηστης πατησει allow τον στελνουμε στο αλλο activity
                 Intent intent = new Intent(getApplicationContext(), AddAlertActivity.class);
