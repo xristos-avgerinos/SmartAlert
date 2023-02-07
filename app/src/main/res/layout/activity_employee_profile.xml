@@ -61,7 +61,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="30dp"
                     android:hint="@string/loading"
-                    android:text="@string/welcome_employee"
+                    android:text="@string/loading"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textColor="@android:color/white" />

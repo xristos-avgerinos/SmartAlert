@@ -34,9 +34,10 @@
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:cacheColorHint="@android:color/transparent"
-        android:dividerHeight="2dp"
+        android:dividerHeight="1dp"
         android:fadingEdge="none"
         android:persistentDrawingCache="scrolling">
+
     </ListView>
 
 </LinearLayout>

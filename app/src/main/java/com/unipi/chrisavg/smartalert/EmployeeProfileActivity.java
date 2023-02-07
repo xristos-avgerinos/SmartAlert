@@ -24,7 +24,7 @@ FirebaseAuth mAuth;
 FirebaseDatabase database;
 FirebaseUser user;
 DatabaseReference reference;
-TextView  textViewFullName, textViewEmail, textViewMobile;
+TextView  textViewFullName, textViewEmail, textViewMobile,textView_show_welcome;
 String fullName, email, mobile;
 
 Intent intent;
@@ -47,6 +47,8 @@ Intent intent;
         textViewFullName = findViewById(R.id.textView_show_full_name);
         textViewEmail = findViewById(R.id.textView_show_email);
         textViewMobile = findViewById(R.id.textView_show_mobile);
+
+        textView_show_welcome = findViewById(R.id.textView_show_welcome);
 
         if(user == null){
             Toast.makeText(this, "Something went wrong! User's details are not available at the moment.", Toast.LENGTH_SHORT).show();
@@ -71,6 +73,8 @@ Intent intent;
                     textViewFullName.setText(fullName);
                     textViewEmail.setText(email);
                     textViewMobile.setText(mobile);
+                    textView_show_welcome.setText(new StringBuilder().append("Welcome, ").
+                            append(fullName.trim().split("\\s+")[0]).append("!").toString());
                 }
             }
 

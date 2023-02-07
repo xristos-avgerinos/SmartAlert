@@ -47,8 +47,6 @@
     <string name="email">email</string>
     <string name="dob">dob</string>
     <string name="mobile">mobile</string>
-    <string name="welcome_employee">Welcome, Employee!</string>
-    <string name="welcome_citizen">Welcome, Citizen!</string>
     <string name="profile">Profile</string>
     <string name="statistics">Statistics</string>
     <string name="logout">LogOut</string>

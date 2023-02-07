@@ -10,15 +10,12 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -38,9 +35,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.OptionalLong;
 import java.util.stream.Collectors;
+
 
 public class AllAlertsActivity extends AppCompatActivity {
 
@@ -50,11 +47,14 @@ public class AllAlertsActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     List<EmergencyAlerts> emergencyAlertsList = new ArrayList<>();
-    List<String> ListViewItems  = new ArrayList<>();
+    List<String> ListViewItemsTitle = new ArrayList<>();
+    List<String> ListViewItemsDescription = new ArrayList<>();
+    List<Integer> ListViewItemsImages = new ArrayList<>();
+    ArrayAdapterClass arrayAdapterClass;
+
     Map< String[], Integer> ListViewItemsMap = new LinkedHashMap<>();
     List<Map.Entry<String[], Integer>> ListViewItemsList;
 
-    ArrayAdapter<String> arrayAdapter;
     ListView listView;
     List<EmergencyAlerts> temp_list;
     Map< String,List<List<EmergencyAlerts>> >AllGroups = new HashMap<>();
@@ -80,6 +80,7 @@ public class AllAlertsActivity extends AppCompatActivity {
     LinearLayout linearLayoutPb;
 
     Intent intent1;
+    Map<String,Integer> categoryImagesMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -90,18 +91,29 @@ public class AllAlertsActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Emergency Alerts");
 
+        categoryImagesMap = Map.of(
+                "Πλημμύρα", R.drawable.flood,
+                "Πυρκαγιά", R.drawable.fire,
+                "Σεισμός",  R.drawable.earthquake,
+                "Ακραία θερμοκασία", R.drawable.temperature,
+                "Χιονοθύελλα", R.drawable.snow_storm,
+                "Ανεμοστρόβυλος",R.drawable.tornado,
+                "Καταιγίδα",R.drawable.storm
+                );
+
         listView= (ListView) findViewById(R.id.SpecListview);
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
         linearLayoutPb = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
-
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 linearLayoutPb.setVisibility(View.VISIBLE);
                 emergencyAlertsList.clear();
-                ListViewItems.clear();
+                ListViewItemsDescription.clear();
+                ListViewItemsImages.clear();
+                ListViewItemsTitle.clear();
                 ListViewItemsMap.clear();
                 positionMap.clear();
                 AllGroups.clear();
@@ -268,8 +280,8 @@ public class AllAlertsActivity extends AppCompatActivity {
                 System.out.println("total:" + differenceForMaxMinTime);*/
                // String s = entry.getKey()+" \nΠεριοχή: "+address+"\nΒαθμός Επικυνδυνότητας: "+totalDanger+"/10 \nΜετρητής αιτήσεων:"+countAlerts;
                 
-                String[] s = new String[]{entry.getKey(),"Περιοχή: "+address,"Βαθμός Επικυνδυνότητας: "+totalDanger+"/10","Μετρητής αιτήσεων:"+countAlerts,
-                        String.valueOf(centreLocation.getLongitude()), String.valueOf(centreLocation.getLatitude())};
+                String[] s = new String[]{"Περιοχή: "+address,"Βαθμός Επικυνδυνότητας: "+totalDanger+"/10","Μετρητής αιτήσεων:"+countAlerts,
+                        String.valueOf(centreLocation.getLongitude()), String.valueOf(centreLocation.getLatitude()),entry.getKey()};
                 ListViewItemsMap.put(s,totalDanger);
 
                 mapIndexes= new String[]{entry.getKey(), String.valueOf(i)};
@@ -299,7 +311,10 @@ public class AllAlertsActivity extends AppCompatActivity {
         
         //ListViewItems = new ArrayList<>(ListViewItemsMap.keySet().iterator().forEachRemaining(key -> String.join(",", key)));
         for (String[] key : ListViewItemsMap.keySet()) {
-            ListViewItems.add(String.join("\n",  Arrays.copyOf(key, key.length - 2)));
+            ListViewItemsDescription.add(String.join("\n",  Arrays.copyOf(key, key.length - 3)));
+            ListViewItemsTitle.add(key[5]);
+            ListViewItemsImages.add(categoryImagesMap.get(key[5]));
+
         }
 
 
@@ -312,16 +327,20 @@ public class AllAlertsActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(AllAlertsActivity.this,SpecificItemsAlerts.class);
                 intent.putExtra("SpecificItemList", (Serializable) AllGroups.get(positions.get(i)[0]).get(Integer.parseInt(positions.get(i)[1])));
-                intent.putExtra("SpecificItemCategory",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[0]);
-                intent.putExtra("SpecificItemLongitude",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[4]);
-                intent.putExtra("SpecificItemLatitude",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[5]);
+                intent.putExtra("SpecificItemCategory",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[5]);
+                intent.putExtra("SpecificItemLongitude",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[3]);
+                intent.putExtra("SpecificItemLatitude",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[4]);
+                intent.putExtra("SpecificItemImage",(categoryImagesMap.get((new ArrayList<>(ListViewItemsMap.keySet())).get(i)[5])));
 
                 startActivity(intent);
             }
         });
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,ListViewItems);
-        listView.setAdapter(arrayAdapter);
-        arrayAdapter.notifyDataSetChanged();
+        //arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ListViewItemsDescription);
+
+        arrayAdapterClass = new ArrayAdapterClass(this, ListViewItemsTitle, ListViewItemsDescription, ListViewItemsImages);
+
+        listView.setAdapter(arrayAdapterClass);
+        arrayAdapterClass.notifyDataSetChanged();
     }
 
 

@@ -62,7 +62,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="30dp"
                     android:hint="@string/loading"
-                    android:text="@string/welcome_citizen"
+                    android:text="@string/loading"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textColor="@android:color/white" />

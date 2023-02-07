@@ -63,7 +63,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
         reference = database.getReference("Emergency Alerts");
 
         //φτιαχνω εναν adapter με τα στοιχεια της λιστας  items και το περναω στο dropdown spinner
-        String[] items = new String[]{"Πλημμυρα", "Πυρκαγια", "Σεισμος", "Ακραια θερμοκασια","Χιονοθυελα","Ανεμοστροβυλος","Καταιγιδα"};
+        String[] items = new String[]{"Πλημμύρα", "Πυρκαγιά", "Σεισμός", "Ακραία θερμοκασία","Χιονοθύελλα","Ανεμοστρόβυλος","Καταιγίδα"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
 

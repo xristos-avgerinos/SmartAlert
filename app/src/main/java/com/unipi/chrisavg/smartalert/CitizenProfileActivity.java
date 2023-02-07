@@ -38,7 +38,7 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
     FirebaseDatabase database;
     DatabaseReference reference;
 
-    TextView textViewFullName, textViewEmail, textViewMobile;
+    TextView textViewFullName, textViewEmail, textViewMobile,textView_show_welcome;
     String fullName, email, mobile;
     FusedLocationProviderClient fusedLocationProviderClient;
     //LocationManager locationManager;
@@ -56,11 +56,12 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Users");
 
-        getSupportActionBar().setTitle("User Profile");
+        getSupportActionBar().setTitle("Citizen Profile");
 
         textViewFullName = findViewById(R.id.textView_show_full_name);
         textViewEmail = findViewById(R.id.textView_show_email);
         textViewMobile = findViewById(R.id.textView_show_mobile);
+        textView_show_welcome = findViewById(R.id.textView_show_welcome);
         //locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -112,6 +113,8 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
                     textViewFullName.setText(fullName);
                     textViewEmail.setText(email);
                     textViewMobile.setText(mobile);
+                    textView_show_welcome.setText(new StringBuilder().append("Welcome, ").
+                            append(fullName.trim().split("\\s+")[0]).append("!").toString());
                 }
             }
 
@@ -121,10 +124,6 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
             }
 
         });
-    }
-
-    void showMessage(String title, String message) {
-        new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
     }
 
 

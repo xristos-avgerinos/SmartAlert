@@ -1,7 +1,7 @@
 package com.unipi.chrisavg.smartalert;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -29,20 +28,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.sql.Array;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class SpecificItemsAlerts extends AppCompatActivity {
-    ArrayAdapter arrayAdapter;
     ListView listView;
     List<EmergencyAlerts> emergencyAlertsList;
-    List<String> ListViewItems;
+    List<String> ListViewItemsTitle;
+    List<String> ListViewItemsDescription;
+    List<Integer> ListViewItemsImages;
     List<Address> addresses = new ArrayList<>();
     List<Address> centreLocationAddresses = new ArrayList<>();
     String address;
@@ -59,8 +57,10 @@ public class SpecificItemsAlerts extends AppCompatActivity {
     String SpecificItemCategory;
     String SpecificItemLongitude;
     String SpecificItemLatitude;
+    int SpecificItemImage;
     Location centreLocation;
     final static long locationRange = 50000;
+    ArrayAdapterClass arrayAdapterClass;
 
     List<String> AllUsersTokens = new ArrayList<>();
 
@@ -81,13 +81,16 @@ public class SpecificItemsAlerts extends AppCompatActivity {
         geocoder = new Geocoder(SpecificItemsAlerts.this, Locale.getDefault());
 
         emergencyAlertsList =new ArrayList<>();
-        ListViewItems =new ArrayList<>();
+        ListViewItemsTitle = new ArrayList<>();
+        ListViewItemsDescription = new ArrayList<>();
+        ListViewItemsImages = new ArrayList<>();
 
         Intent i=getIntent();
         emergencyAlertsList = (List<EmergencyAlerts>) i.getSerializableExtra("SpecificItemList");
         SpecificItemCategory = i.getStringExtra("SpecificItemCategory");
         SpecificItemLongitude = i.getStringExtra("SpecificItemLongitude");
         SpecificItemLatitude = i.getStringExtra("SpecificItemLatitude");
+        SpecificItemImage = i.getIntExtra("SpecificItemImage",R.drawable.appicon);
 
         centreLocation=new Location("");
         centreLocation.setLongitude(Double.parseDouble(SpecificItemLongitude));
@@ -128,12 +131,19 @@ public class SpecificItemsAlerts extends AppCompatActivity {
             }else{
                 description = e.getDescription();
             }
-            ListViewItems.add("Title: "+e.getTitle()+"\n"+"Location: "+address+"\n"+"Date: "+formatter.format(date)+"\n"+"Description: "+description);
+            ListViewItemsTitle.add("Title: "+e.getTitle());
+            ListViewItemsDescription.add("Location: "+address+"\n"+"Date: "+formatter.format(date)+"\n"+"Description: "+description);
+            ListViewItemsImages.add(SpecificItemImage);
         }
         linearLayoutPb.setVisibility(View.GONE);
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ListViewItems);
+        /*arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ListViewItems);
         listView.setAdapter(arrayAdapter);
-        arrayAdapter.notifyDataSetChanged();
+        arrayAdapter.notifyDataSetChanged();*/
+
+        arrayAdapterClass = new ArrayAdapterClass(this, ListViewItemsTitle, ListViewItemsDescription, ListViewItemsImages);
+
+        listView.setAdapter(arrayAdapterClass);
+        arrayAdapterClass.notifyDataSetChanged();
 
     }
 

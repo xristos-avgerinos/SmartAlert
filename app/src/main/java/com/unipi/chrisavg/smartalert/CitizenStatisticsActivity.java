@@ -10,7 +10,6 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
@@ -30,7 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.OptionalLong;
 import java.util.stream.Collectors;
 
 public class CitizenStatisticsActivity extends AppCompatActivity {
@@ -41,10 +39,12 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     List<EmergencyAlerts> emergencyAlertsList = new ArrayList<>();
-    List<String> ListViewItems  = new ArrayList<>();
+    List<String> ListViewItemsTitle = new ArrayList<>();
+    List<String> ListViewItemsDescription = new ArrayList<>();
+    List<Integer> ListViewItemsImages = new ArrayList<>();
     Intent intent;
 
-    ArrayAdapter<String> arrayAdapter;
+    ArrayAdapterClass arrayAdapterClass;
     ListView listView;
     List<EmergencyAlerts> temp_list;
     Map< String,List<List<EmergencyAlerts>> >AllGroups = new HashMap<>();
@@ -59,6 +59,7 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
     List<Address> addresses= new ArrayList<>();
 
     LinearLayout linearLayoutPb;
+    Map<String,Integer> categoryImagesMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -71,6 +72,15 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
 
         listView= (ListView) findViewById(R.id.StatisticsListview);
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        categoryImagesMap = Map.of(
+                "Πλημμύρα", R.drawable.flood,
+                "Πυρκαγιά", R.drawable.fire,
+                "Σεισμός",  R.drawable.earthquake,
+                "Ακραία θερμοκασία", R.drawable.temperature,
+                "Χιονοθύελλα", R.drawable.snow_storm,
+                "Ανεμοστρόβυλος",R.drawable.tornado,
+                "Καταιγίδα",R.drawable.storm
+        );
 
         linearLayoutPb = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
 
@@ -80,7 +90,9 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 linearLayoutPb.setVisibility(View.VISIBLE);
                 emergencyAlertsList.clear();
-                ListViewItems.clear();
+                ListViewItemsDescription.clear();
+                ListViewItemsTitle.clear();
+                ListViewItemsImages.clear();
                 AllGroups.clear();
 
                 for(DataSnapshot ds : snapshot.getChildren()) {
@@ -192,15 +204,23 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
                 formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
                 date=new Date((entry.getValue().get(i).stream().mapToLong(EmergencyAlerts::getTimeStamp).max()).getAsLong());
 
-                String s = entry.getKey() + "\nΠεριοχή: " + address + "\nΩρα: " + formatter.format(date);
-                ListViewItems.add(s);
+                String s = "Περιοχή: " + address + "\nΩρα: " + formatter.format(date);
+                ListViewItemsTitle.add(entry.getKey());
+                ListViewItemsDescription.add(s);
+                ListViewItemsImages.add(categoryImagesMap.get(entry.getKey()));
 
             }
         }
 
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,ListViewItems);
+        /*arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,ListViewItems);
         listView.setAdapter(arrayAdapter);
-        arrayAdapter.notifyDataSetChanged();
+        arrayAdapter.notifyDataSetChanged();*/
+
+        arrayAdapterClass = new ArrayAdapterClass(this, ListViewItemsTitle, ListViewItemsDescription, ListViewItemsImages);
+
+        listView.setAdapter(arrayAdapterClass);
+        arrayAdapterClass.notifyDataSetChanged();
+
     }
 
 
