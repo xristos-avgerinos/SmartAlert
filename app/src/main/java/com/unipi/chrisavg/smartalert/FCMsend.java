@@ -46,8 +46,6 @@ public class FCMsend {
 
                     data.put("body", body);
                     data.put("title", title);
-                    data.put("key_1", "XIONI GAMATA");
-
                     root.put("registration_ids", recipients);
                     root.put("data", data);
 
