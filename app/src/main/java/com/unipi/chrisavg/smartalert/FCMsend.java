@@ -32,19 +32,24 @@ public class FCMsend {
                 Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 try {
                     JSONObject root = new JSONObject();
-                    JSONObject notification = new JSONObject();
+                    /*JSONObject notification = new JSONObject();
                     notification.put("body", body);
                     notification.put("title", title);
-                    notification.put("icon", R.drawable.ic_notification);
+                    notification.put("icon", R.drawable.appicon);
                     notification.put("sound", defaultSoundUri);
                     notification.put("default_vibrate_timings", false);
-                    notification.put("vibrate_timings", new long[] { 1000, 1000, 1000, 1000, 1000 });
+                    notification.put("vibrate_timings", new long[] { 1000, 1000, 1000, 1000, 1000 });*/
 
                     JSONObject data = new JSONObject();
-                    data.put("message", message);
-                    root.put("notification", notification);
-                    root.put("data", data);
+                    /*data.put("message", message);
+                    root.put("notification", notification);*/
+
+                    data.put("body", body);
+                    data.put("title", title);
+                    data.put("key_1", "XIONI GAMATA");
+
                     root.put("registration_ids", recipients);
+                    root.put("data", data);
 
                     String result = postToFCM(root.toString());
                     Log.d(TAG, "Result: " + result);

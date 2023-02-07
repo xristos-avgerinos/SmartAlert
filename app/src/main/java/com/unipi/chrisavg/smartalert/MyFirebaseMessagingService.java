@@ -16,6 +16,7 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Map;
 import java.util.regex.Pattern;
 
 
@@ -43,11 +44,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         }
 
+        Map<String,String> data = remoteMessage.getData();
+        String title,body,mkey;
+        title=data.get("title");
+        body=data.get("body");
+        mkey=data.get("key_1");
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
 
-        sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+        sendNotification(title, body);
 
     }
     // [END receive_message]
@@ -96,7 +102,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setAutoCancel(true)
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(messageBody))
-                        .setSmallIcon(R.drawable.appicon)
+                        .setSmallIcon(R.drawable.danger)
                         .setSound(defaultSoundUri)
                         .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
                         .setLights(Color.RED, 3000, 3000);
