@@ -35,7 +35,7 @@ public class FCMsend {
                     JSONObject notification = new JSONObject();
                     notification.put("body", body);
                     notification.put("title", title);
-                    notification.put("icon", R.drawable.danger);
+                    notification.put("icon", R.drawable.ic_notification);
                     notification.put("sound", defaultSoundUri);
                     notification.put("default_vibrate_timings", false);
                     notification.put("vibrate_timings", new long[] { 1000, 1000, 1000, 1000, 1000 });

@@ -94,7 +94,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setContentTitle(messageTitle)
                         .setContentText(messageBody)
                         .setAutoCancel(true)
-                        .setSmallIcon(R.drawable.danger)
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText(messageBody))
+                        .setSmallIcon(R.drawable.appicon)
                         .setSound(defaultSoundUri)
                         .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
                         .setLights(Color.RED, 3000, 3000);
