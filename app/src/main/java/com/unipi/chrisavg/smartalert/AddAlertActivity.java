@@ -120,7 +120,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
             if(!isGPSEnabled){ //αν δεν εχει ανοιξει το location στο κινητο του τοτε τον στελνω στα settings αν θελει ωστε να το ανοιξει και να παρω την τοποθεσια του
                 showSettingsAlert();
             }
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,this);
         }
     }
 

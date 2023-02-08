@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -78,6 +79,7 @@ public class AllAlertsActivity extends AppCompatActivity {
     final static long _36hours = 36 * 60 * 60 *  1000;
 
     LinearLayout linearLayoutPb;
+    TextView emptyView;
 
     Intent intent1;
     Map<String,Integer> categoryImagesMap = new HashMap<>();
@@ -103,6 +105,10 @@ public class AllAlertsActivity extends AppCompatActivity {
                 );
 
         listView= (ListView) findViewById(R.id.SpecListview);
+        emptyView=findViewById(R.id.emptyView);
+        emptyView.setVisibility(View.GONE);
+
+
 
 
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -132,6 +138,9 @@ public class AllAlertsActivity extends AppCompatActivity {
                 }
                 ShowGroupedEAinListView();
                 linearLayoutPb.setVisibility(View.GONE);
+
+
+
             }
 
             @Override
@@ -342,10 +351,11 @@ public class AllAlertsActivity extends AppCompatActivity {
 
         arrayAdapterClass = new ArrayAdapterClass(this, ListViewItemsTitle, ListViewItemsDescription, ListViewItemsImages);
 
-        /*if(ListViewItemsTitle.size()==0){
-            listView.setEmptyView(findViewById(R.id.emptyView));
-        }*/
+        if (emergencyAlertsList.isEmpty()) {
+            listView.setEmptyView(emptyView);
+            emptyView.setVisibility(View.VISIBLE);
 
+        }
         listView.setAdapter(arrayAdapterClass);
         arrayAdapterClass.notifyDataSetChanged();
     }
