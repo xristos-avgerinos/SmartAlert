@@ -92,6 +92,8 @@ public class SpecificItemsAlerts extends AppCompatActivity {
         SpecificItemLatitude = i.getStringExtra("SpecificItemLatitude");
         SpecificItemImage = i.getIntExtra("SpecificItemImage",R.drawable.appicon);
 
+        getSupportActionBar().setTitle(SpecificItemCategory);
+
         centreLocation=new Location("");
         centreLocation.setLongitude(Double.parseDouble(SpecificItemLongitude));
         centreLocation.setLatitude(Double.parseDouble(SpecificItemLatitude));

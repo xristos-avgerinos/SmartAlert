@@ -21,7 +21,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="#EEEDE7">
->
 
                 <TextView
                     android:id="@+id/textView_register_instruction"
@@ -32,7 +31,7 @@
                     android:layout_marginTop="19dp"
                     android:layout_marginRight="30dp"
                     android:fontFamily="sans-serif-condensed-light"
-                    android:text="Please complete all the required fields in order to report a new emergency alert! "
+                    android:text="@string/all_requirements"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                     android:textColor="@color/black"
@@ -72,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/imageViewName"
                         android:padding="6dp"
-                        android:text="Title*" />
+                        android:text="@string/title" />
 
                     <View
                         android:id="@+id/divider_title"
@@ -94,7 +93,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_toEndOf="@id/imageViewName"
                         android:background="@android:color/transparent"
-                        android:hint="please give a title"
+                        android:hint="@string/please_give_a_title"
                         android:inputType="textPersonName"
                         android:padding="6dp"
                         android:textSize="16sp" />
@@ -123,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/imageViewEmail"
                         android:padding="6dp"
-                        android:text="Timestamp*" />
+                        android:text="@string/timestamp" />
 
                     <View
                         android:id="@+id/divider_timestamp"
@@ -145,7 +144,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_toEndOf="@id/imageViewEmail"
                         android:background="@android:color/transparent"
-                        android:hint="Timestamp is generated automatically"
+                        android:hint="@string/timestamp_automatically"
                         android:inputType="textPersonName"
                         android:padding="6dp"
                         android:textSize="16sp" />
@@ -174,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/imageViewDoB"
                         android:padding="6dp"
-                        android:text="Location*" />
+                        android:text="@string/location" />
 
                     <View
                         android:id="@+id/divider_location"
@@ -199,7 +198,7 @@
                         android:layout_toEndOf="@id/imageViewDoB"
                         android:background="@android:color/transparent"
                         android:ems="10"
-                        android:hint="Location is generated automatically by your GPS connection"
+                        android:hint="@string/location_automatically"
                         android:inputType="textMultiLine"
                         android:lines="3"
                         android:padding="6dp"
@@ -230,7 +229,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/imageViewGender"
                         android:padding="6dp"
-                        android:text="Category*" />
+                        android:text="@string/category" />
 
                     <View
                         android:id="@+id/divider_category"
@@ -285,7 +284,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/imageViewMobile"
                         android:padding="6dp"
-                        android:text="Description" />
+                        android:text="@string/description" />
 
                     <View
                         android:id="@+id/divider_description"
@@ -308,7 +307,7 @@
                         android:layout_toEndOf="@id/imageViewMobile"
                         android:background="@android:color/transparent"
                         android:ems="10"
-                        android:hint="You can give some extra details of the alert"
+                        android:hint="@string/extra_details"
                         android:inputType="textMultiLine"
                         android:lines="3"
                         android:textAlignment="textStart"

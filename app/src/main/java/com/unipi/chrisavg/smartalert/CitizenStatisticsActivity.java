@@ -69,6 +69,7 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Emergency Alerts");
+        getSupportActionBar().setTitle("Emergency Alert Statistics");
 
         listView= (ListView) findViewById(R.id.StatisticsListview);
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");

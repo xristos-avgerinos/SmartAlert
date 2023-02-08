@@ -6,7 +6,7 @@
         android:title="@string/profile" />
     <item
         android:id="@+id/EmergencyAlerts"
-        android:title="@string/emergency_allerts" />
+        android:title="@string/emergency_alerts" />
     <item
         android:id="@+id/logout"
         android:title="@string/logout" />

@@ -90,6 +90,7 @@ public class AllAlertsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Emergency Alerts");
+        getSupportActionBar().setTitle(R.string.emergency_alerts);
 
         categoryImagesMap = Map.of(
                 "Πλημμύρα", R.drawable.flood,

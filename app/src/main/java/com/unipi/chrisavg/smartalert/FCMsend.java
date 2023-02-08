@@ -54,6 +54,7 @@ public class FCMsend {
                     return result;
                 } catch (Exception ex) {
                     ex.printStackTrace();
+                    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+ex.getMessage());
                 }
                 return null;
             }
@@ -68,6 +69,7 @@ public class FCMsend {
                     //Toast.makeText(MainActivity.this, "Message Success: " + success + "Message Failed: " + failure, Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+e.getMessage());
                     //Toast.makeText(MainActivity.this, "Message Failed, Unknown error occurred.", Toast.LENGTH_LONG).show();
                 }
             }

@@ -204,17 +204,21 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
             e.printStackTrace();
         }
         //απο τις συντεταγμενες latitude και longitude παιρνω την διευθνυση του και οτι αλλη πληροφορια θελω
+        String address;
+        if (addresses.size()!=0){
+            address = addresses.get(0).getAddressLine(0);
+            /*String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String zip = addresses.get(0).getPostalCode();
+            String country = addresses.get(0).getCountryName();*/
+            locationEditText.setText(new StringBuilder().append("Latitude: ").append(location.getLatitude()).append("\nLongitude: ").append(location.getLongitude())
+                    .append("\n").append(address));
+            locationForModel = location;
+            progressBar.setVisibility(View.GONE);
+            locationManager.removeUpdates(this);
 
-        String address = addresses.get(0).getAddressLine(0);
-        /*String city = addresses.get(0).getLocality();
-        String state = addresses.get(0).getAdminArea();
-        String zip = addresses.get(0).getPostalCode();
-        String country = addresses.get(0).getCountryName();*/
-        locationEditText.setText(new StringBuilder().append("Latitude: ").append(location.getLatitude()).append("\nLongitude: ").append(location.getLongitude())
-                .append("\n").append(address));
-        locationForModel = location;
-        progressBar.setVisibility(View.GONE);
-        locationManager.removeUpdates(this);
+        }
+
     }
 
     @Override

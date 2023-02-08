@@ -1,22 +1,4 @@
 <resources>
-    <string name="app_name">SmartAlert</string>
-    <string name="textView1">Welcome in MyPOIs app</string>
-    <string name="textView2">The best solution for managing points of Interest(POI).</string>
-    <string name="textView3">MyPOIs in a mobile application designed for creating, sharing and syncing map points.</string>
-    <string name="description">Description</string>
-    <string name="category">Category</string>
-    <string name="location">Location</string>
-    <string name="timestamp">Timestamp</string>
-    <string name="title">Title</string>
-    <string name="cancel">Cancel</string>
-    <string name="save">Save</string>
-    <string name="Decline">Decline</string>
-    <string name="Accept">Accept</string>
-    <string name="search">Search</string>
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
-    <string name="please_give_a_title">Please give a title</string>
-    <string name="noteEditText">Location is automatically filled in by your GPS connection</string>
 
     <!-- for login-signUp-forgetPassword-->
     <string name="hint_fullname">Fullname</string>
@@ -31,10 +13,8 @@
     <string name="text_signin_signup">Don\'t have an account? <b>Sign up</b></string>
     <string name="text_signup_terms">By signing up, you agree to our <b>terms and conditions</b></string>
     <string name="text_signup_message">Hello, let\'s set up your account</string>
-
     <string name="text_forgot_password_title">Forgot password? No worries</string>
     <string name="text_forgot_password_message">We will send you a link to reset your password</string>
-
     <string name="hint_email">Email</string>
     <string name="hint_phone">Phone</string>
     <string name="hint_confirm_password">Confirm Password</string>
@@ -42,15 +22,39 @@
 
     <!-- for user profile-->
     <string name="user_display_picture">Welcome</string>
-    <string name="loading">Loading</string>
+    <string name="loading">Loading…</string>
     <string name="name">Name</string>
     <string name="email">email</string>
-    <string name="dob">dob</string>
     <string name="mobile">mobile</string>
     <string name="profile">Profile</string>
     <string name="statistics">Statistics</string>
     <string name="logout">LogOut</string>
-    <string name="emergency_allerts">Emergency Allerts</string>
+
+
+    <!-- rest strings -->
+    <string name="app_name">SmartAlert</string>
+    <string name="description">Description</string>
+    <string name="category">Category*</string>
+    <string name="location">Location*</string>
+    <string name="timestamp">Timestamp*</string>
+    <string name="title">Title*</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="Decline">Decline</string>
+    <string name="Accept">Accept</string>
+    <string name="search">Search</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="please_give_a_title">Please give a title</string>
+    <string name="noteEditText">Location is automatically filled in by your GPS connection</string>
+    <string name="emergency_alerts">Emergency Alerts</string>
+    <string name="all_requirements">Please complete all the required fields in order to report a new emergency alert!</string>
+    <string name="timestamp_automatically">Timestamp is generated automatically</string>
+    <string name="location_automatically">Location is generated automatically by your GPS connection</string>
+    <string name="extra_details">You can give some extra details of the alert</string>
+    <string name="add_emergency_alert">ADD EMERGENCY ALERT</string>
+    <string name="main_title">Main Title</string>
+    <string name="sub_title">Sub Title</string>
 
 
 </resources>
