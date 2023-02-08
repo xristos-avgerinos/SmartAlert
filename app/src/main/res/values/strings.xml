@@ -56,5 +56,35 @@
     <string name="main_title">Main Title</string>
     <string name="sub_title">Sub Title</string>
 
+    <!-- for AddAlertActivity -->
+    <string name="select_alert_category">Select Alert Category</string>
+    <string name="flood">Flood</string>
+    <string name="fire">Fire</string>
+    <string name="earthquake">Earthquake</string>
+    <string name="extreme_temperature">Extreme Temperature</string>
+    <string name="snowstorm">Snowstorm</string>
+    <string name="tornado">Tornado</string>
+    <string name="storm">Storm</string>
+    <string name="new_emergency_alert">New Emergency Alert</string>
+    <string name="gps_settings">GPS settings</string>
+    <string name="settings_menu">GPS is not enabled. Do you want to go to settings menu?</string>
+    <string name="settings">Settings</string>
+    <string name="no_gps_connection">No GPS connection</string>
+    <string name="gps_loading">Please wait until you find GPS connection so as we can access your location!</string>
+    <string name="simple_title">Title</string>
+    <string name="select_category">Please select a category!</string>
+    <string name="simple_category">Category</string>
+    <string name="alert_reported">Alert Emergency was reported</string>
+    <string name="latitude">"Latitude: "</string>
+    <string name="longitude">"Longitude: "</string>
+
+
+    <!-- for AllAlertsActivity -->
+    <string name="untrackable_location">Untrackable Location</string>
+    <string name="danger">"Danger: "</string>
+    <string name="alerts_counter">"Alerts Counter: "</string>
+    <string name="no_emergency_alerts">There are no emergency alerts reported</string>
+    <string name="simple_location">"Location: "</string>
+
 
 </resources>

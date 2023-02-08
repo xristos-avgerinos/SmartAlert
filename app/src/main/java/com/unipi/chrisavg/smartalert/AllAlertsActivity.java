@@ -93,16 +93,18 @@ public class AllAlertsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.emergency_alerts);
 
         categoryImagesMap = Map.of(
-                "Πλημμύρα", R.drawable.flood,
-                "Πυρκαγιά", R.drawable.fire,
-                "Σεισμός",  R.drawable.earthquake,
-                "Ακραία θερμοκασία", R.drawable.temperature,
-                "Χιονοθύελλα", R.drawable.snow_storm,
-                "Ανεμοστρόβυλος",R.drawable.tornado,
-                "Καταιγίδα",R.drawable.storm
+                getString(R.string.flood), R.drawable.flood,
+                getString(R.string.fire), R.drawable.fire,
+                getString(R.string.earthquake),  R.drawable.earthquake,
+                getString(R.string.extreme_temperature), R.drawable.temperature,
+                getString(R.string.snowstorm), R.drawable.snow_storm,
+                getString(R.string.tornado), R.drawable.tornado,
+                getString(R.string.storm), R.drawable.storm
                 );
 
         listView= (ListView) findViewById(R.id.SpecListview);
+
+
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
         linearLayoutPb = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
@@ -227,7 +229,7 @@ public class AllAlertsActivity extends AppCompatActivity {
                 //απο τις συντεταγμενες latitude και longitude παιρνω την διευθνυση του και οτι αλλη πληροφορια θελω
 
                 if (addresses.size()==0){
-                    address="Untrackable Location";
+                    address=getString(R.string.untrackable_location);
                 }else{
                     address = addresses.get(0).getLocality();
                 }
@@ -281,7 +283,7 @@ public class AllAlertsActivity extends AppCompatActivity {
                 System.out.println("total:" + differenceForMaxMinTime);*/
                // String s = entry.getKey()+" \nΠεριοχή: "+address+"\nΒαθμός Επικυνδυνότητας: "+totalDanger+"/10 \nΜετρητής αιτήσεων:"+countAlerts;
                 
-                String[] s = new String[]{"Περιοχή: "+address,"Βαθμός Επικυνδυνότητας: "+totalDanger+"/10","Μετρητής αιτήσεων:"+countAlerts,
+                String[] s = new String[]{getString(R.string.simple_location)+ address,getString(R.string.danger)+totalDanger+"/10",getString(R.string.alerts_counter)+countAlerts,
                         String.valueOf(centreLocation.getLongitude()), String.valueOf(centreLocation.getLatitude()),entry.getKey()};
                 ListViewItemsMap.put(s,totalDanger);
 
@@ -339,6 +341,10 @@ public class AllAlertsActivity extends AppCompatActivity {
         //arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ListViewItemsDescription);
 
         arrayAdapterClass = new ArrayAdapterClass(this, ListViewItemsTitle, ListViewItemsDescription, ListViewItemsImages);
+
+        /*if(ListViewItemsTitle.size()==0){
+            listView.setEmptyView(findViewById(R.id.emptyView));
+        }*/
 
         listView.setAdapter(arrayAdapterClass);
         arrayAdapterClass.notifyDataSetChanged();

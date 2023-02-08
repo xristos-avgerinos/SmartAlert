@@ -69,7 +69,6 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
             Toast.makeText(this, "Something went wrong! User's details are not available at the moment.", Toast.LENGTH_SHORT).show();
         } else {
             showUserProfile();
-
             /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 //Αν δεν εχω τα permissions τα ζηταω

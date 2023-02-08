@@ -72,7 +72,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
         reference = database.getReference("Emergency Alerts");
 
         //φτιαχνω εναν adapter με τα στοιχεια της λιστας  items και το περναω στο dropdown spinner
-        String[] items = new String[]{"Select Alert Category","Πλημμύρα", "Πυρκαγιά", "Σεισμός", "Ακραία θερμοκασία","Χιονοθύελλα","Ανεμοστρόβυλος","Καταιγίδα"};
+        String[] items = new String[]{getString(R.string.select_alert_category),getString(R.string.flood), getString(R.string.fire), getString(R.string.earthquake), getString(R.string.extreme_temperature),getString(R.string.snowstorm),getString(R.string.tornado),getString(R.string.storm)};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items){
             @Override
             public boolean isEnabled(int position){
@@ -101,7 +101,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
 
         dropdown.setAdapter(adapter);
 
-        getSupportActionBar().setTitle("New Emergency Alert");
+        getSupportActionBar().setTitle(R.string.new_emergency_alert);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         dateForModel = new Date();
         timestampEditText.setText(formatter.format(dateForModel));
@@ -126,13 +126,13 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
 
     public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("GPS settings");
-        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
-        alertDialog.setPositiveButton("Settings", (dialog, which) -> {
+        alertDialog.setTitle(R.string.gps_settings);
+        alertDialog.setMessage(R.string.settings_menu);
+        alertDialog.setPositiveButton(R.string.settings, (dialog, which) -> {
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(intent);
         });
-        alertDialog.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        alertDialog.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
         alertDialog.show();
     }
 
@@ -159,12 +159,12 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
                 break;
             case R.id.SaveButton:
                 if (locationEditText.getText().toString().isEmpty()){ //δεν μπορει να γινει αποθηκευση του alert αν δεν εχει παρθει το location του χρηστη αυτοματα
-                    showMessage("No GPS connection","Please wait until you find GPS connection so as we can access your location!");
+                    showMessage(getString(R.string.no_gps_connection),getString(R.string.gps_loading));
                 }
                 else if (titleEditText.getText().toString().trim().isEmpty() ){
-                    showMessage("Give title","Give a title!");
+                    showMessage(getString(R.string.simple_title),getString(R.string.please_give_a_title));
                 }else if(dropdown.getSelectedItemPosition() == 0){
-                    showMessage("Select category", "Please select a category!");
+                    showMessage(getString(R.string.simple_category), getString(R.string.select_category));
                 }
                 else{
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -174,7 +174,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
                         @Override
                         public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                             if (error == null){
-                                Toast.makeText(AddAlertActivity.this, "Alert Emergency was reported", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddAlertActivity.this, getString(R.string.alert_reported), Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(AddAlertActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -207,11 +207,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
         String address;
         if (addresses.size()!=0){
             address = addresses.get(0).getAddressLine(0);
-            /*String city = addresses.get(0).getLocality();
-            String state = addresses.get(0).getAdminArea();
-            String zip = addresses.get(0).getPostalCode();
-            String country = addresses.get(0).getCountryName();*/
-            locationEditText.setText(new StringBuilder().append("Latitude: ").append(location.getLatitude()).append("\nLongitude: ").append(location.getLongitude())
+            locationEditText.setText(new StringBuilder().append(getString(R.string.latitude)).append(location.getLatitude()).append("\n").append(getString(R.string.longitude)).append(location.getLongitude())
                     .append("\n").append(address));
             locationForModel = location;
             progressBar.setVisibility(View.GONE);

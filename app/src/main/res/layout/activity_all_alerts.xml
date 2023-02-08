@@ -9,6 +9,15 @@
     android:orientation="vertical"
     tools:context=".AllAlertsActivity">
 
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/no_emergency_alerts"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
     <LinearLayout
         android:id="@+id/linlaHeaderProgress"
         android:layout_width="fill_parent"
