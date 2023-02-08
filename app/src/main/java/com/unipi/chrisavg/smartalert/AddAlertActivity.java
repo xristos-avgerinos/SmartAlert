@@ -9,6 +9,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -18,9 +19,14 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseError;
@@ -48,23 +54,51 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
 
     Location locationForModel;
     Date dateForModel;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_alert);
+
 
         titleEditText = findViewById(R.id.titleEditText);
         timestampEditText = findViewById(R.id.timestampEditText);
         locationEditText = findViewById(R.id.locationEditText);
         dropdown = findViewById(R.id.spinner);
         descriptionEditText = findViewById(R.id.descriptionEditText);
+        progressBar = findViewById(R.id.progressBar);
 
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Emergency Alerts");
 
         //φτιαχνω εναν adapter με τα στοιχεια της λιστας  items και το περναω στο dropdown spinner
-        String[] items = new String[]{"Πλημμύρα", "Πυρκαγιά", "Σεισμός", "Ακραία θερμοκασία","Χιονοθύελλα","Ανεμοστρόβυλος","Καταιγίδα"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        String[] items = new String[]{"Select Alert Category","Πλημμύρα", "Πυρκαγιά", "Σεισμός", "Ακραία θερμοκασία","Χιονοθύελλα","Ανεμοστρόβυλος","Καταιγίδα"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items){
+            @Override
+            public boolean isEnabled(int position){
+                // Disable the first item from Spinner
+                // First item will be use for hint
+                return position != 0;
+            }
+            @Override
+            public View getDropDownView(
+                    int position, View convertView,
+                    @NonNull ViewGroup parent) {
+
+                // Get the item view
+                View view = super.getDropDownView(
+                        position, convertView, parent);
+                TextView textView = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    textView.setTextColor(Color.GRAY);
+                }
+                else { textView.setTextColor(Color.BLACK); }
+                return view;
+            }
+        };
+
+
         dropdown.setAdapter(adapter);
 
         getSupportActionBar().setTitle("New Emergency Alert");
@@ -86,7 +120,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
             if(!isGPSEnabled){ //αν δεν εχει ανοιξει το location στο κινητο του τοτε τον στελνω στα settings αν θελει ωστε να το ανοιξει και να παρω την τοποθεσια του
                 showSettingsAlert();
             }
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
         }
     }
 
@@ -128,7 +162,9 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
                     showMessage("No GPS connection","Please wait until you find GPS connection so as we can access your location!");
                 }
                 else if (titleEditText.getText().toString().trim().isEmpty() ){
-                    showMessage("Give title","Give your a title!");
+                    showMessage("Give title","Give a title!");
+                }else if(dropdown.getSelectedItemPosition() == 0){
+                    showMessage("Select category", "Please select a category!");
                 }
                 else{
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -138,7 +174,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
                         @Override
                         public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                             if (error == null){
-                                Toast.makeText(AddAlertActivity.this, "Alert Emergency was added to database", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddAlertActivity.this, "Alert Emergency was reported", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(AddAlertActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -177,6 +213,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
         locationEditText.setText(new StringBuilder().append("Latitude: ").append(location.getLatitude()).append("\nLongitude: ").append(location.getLongitude())
                 .append("\n").append(address));
         locationForModel = location;
+        progressBar.setVisibility(View.GONE);
         locationManager.removeUpdates(this);
     }
 
