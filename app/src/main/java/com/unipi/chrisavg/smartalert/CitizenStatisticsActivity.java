@@ -77,14 +77,15 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
 
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         categoryImagesMap = Map.of(
-                getString(R.string.flood), R.drawable.flood,
-                getString(R.string.fire), R.drawable.fire,
-                getString(R.string.earthquake),  R.drawable.earthquake,
-                getString(R.string.extreme_temperature), R.drawable.temperature,
-                getString(R.string.snowstorm), R.drawable.snow_storm,
-                getString(R.string.tornado),R.drawable.tornado,
-                getString(R.string.storm),R.drawable.storm
+                "Flood"              , R.drawable.flood,
+                "Fire"               , R.drawable.fire,
+                "Earthquake"         ,  R.drawable.earthquake,
+                "Extreme Temperature", R.drawable.temperature,
+                "Snowstorm"          , R.drawable.snow_storm,
+                "Tornado"            , R.drawable.tornado,
+                "Storm"              , R.drawable.storm
         );
+
 
         linearLayoutPb = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
 

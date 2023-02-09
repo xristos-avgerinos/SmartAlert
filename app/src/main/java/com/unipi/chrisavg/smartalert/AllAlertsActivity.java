@@ -83,6 +83,7 @@ public class AllAlertsActivity extends AppCompatActivity {
 
     Intent intent1;
     Map<String,Integer> categoryImagesMap = new HashMap<>();
+    Map<String,String> languageCat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -94,14 +95,23 @@ public class AllAlertsActivity extends AppCompatActivity {
         reference = database.getReference("Emergency Alerts");
         getSupportActionBar().setTitle(R.string.emergency_alerts);
 
+        languageCat=new HashMap<>();
+        languageCat.put( "Flood"              ,"Πλημμύρα"           );
+        languageCat.put( "Fire"               ,"Πυρκαγιά"           );
+        languageCat.put( "Earthquake"         ,"Σεισμός"            );
+        languageCat.put( "Extreme Temperature","Ακραία Θερμοκρασία" );
+        languageCat.put( "Snowstorm"          ,"Χιονοθύελλα"        );
+        languageCat.put( "Tornado"            ,"Ανεμοστρόβυλος"     );
+        languageCat.put( "Storm"              ,"Καταιγίδα"          );
+
         categoryImagesMap = Map.of(
-                getString(R.string.flood), R.drawable.flood,
-                getString(R.string.fire), R.drawable.fire,
-                getString(R.string.earthquake),  R.drawable.earthquake,
-                getString(R.string.extreme_temperature), R.drawable.temperature,
-                getString(R.string.snowstorm), R.drawable.snow_storm,
-                getString(R.string.tornado), R.drawable.tornado,
-                getString(R.string.storm), R.drawable.storm
+                "Flood"              , R.drawable.flood,
+                "Fire"               , R.drawable.fire,
+                "Earthquake"         ,  R.drawable.earthquake,
+                "Extreme Temperature", R.drawable.temperature,
+                "Snowstorm"          , R.drawable.snow_storm,
+                "Tornado"            , R.drawable.tornado,
+                "Storm"              , R.drawable.storm
                 );
 
         listView= (ListView) findViewById(R.id.SpecListview);
@@ -318,9 +328,16 @@ public class AllAlertsActivity extends AppCompatActivity {
         
         
         //ListViewItems = new ArrayList<>(ListViewItemsMap.keySet().iterator().forEachRemaining(key -> String.join(",", key)));
+        String language=Locale.getDefault().getDisplayLanguage();
+
         for (String[] key : ListViewItemsMap.keySet()) {
             ListViewItemsDescription.add(String.join("\n",  Arrays.copyOf(key, key.length - 3)));
-            ListViewItemsTitle.add(key[5]);
+            if(language.equals("English")){
+                ListViewItemsTitle.add(key[5]);
+            }else{
+                ListViewItemsTitle.add(languageCat.get(key[5]));
+            }
+
             ListViewItemsImages.add(categoryImagesMap.get(key[5]));
 
         }

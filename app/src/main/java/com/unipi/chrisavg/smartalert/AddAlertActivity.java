@@ -38,8 +38,10 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class AddAlertActivity extends AppCompatActivity implements LocationListener {
     EditText titleEditText;
@@ -55,6 +57,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
     Location locationForModel;
     Date dateForModel;
     ProgressBar progressBar;
+    Map<String,String> languageCat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +70,17 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
         dropdown = findViewById(R.id.spinner);
         descriptionEditText = findViewById(R.id.descriptionEditText);
         progressBar = findViewById(R.id.progressBar);
+
+        languageCat=new HashMap<>();
+        languageCat.put( "Πλημμύρα"          ,"Flood"               );
+        languageCat.put( "Πυρκαγιά"          ,"Fire"                );
+        languageCat.put( "Σεισμός"           ,"Earthquake"          );
+        languageCat.put( "Ακραία Θερμοκρασία","Extreme Temperature" );
+        languageCat.put( "Χιονοθύελλα"       ,"Snowstorm"           );
+        languageCat.put( "Ανεμοστρόβυλος"    ,"Tornado"             );
+        languageCat.put( "Καταιγίδα"         ,"Storm"               );
+
+
 
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Emergency Alerts");
@@ -168,8 +182,18 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
                 }
                 else{
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                    //Save category only in english locale
+                    String category;
+                    if(languageCat.containsKey(dropdown.getSelectedItem().toString())){
+                        category =languageCat.get(dropdown.getSelectedItem().toString());
+                    }else{
+                        category=dropdown.getSelectedItem().toString();
+                    }
+
                     EmergencyAlerts emergencyAlerts = new EmergencyAlerts(titleEditText.getText().toString(), dateForModel.getTime() ,
-                            locationForModel.getLatitude(),locationForModel.getLongitude(),dropdown.getSelectedItem().toString(),descriptionEditText.getText().toString());
+                            locationForModel.getLatitude(),locationForModel.getLongitude(),
+                            category,descriptionEditText.getText().toString());
+
                     reference.push().setValue(emergencyAlerts, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
@@ -207,8 +231,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
         String address;
         if (addresses.size()!=0){
             address = addresses.get(0).getAddressLine(0);
-            locationEditText.setText(new StringBuilder().append(getString(R.string.latitude)).append(location.getLatitude()).append("\n").append(getString(R.string.longitude)).append(location.getLongitude())
-                    .append("\n").append(address));
+            locationEditText.setText(address);
             locationForModel = location;
             progressBar.setVisibility(View.GONE);
             locationManager.removeUpdates(this);
