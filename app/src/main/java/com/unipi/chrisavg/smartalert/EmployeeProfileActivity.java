@@ -42,7 +42,7 @@ Intent intent;
 
 
 
-        getSupportActionBar().setTitle("Employee Profile");
+        getSupportActionBar().setTitle(R.string.employee_profile);
 
         textViewFullName = findViewById(R.id.textView_show_full_name);
         textViewEmail = findViewById(R.id.textView_show_email);
@@ -51,7 +51,7 @@ Intent intent;
         textView_show_welcome = findViewById(R.id.textView_show_welcome);
 
         if(user == null){
-            Toast.makeText(this, "Something went wrong! User's details are not available at the moment.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.unavailable_details), Toast.LENGTH_SHORT).show();
         }else{
             showEmployeeProfile();
         }
@@ -73,7 +73,7 @@ Intent intent;
                     textViewFullName.setText(fullName);
                     textViewEmail.setText(email);
                     textViewMobile.setText(mobile);
-                    textView_show_welcome.setText(new StringBuilder().append("Welcome, ").
+                    textView_show_welcome.setText(new StringBuilder().append(getString(R.string.welcome)).
                             append(fullName.trim().split("\\s+")[0]).append("!").toString());
                 }
             }
@@ -101,6 +101,12 @@ Intent intent;
                 intent = new Intent(getApplicationContext(), AllAlertsActivity.class);
                 startActivity(intent);
                 break;
+
+            case R.id.settings:
+                intent =new Intent(getApplicationContext(),SettingsActivity.class);
+                startActivity(intent);
+                break;
+
             case R.id.logout:
                 mAuth.signOut();
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().remove("role").apply();

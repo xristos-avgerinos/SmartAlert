@@ -69,18 +69,18 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Emergency Alerts");
-        getSupportActionBar().setTitle("Emergency Alert Statistics");
+        getSupportActionBar().setTitle(R.string.emergency_alert_stats);
 
         listView= (ListView) findViewById(R.id.StatisticsListview);
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         categoryImagesMap = Map.of(
-                "Πλημμύρα", R.drawable.flood,
-                "Πυρκαγιά", R.drawable.fire,
-                "Σεισμός",  R.drawable.earthquake,
-                "Ακραία θερμοκασία", R.drawable.temperature,
-                "Χιονοθύελλα", R.drawable.snow_storm,
-                "Ανεμοστρόβυλος",R.drawable.tornado,
-                "Καταιγίδα",R.drawable.storm
+                getString(R.string.flood), R.drawable.flood,
+                getString(R.string.fire), R.drawable.fire,
+                getString(R.string.earthquake),  R.drawable.earthquake,
+                getString(R.string.extreme_temperature), R.drawable.temperature,
+                getString(R.string.snowstorm), R.drawable.snow_storm,
+                getString(R.string.tornado),R.drawable.tornado,
+                getString(R.string.storm),R.drawable.storm
         );
 
         linearLayoutPb = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
@@ -197,7 +197,7 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
                 //απο τις συντεταγμενες latitude και longitude παιρνω την διευθνυση του και οτι αλλη πληροφορια θελω
 
                 if (addresses.size()==0){
-                    address="Untrackable Location";
+                    address=getString(R.string.untrackable_location);
                 }else{
                     address = addresses.get(0).getAddressLine(0);
                 }
@@ -205,7 +205,7 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
                 formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
                 date=new Date((entry.getValue().get(i).stream().mapToLong(EmergencyAlerts::getTimeStamp).max()).getAsLong());
 
-                String s = "Περιοχή: " + address + "\nΩρα: " + formatter.format(date);
+                String s = getString(R.string.simple_location) + address + "\n"+getString(R.string.time) + formatter.format(date);
                 ListViewItemsTitle.add(entry.getKey());
                 ListViewItemsDescription.add(s);
                 ListViewItemsImages.add(categoryImagesMap.get(entry.getKey()));

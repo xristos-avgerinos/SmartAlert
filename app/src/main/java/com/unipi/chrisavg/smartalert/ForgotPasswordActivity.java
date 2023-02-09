@@ -55,21 +55,21 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     public void ResetPassword(View view){
         if(TextUtils.isEmpty(email.getText().toString())){
-            email.setError("Email is required");
+            email.setError(getString(R.string.email_required));
             email.requestFocus();
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
-            email.setError("Please enter a valid email");
+            email.setError(getString(R.string.valid_email));
             email.requestFocus();
         }else{
             mAuth.sendPasswordResetEmail(email.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(ForgotPasswordActivity.this, "Open your emails and reset your password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPasswordActivity.this, getString(R.string.reset_password), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ForgotPasswordActivity.this,LoginActivity.class);
                         startActivity(intent);
                     }else{
-                        showMessage("Error",task.getException().getLocalizedMessage());
+                        showMessage(getString(R.string.error),task.getException().getLocalizedMessage());
                     }
                 }
             });

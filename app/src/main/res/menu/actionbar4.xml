@@ -7,6 +7,9 @@
     <item
         android:id="@+id/EmergencyAlerts"
         android:title="@string/emergency_alerts" />
+    <item android:id="@+id/settings"
+        android:title="@string/settings" />
+
     <item
         android:id="@+id/logout"
         android:title="@string/logout" />

@@ -78,13 +78,13 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void GoMainActivity(View view){
         if(TextUtils.isEmpty(email.getText().toString())){
-            email.setError("Email is required");
+            email.setError(getString(R.string.email_required));
             email.requestFocus();
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
-            email.setError("Please enter a valid email");
+            email.setError(getString(R.string.valid_email));
             email.requestFocus();
         }else if(TextUtils.isEmpty(password.getText().toString())){
-            passwordLayout.setError("Password is required");
+            passwordLayout.setError(getString(R.string.password_required));
             passwordLayout.requestFocus();
         }else{
             mAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString())
@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                                         intent = new Intent(LoginActivity.this, EmployeeProfileActivity.class);
                                     }else{
                                         intent=new Intent(LoginActivity.this, LoginActivity.class);
-                                        Toast.makeText(LoginActivity.this, "This user does not have a role.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, getString(R.string.no_role), Toast.LENGTH_SHORT).show();
                                     }
                                     //To prevent User from returning back to Sign Up Activity on pressing back button after registration
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -144,10 +144,10 @@ public class LoginActivity extends AppCompatActivity {
                             try{
                                 throw task.getException();
                             } catch(FirebaseAuthInvalidUserException e){
-                                showMessage("Error","User does not exist or is no longer valid.");
+                                showMessage((getString(R.string.error)),getString(R.string.user_not_exists));
                             }catch(Exception e){
                                 Log.e(TAG, e.getLocalizedMessage());
-                                showMessage("Error",e.getLocalizedMessage());
+                                showMessage((getString(R.string.error)) ,e.getLocalizedMessage());
                             }
                         }
                     });

@@ -56,7 +56,7 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Users");
 
-        getSupportActionBar().setTitle("Citizen Profile");
+        getSupportActionBar().setTitle(R.string.citizen_profile);
 
         textViewFullName = findViewById(R.id.textView_show_full_name);
         textViewEmail = findViewById(R.id.textView_show_email);
@@ -66,7 +66,7 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (user == null) {
-            Toast.makeText(this, "Something went wrong! User's details are not available at the moment.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.unavailable_details), Toast.LENGTH_SHORT).show();
         } else {
             showUserProfile();
             /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -112,7 +112,7 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
                     textViewFullName.setText(fullName);
                     textViewEmail.setText(email);
                     textViewMobile.setText(mobile);
-                    textView_show_welcome.setText(new StringBuilder().append("Welcome, ").
+                    textView_show_welcome.setText(new StringBuilder().append(getString(R.string.welcome)).
                             append(fullName.trim().split("\\s+")[0]).append("!").toString());
                 }
             }
@@ -136,12 +136,12 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
                 startActivity(intent);
             } else {
                 //Αν ο χρηστης αρνηθει τα δικαιωματα παραμενω στο activity αυτο και εμφανιζω καταλληλο μηνυμα.
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.permission_denied), Toast.LENGTH_SHORT).show();
             }
         } else if (requestCode == locationRequestCode1) {//ελεγχουμε αν εχει ερθει απο το παραπανω requestPermission με requestCode = 111 που ειναι του onCreate
             if (grantResults.length > 0 && (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
                 //Αν ο χρηστης πατησει allow
-                Toast.makeText(this, "Permission accepted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.permission_accepted), Toast.LENGTH_SHORT).show();
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
@@ -149,7 +149,7 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
                 updateLocationToDB();
 
             } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.permission_denied), Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -215,6 +215,12 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
                 intent = new Intent(getApplicationContext(), CitizenStatisticsActivity.class);
                 startActivity(intent);
                 break;
+
+            case R.id.settings:
+                intent =new Intent(getApplicationContext(),SettingsActivity.class);
+                startActivity(intent);
+                break;
+
             case R.id.logout:
                 mAuth.signOut();
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().remove("role").apply();

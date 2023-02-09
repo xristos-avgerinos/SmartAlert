@@ -74,7 +74,7 @@
     <string name="simple_title">Title</string>
     <string name="select_category">Please select a category!</string>
     <string name="simple_category">Category</string>
-    <string name="alert_reported">Alert Emergency was reported</string>
+    <string name="alert_reported">Emergency alert was reported</string>
     <string name="latitude">"Latitude: "</string>
     <string name="longitude">"Longitude: "</string>
 
@@ -85,6 +85,56 @@
     <string name="alerts_counter">"Alerts Counter: "</string>
     <string name="no_emergency_alerts">There are no emergency alerts reported</string>
     <string name="simple_location">"Location: "</string>
+
+    <!-- for CitizenProfileActivity -->
+    <string name="citizen_profile">Citizen Profile</string>
+    <string name="unavailable_details">Something went wrong! User\'s details are not available at the moment.</string>
+    <string name="welcome">\"Welcome, \"</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="permission_accepted">Permission accepted</string>
+
+    <!-- for CitizenStatisticsActivity -->
+    <string name="emergency_alert_stats">Emergency Alert Statistics</string>
+    <string name="time">"Time : "</string>
+
+    <!-- for EmployeeProfile -->
+    <string name="employee_profile">Employee Profile</string>
+
+
+    <!-- for ForgotPasswordActivity -->
+    <string name="email_required">Email is required</string>
+    <string name="valid_email">Please enter a valid email</string>
+    <string name="reset_password">Open your emails and reset your password</string>
+    <string name="error">Error</string>
+
+    <!-- for LoginActivity -->
+    <string name="password_required">Password is required</string>
+    <string name="no_role">This user does not have a role.</string>
+    <string name="user_not_exists">User does not exist or is no longer valid.</string>
+
+    <!-- for Signup Activity -->
+    <string name="fullname_required">Full name is required</string>
+    <string name="mobile_required">Mobile phone number is required</string>
+    <string name="mobile_length">Mobile phone number must be 10 digits</string>
+    <string name="password_min_length">Password must be at least 6 characters</string>
+    <string name="password_confirmation">Password confirmation is required</string>
+    <string name="passwords_dont_match">The passwords do not match</string>
+    <string name="user_registered">User registered successfully</string>
+    <string name="gps_necessary">GPS is necessary for signing up. Do you want to go to settings menu?</string>
+
+    <!-- for SpecificItemsAlerts -->
+    <string name="date">\"Date: \"</string>
+    <string name="simple_description">\"Description: \"</string>
+    <string name="alert_declined">Emergency Alert was Declined</string>
+    <string name="notification_title">GR-ALERT: Urgent Emergency Notification</string>
+    <string name="notification_body_start">\"Warning message for \"</string>
+    <string name="notification_body_mid">\" in the next few hours near  \"</string>
+    <string name="notification_body_end">. Limit transportation to the absolute necessary and follow the given instructions. More information:  https://www.civilprotection.gr/el/entona-kairika-fainomena.</string>
+    <string name="alert_accepted">Emergency Alert was Accepted and notification was sent to close region users</string>
+    <string name="choose_app_language">Choose app language</string>
+    <string name="greek">Greek</string>
+    <string name="english">English</string>
+    <string name="apply_changes">Apply Changes</string>
 
 
 </resources>

@@ -95,35 +95,35 @@ public class SignUpActivity extends AppCompatActivity  {
 
 
         if(TextUtils.isEmpty(email.getText().toString())){
-            email.setError("Email is required");
+            email.setError(getString(R.string.email_required));
             email.requestFocus();
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
-            email.setError("Please enter a valid email");
+            email.setError(getString(R.string.valid_email));
             email.requestFocus();
         }
         else if(TextUtils.isEmpty(fullname.getText().toString())){
-            fullname.setError("Full name is required");
+            fullname.setError(getString(R.string.fullname_required));
             fullname.requestFocus();
         }else if(TextUtils.isEmpty(mobilePhone.getText().toString())){
-            mobilePhone.setError("Mobile phone number is required");
+            mobilePhone.setError(getString(R.string.mobile_required));
             mobilePhone.requestFocus();
         }else if(mobilePhone.getText().toString().length() != 10){
-            mobilePhone.setError("mobile phone number must be 10 characters");
+            mobilePhone.setError(getString(R.string.mobile_length));
             mobilePhone.requestFocus();
         }
         else if(TextUtils.isEmpty(password.getText().toString())){
-            password.setError("Password is required");
+            password.setError(getString(R.string.password_required));
             password.requestFocus();
         }
         else if(password.getText().toString().length() < 6){
-            password.setError("Password must be at least 6 characters");
+            password.setError(getString(R.string.password_min_length));
             password.requestFocus();
         }
         else if(TextUtils.isEmpty(confirmPassword.getText().toString())){
-            confirmPassword.setError("Password confirmation is required");
+            confirmPassword.setError(getString(R.string.password_confirmation));
             confirmPassword.requestFocus();
         }else if(!(password.getText().toString()).equals(confirmPassword.getText().toString())){
-            confirmPassword.setError("The passwords do not match");
+            confirmPassword.setError(getString(R.string.passwords_dont_match));
             confirmPassword.requestFocus();
             //Clear the entered passwords
             password.clearComposingText();
@@ -150,7 +150,7 @@ public class SignUpActivity extends AppCompatActivity  {
                                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                                         if (error == null){
 
-                                            Toast.makeText(SignUpActivity.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SignUpActivity.this, getString(R.string.user_registered), Toast.LENGTH_SHORT).show();
 
                                             Intent intent = new Intent(getApplicationContext(), CitizenProfileActivity.class);
                                             //To prevent User from returning back to Sign Up Activity on pressing back button after registration
@@ -166,7 +166,7 @@ public class SignUpActivity extends AppCompatActivity  {
                                 });
 
                             }else {
-                                showMessage("Error",task.getException().getLocalizedMessage());
+                                showMessage(getString(R.string.error),task.getException().getLocalizedMessage());
                             }
                         }
                     });
@@ -179,13 +179,13 @@ public class SignUpActivity extends AppCompatActivity  {
     }
     public void showSettingsAlert() {
         android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(this);
-        alertDialog.setTitle("GPS settings");
-        alertDialog.setMessage("GPS is necessary for signing up. Do you want to go to settings menu?");
-        alertDialog.setPositiveButton("Settings", (dialog, which) -> {
+        alertDialog.setTitle(getString(R.string.gps_settings));
+        alertDialog.setMessage(R.string.gps_necessary);
+        alertDialog.setPositiveButton(R.string.settings, (dialog, which) -> {
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(intent);
         });
-        alertDialog.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        alertDialog.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.cancel());
         alertDialog.show();
     }
 

@@ -106,7 +106,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
         //απο τις συντεταγμενες latitude και longitude παιρνω την διευθνυση του και οτι αλλη πληροφορια θελω
 
         if (centreLocationAddresses.size()==0){
-            centreLocationAddress="Untrackable Location";
+            centreLocationAddress=getString(R.string.untrackable_location);
         }else{
             centreLocationAddress = centreLocationAddresses.get(0).getLocality();
         }
@@ -122,7 +122,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
             //απο τις συντεταγμενες latitude και longitude παιρνω την διευθνυση του και οτι αλλη πληροφορια θελω
 
             if (addresses.size()==0){
-                address="Untrackable Location";
+                address=getString(R.string.untrackable_location);
             }else{
                 address = addresses.get(0).getAddressLine(0);
             }
@@ -133,8 +133,8 @@ public class SpecificItemsAlerts extends AppCompatActivity {
             }else{
                 description = e.getDescription();
             }
-            ListViewItemsTitle.add("Title: "+e.getTitle());
-            ListViewItemsDescription.add("Location: "+address+"\n"+"Date: "+formatter.format(date)+"\n"+"Description: "+description);
+            ListViewItemsTitle.add(R.string.simple_title+": "+e.getTitle());
+            ListViewItemsDescription.add(R.string.simple_location +address + "\n" + getString(R.string.date) + formatter.format(date) + "\n" + getString(R.string.simple_description) + description);
             ListViewItemsImages.add(SpecificItemImage);
         }
         linearLayoutPb.setVisibility(View.GONE);
@@ -177,7 +177,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                         });
 
                 }
-                message = "Emergency Alert was Declined";
+                message = getString(R.string.alert_declined);
                 Toast.makeText(SpecificItemsAlerts.this, message, Toast.LENGTH_SHORT).show();
                 finish();
                 startActivity(intent);
@@ -231,7 +231,12 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                         }
 
 
-                        FCMsend.sendMessage(regArray,"GR-ALERT: Επείγουσα Ειδοποίηση Εκτακτης Ανάγκης","Προειδοπειητικό μήνυμα για " + SpecificItemCategory + " τις επόμενες ώρες κοντα στην περιοχη " + centreLocationAddress + ". Περιορίστε τις μετακινήσεις στις απολύτως απαραίτητες και ακολουθήστε τις οδηγίες των αρχών. Οδηγίες αυτοπροστασίας: https://www.civilprotection.gr/el/entona-kairika-fainomena.","");
+                        /*FCMsend.sendMessage(regArray,"GR-ALERT: Επείγουσα Ειδοποίηση Εκτακτης Ανάγκης",
+                                "Προειδοπειητικό μήνυμα για " + SpecificItemCategory + " τις επόμενες ώρες κοντα στην περιοχη " + centreLocationAddress + ". Περιορίστε τις μετακινήσεις στις απολύτως απαραίτητες και ακολουθήστε τις οδηγίες των αρχών. Οδηγίες αυτοπροστασίας: https://www.civilprotection.gr/el/entona-kairika-fainomena.","");*/
+
+                        FCMsend.sendMessage(regArray,getString(R.string.notification_title),
+                                getString(R.string.notification_body_start) + SpecificItemCategory + getString(R.string.notification_body_mid) + centreLocationAddress + getString(R.string.notification_body_end),"");
+
 
                     }
 
@@ -241,7 +246,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                     }
 
                 });
-                message = "Emergency Alert was Accepted and notification was sent to close region users";
+                message = getString(R.string.alert_accepted);
                 Toast.makeText(SpecificItemsAlerts.this, message, Toast.LENGTH_SHORT).show();
                 finish();
                 startActivity(intent);
