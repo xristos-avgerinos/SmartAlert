@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -61,6 +63,8 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
     LinearLayout linearLayoutPb;
     Map<String,Integer> categoryImagesMap = new HashMap<>();
 
+    TextView emptyView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -71,7 +75,6 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
         reference = database.getReference("Emergency Alerts");
         getSupportActionBar().setTitle(R.string.emergency_alert_stats);
 
-        listView= (ListView) findViewById(R.id.StatisticsListview);
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         categoryImagesMap = Map.of(
                 getString(R.string.flood), R.drawable.flood,
@@ -85,6 +88,10 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
 
         linearLayoutPb = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
 
+        listView= (ListView) findViewById(R.id.StatisticsListview);
+        emptyView=findViewById(R.id.emptyView);
+        listView.setEmptyView(emptyView);
+        emptyView.setVisibility(View.GONE);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -219,6 +226,9 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
 
         arrayAdapterClass = new ArrayAdapterClass(this, ListViewItemsTitle, ListViewItemsDescription, ListViewItemsImages);
 
+        if (emergencyAlertsList.isEmpty()) {
+            emptyView.setVisibility(View.VISIBLE);
+        }
         listView.setAdapter(arrayAdapterClass);
         arrayAdapterClass.notifyDataSetChanged();
 

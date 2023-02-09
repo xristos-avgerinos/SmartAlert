@@ -200,7 +200,7 @@
                         android:ems="10"
                         android:hint="@string/location_automatically"
                         android:inputType="textMultiLine"
-                        android:lines="3"
+                        android:lines="5"
                         android:padding="6dp"
                         android:textSize="16sp" />
 
@@ -253,8 +253,8 @@
 
                         android:layout_alignParentEnd="true"
                         android:layout_marginStart="63dp"
-                        android:layout_marginTop="9dp"
-                        android:layout_marginEnd="30dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="15dp"
                         android:layout_marginBottom="9dp"
                         android:backgroundTint="#7C0C0A0A"
                         android:spinnerMode="dropdown" />

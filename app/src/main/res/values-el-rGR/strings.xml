@@ -11,15 +11,15 @@
     <string name="text_signin_social_media">Ή συνδεθείτε χρησιμοποιώντας κοινωνικά δίκτυα</string>
     <string name="text_signup_social_media">Ή κάντε εγγραφή χρησιμοποιώντας τα κοινωνικά δίκτυα</string>
     <string name="text_signin_signup">Δεν έχετε λογαριασμό ; <b> Εγγραφή τώρα </b></string>
-    <string name="text_signup_terms">Κάνωντας εγγραφή αποδέχεστε τους όρους και τις προυποθέσεις</string>
-    <string name="text_signup_message">Γεια , ας φτιάξουμε το λογαριασμό σας</string>
+    <string name="text_signup_terms">Κάνοντας εγγραφή αποδέχεστε τους όρους και τις προυποθέσεις</string>
+    <string name="text_signup_message">Γειά , ας φτιάξουμε το λογαριασμό σας</string>
     <string name="text_forgot_password_title">Ξεχάσατε το κωδικό σας; Κανένα πρόβλημα</string>
-    <string name="text_forgot_password_message">Θα σας στείλουμε ένα σύνδεσμο για να επαναφέρετε το κωδικό σας</string>
+    <string name="text_forgot_password_message">Θα σας στείλουμε ένα σύνδεσμο για να \nεπαναφέρετε το κωδικό σας</string>
     <string name="hint_email">Ηλεκτρονική διεύθυνση</string>
     <string name="hint_phone">Τηλέφωνο</string>
     <string name="hint_confirm_password">Επιβεβαίωση κωδικού</string>
     <string name="user_display_picture">Καλώς ήρθατε</string>
-    <string name="loading">Φόρτωση...</string>
+    <string name="loading">Φόρτωση…</string>
     <string name="name">Όνομα</string>
     <string name="email">Ηλεκτρονική διεύθυνση</string>
     <string name="mobile">"Τηλέφωνο "</string>
@@ -48,7 +48,7 @@
     <string name="add_emergency_alert">ΠΡΟΣΘΗΚΗ ΣΥΝΑΓΕΡΜΟΥ ΕΚΤΑΚΤΗΣ ΑΝΑΓΚΗΣ</string>
     <string name="main_title">Κύριος Τίτλος</string>
     <string name="sub_title">Δευτερέυων Τίτλος</string>
-    <string name="select_alert_category">Επιλογή κατηγορίας συναγερμού</string>
+    <string name="select_alert_category">Επίλεξε κατηγορία</string>
     <string name="flood">Πλημμύρα</string>
     <string name="fire">Πυρκαγιά</string>
     <string name="earthquake">Σεισμός</string>
@@ -56,16 +56,16 @@
     <string name="snowstorm">Χιονοθύελλα</string>
     <string name="tornado">Ανεμοστρόβυλος</string>
     <string name="storm">Καταιγίδα</string>
-    <string name="new_emergency_alert">Νέο Συμβάν Έκτακτης Ανάγκης</string>
+    <string name="new_emergency_alert">Νέο Συμβάν</string>
     <string name="gps_settings">Ρυθμίσεις Τοποθεσίας</string>
     <string name="settings_menu">Η τοποθεσία δεν είναι ενεργοποιημένη.Θέλετε να μεταβείτε στο μενού ρυθμίσεων;</string>
     <string name="settings">Ρυθμίσεις</string>
     <string name="no_gps_connection">Δεν υπάρχει σύνδεση GPS</string>
-    <string name="gps_loading">Παρακαλώ περιμένετε μέχρι να βρεθεί σύνδεση GPS ώστε να βρεθεί η τοποθεσία σας!</string>
+    <string name="gps_loading">Παρακαλώ περιμένετε μέχρι να βρεθεί σήμα GPS ώστε να βρεθεί η τοποθεσία σας!</string>
     <string name="simple_title">Τίτλος</string>
     <string name="select_category">Παρακαλώ επιλέξτε κατηγορία!</string>
     <string name="simple_category">Κατηγορία</string>
-    <string name="alert_reported">Το συμβάν έκτακτης ανάγκης αναφέρθηκε</string>
+    <string name="alert_reported">Το συμβάν έκτακτης ανάγκης καταγράφηκε</string>
     <string name="latitude">"Γεωγραφικό πλάτος: "</string>
     <string name="longitude">Γεωγραφικό μήκος:</string>
     <string name="untrackable_location">Μη ανιχνεύσιμη τοποθεσία</string>
@@ -75,10 +75,10 @@
     <string name="simple_location">"Τοποθεσία: "</string>
     <string name="citizen_profile">Προφίλ Πολίτη</string>
     <string name="unavailable_details">Κάτι πήγε στραβά! Τα δεδομένα του χρήστη δεν είναι διαθέσιμ αυτή τη στιγμή.</string>
-    <string name="welcome">"\"Καλωσήρθες, \" "</string>
+    <string name="welcome">"Καλωσήρθες, "</string>
     <string name="permission_denied">Η άδεια απορρίφθηκε</string>
     <string name="permission_accepted">Η άδεια έγινε εποδεκτή</string>
-    <string name="emergency_alert_stats">Στατιστικά Συμβάντων Έκακτης Ανάγκης</string>
+    <string name="emergency_alert_stats">Στατιστικά</string>
     <string name="time">"Ώρα : "</string>
     <string name="employee_profile">Προφίλ Υπαλλήλου</string>
     <string name="email_required">Η διεύθυνση είναι υποχρεωτική</string>
@@ -94,7 +94,7 @@
     <string name="password_min_length">Ο κωδικός πρέπει να είναι τουλάχιστον 6 χαρακτήρες</string>
     <string name="password_confirmation">Η επαλήθευση κωδικού είναι υποχρεωτική</string>
     <string name="passwords_dont_match">Οι κωδικοί δεν ταιρίαζουν</string>
-    <string name="user_registered">"Ο χρήστης εγγράφηκε με επιτυχία "</string>
+    <string name="user_registered">"Εγγραφήκατε επιτυχώς. "</string>
     <string name="gps_necessary">Η τοποθεσία είναι υποχρεωτική για την εγγραφή.Θέλετε να μεταβείτε στο μενού ρυθμίσεων;</string>
     <string name="date">"Ημερομηνία: "</string>
     <string name="simple_description">"Περιγραφή: "</string>
@@ -102,10 +102,8 @@
     <string name="notification_title">GR-ALERT: Επείγουσα Ειδοποίηση Εκτακτης Ανάγκης</string>
     <string name="notification_body_start">"Προειδοπειητικό μήνυμα για "</string>
     <string name="notification_body_mid">" τις επόμενες ώρες κοντα στην περιοχη "</string>
-    <string name="notification_body_end">. Περιορίστε τις μετακινήσεις στις απολύτως απαραίτητες και ακολουθήστε τις οδηγίες των αρχών. Οδηγίες αυτοπροστασίας: https://www.civilprotection.gr/el/entona-kairika-fainomena.</string>
+    <string name="notification_body_end">". Περιορίστε τις μετακινήσεις στις απολύτως απαραίτητες και ακολουθήστε τις οδηγίες των αρχών. Οδηγίες αυτοπροστασίας: https://www.civilprotection.gr/el/entona-kairika-fainomena."</string>
     <string name="alert_accepted">Το συμβάν έκτακτης ανάγκης αποδέχθηκε και ειδοποίηση στάλθηκε στους κοντινούς χρήστες.</string>
-    <string name="choose_app_language">Επιλογή γλώσσας εφαρμογής</string>
-    <string name="greek">Ελληνικά</string>
-    <string name="english">Αγγλικά</string>
-    <string name="apply_changes">Εφαρμογή Αλλαγών</string>
+
+
 </resources>

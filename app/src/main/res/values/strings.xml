@@ -57,7 +57,7 @@
     <string name="sub_title">Sub Title</string>
 
     <!-- for AddAlertActivity -->
-    <string name="select_alert_category">Select Alert Category</string>
+    <string name="select_alert_category">Select Category</string>
     <string name="flood">Flood</string>
     <string name="fire">Fire</string>
     <string name="earthquake">Earthquake</string>
@@ -89,12 +89,12 @@
     <!-- for CitizenProfileActivity -->
     <string name="citizen_profile">Citizen Profile</string>
     <string name="unavailable_details">Something went wrong! User\'s details are not available at the moment.</string>
-    <string name="welcome">\"Welcome, \"</string>
+    <string name="welcome">"Welcome, "</string>
     <string name="permission_denied">Permission denied</string>
     <string name="permission_accepted">Permission accepted</string>
 
     <!-- for CitizenStatisticsActivity -->
-    <string name="emergency_alert_stats">Emergency Alert Statistics</string>
+    <string name="emergency_alert_stats">Statistics</string>
     <string name="time">"Time : "</string>
 
     <!-- for EmployeeProfile -->
@@ -123,18 +123,14 @@
     <string name="gps_necessary">GPS is necessary for signing up. Do you want to go to settings menu?</string>
 
     <!-- for SpecificItemsAlerts -->
-    <string name="date">\"Date: \"</string>
-    <string name="simple_description">\"Description: \"</string>
+    <string name="date">"Date: "</string>
+    <string name="simple_description">"Description: "</string>
     <string name="alert_declined">Emergency Alert was Declined</string>
     <string name="notification_title">GR-ALERT: Urgent Emergency Notification</string>
-    <string name="notification_body_start">\"Warning message for \"</string>
-    <string name="notification_body_mid">\" in the next few hours near  \"</string>
-    <string name="notification_body_end">. Limit transportation to the absolute necessary and follow the given instructions. More information:  https://www.civilprotection.gr/el/entona-kairika-fainomena.</string>
+    <string name="notification_body_start">"Warning message for "</string>
+    <string name="notification_body_mid">" in the next few hours near  "</string>
+    <string name="notification_body_end">". Limit transportation to the absolute necessary and follow the given instructions. More information:  https://www.civilprotection.gr/el/entona-kairika-fainomena."</string>
     <string name="alert_accepted">Emergency Alert was Accepted and notification was sent to close region users</string>
-    <string name="choose_app_language">Choose app language</string>
-    <string name="greek">Greek</string>
-    <string name="english">English</string>
-    <string name="apply_changes">Apply Changes</string>
 
 
 </resources>

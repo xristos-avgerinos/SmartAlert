@@ -216,11 +216,6 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
                 startActivity(intent);
                 break;
 
-            case R.id.settings:
-                intent =new Intent(getApplicationContext(),SettingsActivity.class);
-                startActivity(intent);
-                break;
-
             case R.id.logout:
                 mAuth.signOut();
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().remove("role").apply();

@@ -106,9 +106,8 @@ public class AllAlertsActivity extends AppCompatActivity {
 
         listView= (ListView) findViewById(R.id.SpecListview);
         emptyView=findViewById(R.id.emptyView);
+        listView.setEmptyView(emptyView);
         emptyView.setVisibility(View.GONE);
-
-
 
 
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -138,9 +137,6 @@ public class AllAlertsActivity extends AppCompatActivity {
                 }
                 ShowGroupedEAinListView();
                 linearLayoutPb.setVisibility(View.GONE);
-
-
-
             }
 
             @Override
@@ -352,9 +348,7 @@ public class AllAlertsActivity extends AppCompatActivity {
         arrayAdapterClass = new ArrayAdapterClass(this, ListViewItemsTitle, ListViewItemsDescription, ListViewItemsImages);
 
         if (emergencyAlertsList.isEmpty()) {
-            listView.setEmptyView(emptyView);
             emptyView.setVisibility(View.VISIBLE);
-
         }
         listView.setAdapter(arrayAdapterClass);
         arrayAdapterClass.notifyDataSetChanged();

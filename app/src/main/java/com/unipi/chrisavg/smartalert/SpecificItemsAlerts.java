@@ -65,6 +65,8 @@ public class SpecificItemsAlerts extends AppCompatActivity {
     List<String> AllUsersTokens = new ArrayList<>();
 
     LinearLayout linearLayoutPb;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,8 +135,8 @@ public class SpecificItemsAlerts extends AppCompatActivity {
             }else{
                 description = e.getDescription();
             }
-            ListViewItemsTitle.add(R.string.simple_title+": "+e.getTitle());
-            ListViewItemsDescription.add(R.string.simple_location +address + "\n" + getString(R.string.date) + formatter.format(date) + "\n" + getString(R.string.simple_description) + description);
+            ListViewItemsTitle.add(getString(R.string.simple_title)+": "+e.getTitle());
+            ListViewItemsDescription.add(getString(R.string.simple_location) +address + "\n" + getString(R.string.date) + formatter.format(date) + "\n" + getString(R.string.simple_description) + description);
             ListViewItemsImages.add(SpecificItemImage);
         }
         linearLayoutPb.setVisibility(View.GONE);
