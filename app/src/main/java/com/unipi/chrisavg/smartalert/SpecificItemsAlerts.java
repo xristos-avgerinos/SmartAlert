@@ -31,8 +31,10 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SpecificItemsAlerts extends AppCompatActivity {
@@ -65,6 +67,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
     List<String> AllUsersTokens = new ArrayList<>();
 
     LinearLayout linearLayoutPb;
+    Map<String,String> languageCat;
 
 
     @Override
@@ -87,9 +90,24 @@ public class SpecificItemsAlerts extends AppCompatActivity {
         ListViewItemsDescription = new ArrayList<>();
         ListViewItemsImages = new ArrayList<>();
 
+        languageCat=new HashMap<>();
+        languageCat.put( "Flood"              ,"Πλημμύρα"           );
+        languageCat.put( "Fire"               ,"Πυρκαγιά"           );
+        languageCat.put( "Earthquake"         ,"Σεισμός"            );
+        languageCat.put( "Extreme Temperature","Ακραία Θερμοκρασία" );
+        languageCat.put( "Snowstorm"          ,"Χιονοθύελλα"        );
+        languageCat.put( "Tornado"            ,"Ανεμοστρόβυλος"     );
+        languageCat.put( "Storm"              ,"Καταιγίδα"          );
+
         Intent i=getIntent();
         emergencyAlertsList = (List<EmergencyAlerts>) i.getSerializableExtra("SpecificItemList");
-        SpecificItemCategory = i.getStringExtra("SpecificItemCategory");
+
+
+        if(Locale.getDefault().getDisplayLanguage().equals("English")){
+            SpecificItemCategory = i.getStringExtra("SpecificItemCategory");
+        }else{
+            SpecificItemCategory= languageCat.get(i.getStringExtra("SpecificItemCategory"));
+        }
         SpecificItemLongitude = i.getStringExtra("SpecificItemLongitude");
         SpecificItemLatitude = i.getStringExtra("SpecificItemLatitude");
         SpecificItemImage = i.getIntExtra("SpecificItemImage",R.drawable.appicon);
