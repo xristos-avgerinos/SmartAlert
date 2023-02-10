@@ -69,7 +69,7 @@
     <string name="latitude">"Γεωγραφικό πλάτος: "</string>
     <string name="longitude">Γεωγραφικό μήκος:</string>
     <string name="untrackable_location">Μη ανιχνεύσιμη τοποθεσία</string>
-    <string name="danger">"Κίνδυνος: "</string>
+    <string name="danger">"Δείκτης Επικινδυνότητας: "</string>
     <string name="alerts_counter">"Αριθμός αιτήσεων: "</string>
     <string name="no_emergency_alerts">Δεν έχουν ανφερθεί συμβάντα έκτακτης ανάγκης</string>
     <string name="simple_location">"Τοποθεσία: "</string>

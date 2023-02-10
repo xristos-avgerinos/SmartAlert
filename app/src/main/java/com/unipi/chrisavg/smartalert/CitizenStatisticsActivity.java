@@ -64,6 +64,7 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
     Map<String,Integer> categoryImagesMap = new HashMap<>();
 
     TextView emptyView;
+    Map<String,String> languageCat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -76,6 +77,16 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.emergency_alert_stats);
 
         formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        languageCat=new HashMap<>();
+        languageCat.put( "Flood"              ,"Πλημμύρα"           );
+        languageCat.put( "Fire"               ,"Πυρκαγιά"           );
+        languageCat.put( "Earthquake"         ,"Σεισμός"            );
+        languageCat.put( "Extreme Temperature","Ακραία Θερμοκρασία" );
+        languageCat.put( "Snowstorm"          ,"Χιονοθύελλα"        );
+        languageCat.put( "Tornado"            ,"Ανεμοστρόβυλος"     );
+        languageCat.put( "Storm"              ,"Καταιγίδα"          );
+
         categoryImagesMap = Map.of(
                 "Flood"              , R.drawable.flood,
                 "Fire"               , R.drawable.fire,
@@ -214,7 +225,13 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
                 date=new Date((entry.getValue().get(i).stream().mapToLong(EmergencyAlerts::getTimeStamp).max()).getAsLong());
 
                 String s = getString(R.string.simple_location) + address + "\n"+getString(R.string.time) + formatter.format(date);
-                ListViewItemsTitle.add(entry.getKey());
+
+                String language=Locale.getDefault().getDisplayLanguage();
+                if(language.equals("English")){
+                    ListViewItemsTitle.add(entry.getKey());
+                }else{
+                    ListViewItemsTitle.add(languageCat.get(entry.getKey()));
+                }
                 ListViewItemsDescription.add(s);
                 ListViewItemsImages.add(categoryImagesMap.get(entry.getKey()));
 

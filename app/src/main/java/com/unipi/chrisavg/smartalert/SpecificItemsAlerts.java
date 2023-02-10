@@ -67,7 +67,6 @@ public class SpecificItemsAlerts extends AppCompatActivity {
     List<String> AllUsersTokens = new ArrayList<>();
 
     LinearLayout linearLayoutPb;
-    Map<String,String> languageCat;
 
 
     @Override
@@ -90,24 +89,13 @@ public class SpecificItemsAlerts extends AppCompatActivity {
         ListViewItemsDescription = new ArrayList<>();
         ListViewItemsImages = new ArrayList<>();
 
-        languageCat=new HashMap<>();
-        languageCat.put( "Flood"              ,"Πλημμύρα"           );
-        languageCat.put( "Fire"               ,"Πυρκαγιά"           );
-        languageCat.put( "Earthquake"         ,"Σεισμός"            );
-        languageCat.put( "Extreme Temperature","Ακραία Θερμοκρασία" );
-        languageCat.put( "Snowstorm"          ,"Χιονοθύελλα"        );
-        languageCat.put( "Tornado"            ,"Ανεμοστρόβυλος"     );
-        languageCat.put( "Storm"              ,"Καταιγίδα"          );
+
 
         Intent i=getIntent();
         emergencyAlertsList = (List<EmergencyAlerts>) i.getSerializableExtra("SpecificItemList");
 
 
-        if(Locale.getDefault().getDisplayLanguage().equals("English")){
-            SpecificItemCategory = i.getStringExtra("SpecificItemCategory");
-        }else{
-            SpecificItemCategory= languageCat.get(i.getStringExtra("SpecificItemCategory"));
-        }
+        SpecificItemCategory = i.getStringExtra("SpecificItemCategory");
         SpecificItemLongitude = i.getStringExtra("SpecificItemLongitude");
         SpecificItemLatitude = i.getStringExtra("SpecificItemLatitude");
         SpecificItemImage = i.getIntExtra("SpecificItemImage",R.drawable.appicon);

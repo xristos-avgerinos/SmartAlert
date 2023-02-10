@@ -107,7 +107,7 @@ public class AllAlertsActivity extends AppCompatActivity {
         categoryImagesMap = Map.of(
                 "Flood"              , R.drawable.flood,
                 "Fire"               , R.drawable.fire,
-                "Earthquake"         ,  R.drawable.earthquake,
+                "Earthquake"         , R.drawable.earthquake,
                 "Extreme Temperature", R.drawable.temperature,
                 "Snowstorm"          , R.drawable.snow_storm,
                 "Tornado"            , R.drawable.tornado,
@@ -352,7 +352,7 @@ public class AllAlertsActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(AllAlertsActivity.this,SpecificItemsAlerts.class);
                 intent.putExtra("SpecificItemList", (Serializable) AllGroups.get(positions.get(i)[0]).get(Integer.parseInt(positions.get(i)[1])));
-                intent.putExtra("SpecificItemCategory",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[5]);
+                intent.putExtra("SpecificItemCategory",(ListViewItemsTitle.get(i)));
                 intent.putExtra("SpecificItemLongitude",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[3]);
                 intent.putExtra("SpecificItemLatitude",(new ArrayList<>(ListViewItemsMap.keySet())).get(i)[4]);
                 intent.putExtra("SpecificItemImage",(categoryImagesMap.get((new ArrayList<>(ListViewItemsMap.keySet())).get(i)[5])));

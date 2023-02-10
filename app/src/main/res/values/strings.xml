@@ -81,7 +81,7 @@
 
     <!-- for AllAlertsActivity -->
     <string name="untrackable_location">Untrackable Location</string>
-    <string name="danger">"Danger: "</string>
+    <string name="danger">"Danger Indicator: "</string>
     <string name="alerts_counter">"Alerts Counter: "</string>
     <string name="no_emergency_alerts">There are no emergency alerts reported</string>
     <string name="simple_location">"Location: "</string>

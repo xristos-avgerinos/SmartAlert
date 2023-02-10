@@ -137,7 +137,7 @@ public class SignUpActivity extends AppCompatActivity  {
 
 
             mAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() { //κανουμε ολους τους ελεγχους se αυτον τον listener.γινεται και ελεγχος αν το email ειναι μοναδικο
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() { //κανουμε ολους τους ελεγχους σε αυτον τον listener.γινεται και ελεγχος αν το email ειναι μοναδικο
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
