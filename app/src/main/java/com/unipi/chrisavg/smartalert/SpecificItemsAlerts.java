@@ -160,6 +160,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbar2,menu);
+
         return true;
     }
 

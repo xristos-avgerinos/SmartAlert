@@ -71,7 +71,7 @@
     <string name="untrackable_location">Μη ανιχνεύσιμη τοποθεσία</string>
     <string name="danger">"Δείκτης Επικινδυνότητας: "</string>
     <string name="alerts_counter">"Αριθμός αιτήσεων: "</string>
-    <string name="no_emergency_alerts">Δεν έχουν ανφερθεί συμβάντα έκτακτης ανάγκης</string>
+    <string name="no_emergency_alerts">Δεν έχουν καταγραφεί συμβάντα έκτακτης ανάγκης</string>
     <string name="simple_location">"Τοποθεσία: "</string>
     <string name="citizen_profile">Προφίλ Πολίτη</string>
     <string name="unavailable_details">Κάτι πήγε στραβά! Τα δεδομένα του χρήστη δεν είναι διαθέσιμ αυτή τη στιγμή.</string>
@@ -104,6 +104,7 @@
     <string name="notification_body_mid">" τις επόμενες ώρες κοντα στην περιοχη "</string>
     <string name="notification_body_end">". Περιορίστε τις μετακινήσεις στις απολύτως απαραίτητες και ακολουθήστε τις οδηγίες των αρχών. Οδηγίες αυτοπροστασίας: https://www.civilprotection.gr/el/entona-kairika-fainomena."</string>
     <string name="alert_accepted">Το συμβάν έκτακτης ανάγκης αποδέχθηκε και ειδοποίηση στάλθηκε στους κοντινούς χρήστες.</string>
+    <string name="type_to_search">Πατήστε εδώ για αναζήτηση</string>
 
 
 </resources>

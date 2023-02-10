@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -252,15 +253,15 @@ public class AllAlertsActivity extends AppCompatActivity {
                 //System.out.println(entry.getKey() + " " + address);
 
                 // Βαθμος για αιτήσεις 5/10 απο τον αριθμο των αιτησεων του καθε περιστατικου
-                if (countAlerts >= 5){
+                if (countAlerts >= 25){
                     dangerForUsers = 5;
-                }else if (countAlerts >= 4){
+                }else if (countAlerts >= 20){
                     dangerForUsers = 4;
-                }else if (countAlerts >= 3){
+                }else if (countAlerts >= 15){
                     dangerForUsers = 3;
-                }else if(countAlerts >= 2){
+                }else if(countAlerts >= 10){
                     dangerForUsers = 2;
-                }else if(countAlerts >= 1){
+                }else if(countAlerts >= 5){
                     dangerForUsers = 1;
                 }else {
                     dangerForUsers = 0;
@@ -384,6 +385,22 @@ public class AllAlertsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbar4,menu);
+        MenuItem menuItem = menu.findItem(R.id.app_bar_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint(getString(R.string.type_to_search));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                arrayAdapterClass.getFilter().filter(s); //λεμε να κανει αναζητηση στο συγκεκριμενο adapter που εχουμε φτιαξει για το listview
+                return false;
+            }
+        });
         return true;
     }
 

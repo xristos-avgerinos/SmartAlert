@@ -202,6 +202,8 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbar3,menu);
+        MenuItem menuItem = menu.findItem(R.id.app_bar_search);
+        menuItem.setVisible(false);
         return true;
     }
 
