@@ -30,7 +30,7 @@
     <string name="category">Κατηγορία*</string>
     <string name="location">Τοποθεσία*</string>
     <string name="timestamp">Ημερομηνία και ώρα*</string>
-    <string name="title">Τίτλος</string>
+    <string name="title">Τίτλος*</string>
     <string name="cancel">Ακύρωση</string>
     <string name="save">Αποθήκευση</string>
     <string name="Decline">Απόρριψη</string>
