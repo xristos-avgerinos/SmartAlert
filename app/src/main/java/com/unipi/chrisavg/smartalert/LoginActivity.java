@@ -11,7 +11,9 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -63,6 +65,23 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                passwordLayout.setPasswordVisibilityToggleEnabled(true);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     private void setStatusBarTransparent(AppCompatActivity activity){
@@ -84,8 +103,9 @@ public class LoginActivity extends AppCompatActivity {
             email.setError(getString(R.string.valid_email));
             email.requestFocus();
         }else if(TextUtils.isEmpty(password.getText().toString())){
-            passwordLayout.setError(getString(R.string.password_required));
-            passwordLayout.requestFocus();
+            password.setError(getString(R.string.password_required));
+            passwordLayout.setPasswordVisibilityToggleEnabled(false);
+            password.requestFocus();
         }else{
             mAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                     .addOnCompleteListener((task)->{

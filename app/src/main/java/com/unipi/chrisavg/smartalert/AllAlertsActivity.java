@@ -10,6 +10,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -385,22 +386,6 @@ public class AllAlertsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbar4,menu);
-        MenuItem menuItem = menu.findItem(R.id.app_bar_search);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint(getString(R.string.type_to_search));
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                arrayAdapterClass.getFilter().filter(s); //λεμε να κανει αναζητηση στο συγκεκριμενο adapter που εχουμε φτιαξει για το listview
-                return false;
-            }
-        });
         return true;
     }
 

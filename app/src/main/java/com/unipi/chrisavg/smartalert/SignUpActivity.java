@@ -13,7 +13,9 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,6 +43,8 @@ public class SignUpActivity extends AppCompatActivity  {
     String token;
     LocationManager locationManager;
 
+    TextInputLayout passwordL,confirmPasswordL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +59,9 @@ public class SignUpActivity extends AppCompatActivity  {
         mobilePhone=findViewById(R.id.et_phone);
         password=findViewById(R.id.et_password);
         confirmPassword=findViewById(R.id.et_confirm_password);
+
+        passwordL = findViewById(R.id.passwordLayout);
+        confirmPasswordL = findViewById(R.id.confPasswordLayout);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -77,6 +85,40 @@ public class SignUpActivity extends AppCompatActivity  {
                 if(task.isSuccessful()){
                     token = task.getResult();
                 }
+            }
+        });
+
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                passwordL.setPasswordVisibilityToggleEnabled(true);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        confirmPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                confirmPasswordL.setPasswordVisibilityToggleEnabled(true);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -113,17 +155,21 @@ public class SignUpActivity extends AppCompatActivity  {
         }
         else if(TextUtils.isEmpty(password.getText().toString())){
             password.setError(getString(R.string.password_required));
+            passwordL.setPasswordVisibilityToggleEnabled(false);
             password.requestFocus();
         }
         else if(password.getText().toString().length() < 6){
             password.setError(getString(R.string.password_min_length));
+            passwordL.setPasswordVisibilityToggleEnabled(false);
             password.requestFocus();
         }
         else if(TextUtils.isEmpty(confirmPassword.getText().toString())){
             confirmPassword.setError(getString(R.string.password_confirmation));
+            confirmPasswordL.setPasswordVisibilityToggleEnabled(false);
             confirmPassword.requestFocus();
         }else if(!(password.getText().toString()).equals(confirmPassword.getText().toString())){
             confirmPassword.setError(getString(R.string.passwords_dont_match));
+            confirmPasswordL.setPasswordVisibilityToggleEnabled(false);
             confirmPassword.requestFocus();
             //Clear the entered passwords
             password.clearComposingText();

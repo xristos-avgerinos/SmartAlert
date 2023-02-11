@@ -7,6 +7,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -278,8 +279,14 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                arrayAdapterClass.getFilter().filter(s); //λεμε να κανει αναζητηση στο συγκεκριμενο adapter που εχουμε φτιαξει για το listview
-                return false;
+                if (TextUtils.isEmpty(s)){
+                    arrayAdapterClass.filter("");
+                    listView.clearTextFilter();
+                }
+                else {
+                    arrayAdapterClass.filter(s);
+                }
+                return true;
             }
         });
         return true;

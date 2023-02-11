@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 class ArrayAdapterClass extends android.widget.ArrayAdapter<String> {
@@ -21,6 +22,9 @@ class ArrayAdapterClass extends android.widget.ArrayAdapter<String> {
     List<String> rTitle = new ArrayList<>();
     List<String> rDescription = new ArrayList<>();
     List<Integer> rImgs = new ArrayList<>();
+    ArrayList<String> temp_rTitle =new ArrayList<>();
+    ArrayList<String> temp_rDescription = new ArrayList<>();
+    ArrayList<Integer> temp_rImgs = new ArrayList<>();
 
     ArrayAdapterClass(Context c, List<String> t, List<String> d, List<Integer> i) {
         super(c, R.layout.row, R.id.textView1, t);
@@ -29,7 +33,12 @@ class ArrayAdapterClass extends android.widget.ArrayAdapter<String> {
         this.rDescription = d;
         this.rImgs = i;
 
+        this.temp_rTitle.addAll(t);
+        this.temp_rImgs.addAll(i);
+        this.temp_rDescription.addAll(d);
+
     }
+
 
     @NonNull
     @Override
@@ -46,5 +55,31 @@ class ArrayAdapterClass extends android.widget.ArrayAdapter<String> {
         myDescription.setText(rDescription.get(position));
 
         return row;
+    }
+
+    //filter for search-view(search by title)
+    public void filter(String charText){
+        charText = charText.toLowerCase(Locale.getDefault());
+        rTitle.clear();
+        rImgs.clear();
+        rDescription.clear();
+        if (charText.length()==0){
+            rTitle.addAll(temp_rTitle);
+            rImgs.addAll(temp_rImgs);
+            rDescription.addAll(temp_rDescription);
+        }
+        else {
+            int counter = 0;
+            for ( String title : temp_rTitle){
+                if (title.toLowerCase(Locale.getDefault())
+                        .contains(charText)){
+                    rTitle.add(title);
+                    rImgs.add(temp_rImgs.get(counter));
+                    rDescription.add(temp_rDescription.get(counter));
+                }
+                counter++;
+            }
+        }
+        notifyDataSetChanged();
     }
 }
