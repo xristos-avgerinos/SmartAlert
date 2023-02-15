@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -74,87 +75,102 @@ public class SpecificItemsAlerts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specific_items_alerts);
 
-        linearLayoutPb = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
-        linearLayoutPb.setVisibility(View.VISIBLE);
 
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Emergency Alerts");
         referenceUsers = database.getReference("Users");
 
-        listView=(ListView) findViewById(R.id.SpecListview);
-        geocoder = new Geocoder(SpecificItemsAlerts.this, Locale.getDefault());
 
-        emergencyAlertsList =new ArrayList<>();
-        ListViewItemsTitle = new ArrayList<>();
-        ListViewItemsDescription = new ArrayList<>();
-        ListViewItemsImages = new ArrayList<>();
+        ManageListViewItemsAsync  manageListViewItemsAsync = new ManageListViewItemsAsync();
+        manageListViewItemsAsync.execute();//heavy tasks should execute on different thread(with AsyncTask) and not in MainThread otherwise the application freezes and has bugs
 
+    }
+    public class ManageListViewItemsAsync extends AsyncTask{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            linearLayoutPb = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
+            linearLayoutPb.setVisibility(View.VISIBLE);
 
+            listView=(ListView) findViewById(R.id.SpecListview);
+            geocoder = new Geocoder(SpecificItemsAlerts.this, Locale.getDefault());
 
-        Intent i=getIntent();
-        emergencyAlertsList = (List<EmergencyAlerts>) i.getSerializableExtra("SpecificItemList");
+            emergencyAlertsList =new ArrayList<>();
+            Intent i = getIntent();
+            emergencyAlertsList = (List<EmergencyAlerts>) i.getSerializableExtra("SpecificItemList");
 
+            SpecificItemCategory = i.getStringExtra("SpecificItemCategory");
+            SpecificItemLongitude = i.getStringExtra("SpecificItemLongitude");
+            SpecificItemLatitude = i.getStringExtra("SpecificItemLatitude");
+            SpecificItemImage = i.getIntExtra("SpecificItemImage",R.drawable.appicon);
 
-        SpecificItemCategory = i.getStringExtra("SpecificItemCategory");
-        SpecificItemLongitude = i.getStringExtra("SpecificItemLongitude");
-        SpecificItemLatitude = i.getStringExtra("SpecificItemLatitude");
-        SpecificItemImage = i.getIntExtra("SpecificItemImage",R.drawable.appicon);
+            getSupportActionBar().setTitle(SpecificItemCategory);
 
-        getSupportActionBar().setTitle(SpecificItemCategory);
-
-        centreLocation=new Location("");
-        centreLocation.setLongitude(Double.parseDouble(SpecificItemLongitude));
-        centreLocation.setLatitude(Double.parseDouble(SpecificItemLatitude));
-
-        try {
-            centreLocationAddresses = geocoder.getFromLocation(centreLocation.getLatitude(), centreLocation.getLongitude(), 1);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        //απο τις συντεταγμενες latitude και longitude παιρνω την διευθνυση του και οτι αλλη πληροφορια θελω
-
-        if (centreLocationAddresses.size()==0){
-            centreLocationAddress=getString(R.string.untrackable_location);
-        }else{
-            centreLocationAddress = centreLocationAddresses.get(0).getLocality();
-        }
-
-
-        for (EmergencyAlerts e: emergencyAlertsList) {
+            centreLocation=new Location("");
+            centreLocation.setLongitude(Double.parseDouble(SpecificItemLongitude));
+            centreLocation.setLatitude(Double.parseDouble(SpecificItemLatitude));
 
             try {
-                addresses = geocoder.getFromLocation(e.getLatitude(), e.getLongitude(), 1);
+                centreLocationAddresses = geocoder.getFromLocation(centreLocation.getLatitude(), centreLocation.getLongitude(), 1);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
             //απο τις συντεταγμενες latitude και longitude παιρνω την διευθνυση του και οτι αλλη πληροφορια θελω
 
-            if (addresses.size()==0){
-                address=getString(R.string.untrackable_location);
+            if (centreLocationAddresses.size()==0){
+                centreLocationAddress=getString(R.string.untrackable_location);
             }else{
-                address = addresses.get(0).getAddressLine(0);
+                centreLocationAddress = centreLocationAddresses.get(0).getLocality();
             }
-            formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
-            date=new Date(e.getTimeStamp());
-            if(e.getDescription().isEmpty()){
-                description = "-";
-            }else{
-                description = e.getDescription();
-            }
-            ListViewItemsTitle.add(getString(R.string.simple_title)+": "+e.getTitle());
-            ListViewItemsDescription.add(getString(R.string.simple_location) +address + "\n" + getString(R.string.date) + formatter.format(date) + "\n" + getString(R.string.simple_description) + description);
-            ListViewItemsImages.add(SpecificItemImage);
         }
-        linearLayoutPb.setVisibility(View.GONE);
-        /*arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ListViewItems);
-        listView.setAdapter(arrayAdapter);
-        arrayAdapter.notifyDataSetChanged();*/
 
-        arrayAdapterClass = new ArrayAdapterClass(this, ListViewItemsTitle, ListViewItemsDescription, ListViewItemsImages);
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            ListViewItemsTitle = new ArrayList<>();
+            ListViewItemsDescription = new ArrayList<>();
+            ListViewItemsImages = new ArrayList<>();
+            runOnUiThread(new Runnable(){
+                public void run() {
+                    for (EmergencyAlerts e: emergencyAlertsList) {
 
-        listView.setAdapter(arrayAdapterClass);
-        arrayAdapterClass.notifyDataSetChanged();
+                        try {
+                            addresses = geocoder.getFromLocation(e.getLatitude(), e.getLongitude(), 1);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        //απο τις συντεταγμενες latitude και longitude παιρνω την διευθνυση του και οτι αλλη πληροφορια θελω
 
+                        if (addresses.size()==0){
+                            address=getString(R.string.untrackable_location);
+                        }else{
+                            address = addresses.get(0).getAddressLine(0);
+                        }
+                        formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
+                        date=new Date(e.getTimeStamp());
+                        if(e.getDescription().isEmpty()){
+                            description = "-";
+                        }else{
+                            description = e.getDescription();
+                        }
+                        ListViewItemsTitle.add(getString(R.string.simple_title)+": "+e.getTitle());
+                        ListViewItemsDescription.add(getString(R.string.simple_location) +address + "\n" + getString(R.string.date) + formatter.format(date) + "\n" + getString(R.string.simple_description) + description);
+                        ListViewItemsImages.add(SpecificItemImage);
+                    }
+
+                }
+            });
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            linearLayoutPb.setVisibility(View.GONE);
+            arrayAdapterClass = new ArrayAdapterClass(getApplicationContext(), ListViewItemsTitle, ListViewItemsDescription, ListViewItemsImages);
+            listView.setAdapter(arrayAdapterClass);
+            arrayAdapterClass.notifyDataSetChanged();
+        }
     }
 
     @Override
