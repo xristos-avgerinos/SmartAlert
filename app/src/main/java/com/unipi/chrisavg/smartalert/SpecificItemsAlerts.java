@@ -147,7 +147,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                         }
                         formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
                         date=new Date(e.getTimeStamp());
-                        if(e.getDescription().isEmpty()){
+                        if(e.getDescription().trim().isEmpty() ){
                             description = "-";
                         }else{
                             description = e.getDescription();
