@@ -226,7 +226,7 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
                 formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
                 date=new Date((entry.getValue().get(i).stream().mapToLong(EmergencyAlerts::getTimeStamp).max()).getAsLong());
 
-                String s = getString(R.string.simple_location) + address + "\n"+getString(R.string.time) + formatter.format(date);
+                String s = getString(R.string.simple_location) + address + "\n"+getString(R.string.date) + formatter.format(date);
 
                 String language=Locale.getDefault().getDisplayLanguage();
                 if(language.equals("English")){
