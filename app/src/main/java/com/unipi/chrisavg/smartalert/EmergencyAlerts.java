@@ -7,6 +7,7 @@ public class EmergencyAlerts implements Serializable {
     private String Title;
     private long TimeStamp;
     private double Latitude,Longitude;
+    private String Address;
     private String Category;
     private String Description;
     private String status;
@@ -15,13 +16,22 @@ public class EmergencyAlerts implements Serializable {
 
     }
 
-    public EmergencyAlerts(String title, long timeStamp, double latitude, double longitude, String category, String description) {
+    public EmergencyAlerts(String title, long timeStamp, double latitude, double longitude,String address, String category, String description) {
         Title = title;
         TimeStamp = timeStamp;
         Latitude = latitude;
         Longitude = longitude;
+        Address=address;
         Category = category;
         Description = description;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        this.Address = address;
     }
 
     public String getKey() {

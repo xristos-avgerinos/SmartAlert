@@ -192,7 +192,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
 
                     EmergencyAlerts emergencyAlerts = new EmergencyAlerts(titleEditText.getText().toString(), dateForModel.getTime() ,
                             locationForModel.getLatitude(),locationForModel.getLongitude(),
-                            category,descriptionEditText.getText().toString());
+                            locationEditText.getText().toString(),category,descriptionEditText.getText().toString());
 
                     reference.push().setValue(emergencyAlerts, new DatabaseReference.CompletionListener() {
                         @Override

@@ -133,18 +133,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                 public void run() {
                     for (EmergencyAlerts e: emergencyAlertsList) {
 
-                        /*try {
-                            addresses = geocoder.getFromLocation(e.getLatitude(), e.getLongitude(), 1);
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-                        //απο τις συντεταγμενες latitude και longitude παιρνω την διευθνυση του και οτι αλλη πληροφορια θελω
-
-                        if (addresses.size()==0){
-                            address=getString(R.string.untrackable_location);
-                        }else{
-                            address = addresses.get(0).getAddressLine(0);
-                        }*/
+                        address=e.getAddress();
                         formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
                         date=new Date(e.getTimeStamp());
                         if(e.getDescription().trim().isEmpty() ){
@@ -153,13 +142,12 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                             description = e.getDescription();
                         }
                         ListViewItemsTitle.add(getString(R.string.simple_title)+": "+e.getTitle());
-                        ListViewItemsDescription.add(getString(R.string.simple_location) +" address" + "\n" + getString(R.string.date) + formatter.format(date) + "\n" + getString(R.string.simple_description) + description);
+                        ListViewItemsDescription.add(getString(R.string.simple_location) +address+ "\n" + getString(R.string.date) + formatter.format(date) + "\n" + getString(R.string.simple_description) + description);
                         ListViewItemsImages.add(SpecificItemImage);
                     }
 
                 }
             });
-
             return null;
         }
 
@@ -189,7 +177,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                 for (EmergencyAlerts e: emergencyAlertsList) {
                         e.setStatus("Declined");
                         String key = e.getKey();
-                        tempEmergencyAlert = new EmergencyAlerts(e.getTitle(),e.getTimeStamp(),e.getLatitude(),e.getLongitude(),e.getCategory(),e.getDescription());
+                        tempEmergencyAlert = new EmergencyAlerts(e.getTitle(),e.getTimeStamp(),e.getLatitude(),e.getLongitude(),e.getAddress(),e.getCategory(),e.getDescription());
                         tempEmergencyAlert.setStatus(e.getStatus());
                         reference.child(key).setValue(tempEmergencyAlert).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -211,7 +199,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                 for (EmergencyAlerts e: emergencyAlertsList) {
                     e.setStatus("Accepted");
                     String key = e.getKey();
-                    tempEmergencyAlert = new EmergencyAlerts(e.getTitle(),e.getTimeStamp(),e.getLatitude(),e.getLongitude(),e.getCategory(),e.getDescription());
+                    tempEmergencyAlert = new EmergencyAlerts(e.getTitle(),e.getTimeStamp(),e.getLatitude(),e.getLongitude(),e.getAddress(),e.getCategory(),e.getDescription());
                     tempEmergencyAlert.setStatus(e.getStatus());
                     reference.child(key).setValue(tempEmergencyAlert).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
