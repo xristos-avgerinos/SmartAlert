@@ -133,7 +133,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                 public void run() {
                     for (EmergencyAlerts e: emergencyAlertsList) {
 
-                        try {
+                        /*try {
                             addresses = geocoder.getFromLocation(e.getLatitude(), e.getLongitude(), 1);
                         } catch (IOException ex) {
                             ex.printStackTrace();
@@ -144,7 +144,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                             address=getString(R.string.untrackable_location);
                         }else{
                             address = addresses.get(0).getAddressLine(0);
-                        }
+                        }*/
                         formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
                         date=new Date(e.getTimeStamp());
                         if(e.getDescription().trim().isEmpty() ){
@@ -153,7 +153,7 @@ public class SpecificItemsAlerts extends AppCompatActivity {
                             description = e.getDescription();
                         }
                         ListViewItemsTitle.add(getString(R.string.simple_title)+": "+e.getTitle());
-                        ListViewItemsDescription.add(getString(R.string.simple_location) +address + "\n" + getString(R.string.date) + formatter.format(date) + "\n" + getString(R.string.simple_description) + description);
+                        ListViewItemsDescription.add(getString(R.string.simple_location) +" address" + "\n" + getString(R.string.date) + formatter.format(date) + "\n" + getString(R.string.simple_description) + description);
                         ListViewItemsImages.add(SpecificItemImage);
                     }
 
