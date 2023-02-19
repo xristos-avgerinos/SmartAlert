@@ -62,6 +62,8 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
     SimpleDateFormat formatter;
 
     Intent intent;
+    static final int LOCATION_SETTINGS_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +140,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
             if(!isGPSEnabled){ //αν δεν εχει ανοιξει το location στο κινητο του τοτε τον στελνω στα settings αν θελει ωστε να το ανοιξει και να παρω την τοποθεσια του
                 showSettingsAlert();
             }
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
         }
     }
 
@@ -148,7 +150,8 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
         alertDialog.setMessage(R.string.settings_menu);
         alertDialog.setPositiveButton(R.string.settings, (dialog, which) -> {
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);
+            startActivityForResult(intent,LOCATION_SETTINGS_REQUEST);
+
         });
         alertDialog.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
         alertDialog.show();
@@ -254,6 +257,16 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
 
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LOCATION_SETTINGS_REQUEST) {
+            // user is back from location settings
+            finish();
+            startActivity(getIntent()); //reload activity to get location
+
+        }
     }
 
 
