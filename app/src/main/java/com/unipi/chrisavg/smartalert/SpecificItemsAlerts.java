@@ -44,7 +44,6 @@ public class SpecificItemsAlerts extends AppCompatActivity {
     List<String> ListViewItemsTitle;
     List<String> ListViewItemsDescription;
     List<Integer> ListViewItemsImages;
-    List<Address> addresses = new ArrayList<>();
     List<Address> centreLocationAddresses = new ArrayList<>();
     String address;
     String centreLocationAddress;

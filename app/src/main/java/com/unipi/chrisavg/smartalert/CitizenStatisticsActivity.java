@@ -68,6 +68,12 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
     TextView emptyView;
     Map<String,String> languageCat;
 
+    String address;
+    double sumX,sumY;
+    int countAlerts;
+    double resX;
+    double resY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -186,13 +192,6 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
 
         centreLocation=new Location("");
         geocoder = new Geocoder(this, Locale.getDefault());
-        String address;
-
-        double sumX,sumY;
-        int countAlerts;
-
-
-
 
         for ( Map.Entry<String,List<List<EmergencyAlerts>>> entry: AllGroups.entrySet()) {
 
@@ -202,9 +201,8 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
                 sumX = entry.getValue().get(i).stream().collect(Collectors.summingDouble(x -> x.getLongitude()));
                 sumY = entry.getValue().get(i).stream().collect(Collectors.summingDouble(y -> y.getLatitude()));
                 countAlerts   = entry.getValue().get(i).size();
-                double resX = sumX / countAlerts;
-                double resY = sumY / countAlerts;
-
+                resX = sumX / countAlerts;
+                resY = sumY / countAlerts;
 
                 centreLocation.setLongitude(resX);
                 centreLocation.setLatitude(resY);
@@ -240,10 +238,6 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
             }
         }
 
-        /*arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,ListViewItems);
-        listView.setAdapter(arrayAdapter);
-        arrayAdapter.notifyDataSetChanged();*/
-
         arrayAdapterClass = new ArrayAdapterClass(this, ListViewItemsTitle, ListViewItemsDescription, ListViewItemsImages);
 
         if (emergencyAlertsList.isEmpty()) {
@@ -251,7 +245,6 @@ public class CitizenStatisticsActivity extends AppCompatActivity {
         }
         listView.setAdapter(arrayAdapterClass);
         arrayAdapterClass.notifyDataSetChanged();
-
     }
 
 

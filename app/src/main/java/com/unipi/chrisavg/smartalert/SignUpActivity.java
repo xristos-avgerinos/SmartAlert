@@ -180,8 +180,6 @@ public class SignUpActivity extends AppCompatActivity  {
             showSettingsAlert();
         }
         else{
-
-
             mAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() { //κανουμε ολους τους ελεγχους σε αυτον τον listener.γινεται και ελεγχος αν το email ειναι μοναδικο
                         @Override

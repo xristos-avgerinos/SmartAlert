@@ -87,6 +87,18 @@ public class AllAlertsActivity extends AppCompatActivity {
     Map<String,Integer> categoryImagesMap = new HashMap<>();
     Map<String,String> languageCat;
 
+    String address;
+    double sumX,sumY;
+    OptionalLong maxTime;
+    OptionalLong minTime;
+    int countAlerts;
+    int dangerForUsers;
+    int dangerForTime;
+    Integer totalDanger;
+    long differenceForMaxMinTime;
+    double resX;
+    double resY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -159,10 +171,6 @@ public class AllAlertsActivity extends AppCompatActivity {
         });
     }
 
-
-    void showMessage(String title, String message){
-        new AlertDialog.Builder(this).setTitle(title).setMessage(message).setCancelable(true).show();
-    }
     public void ShowGroupedEAinListView(){
 
         groupedByCategory = emergencyAlertsList.stream().collect(Collectors.groupingBy(w -> w.getCategory()));
@@ -210,16 +218,6 @@ public class AllAlertsActivity extends AppCompatActivity {
 
         centreLocation=new Location("");
         geocoder = new Geocoder(this, Locale.getDefault());
-        String address;
-
-        double sumX,sumY;
-        OptionalLong maxTime;
-        OptionalLong minTime;
-        int countAlerts;
-        int dangerForUsers;
-        int dangerForTime;
-        Integer totalDanger;
-        long differenceForMaxMinTime;
 
 
         for ( Map.Entry<String,List<List<EmergencyAlerts>>> entry: AllGroups.entrySet()) {
@@ -230,8 +228,8 @@ public class AllAlertsActivity extends AppCompatActivity {
                 sumX = entry.getValue().get(i).stream().collect(Collectors.summingDouble(x -> x.getLongitude()));
                 sumY = entry.getValue().get(i).stream().collect(Collectors.summingDouble(y -> y.getLatitude()));
                 countAlerts   = entry.getValue().get(i).size();
-                double resX = sumX / countAlerts;
-                double resY = sumY / countAlerts;
+                resX = sumX / countAlerts;
+                resY = sumY / countAlerts;
 
 
                 centreLocation.setLongitude(resX);
@@ -348,7 +346,6 @@ public class AllAlertsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView arg0, View arg1, int i, long arg3) {
-
                 /*System.out.println(position.get(i)[0] + pos.get(i)[1]);
                 System.out.println(AllGroups.get(pos.get(i)[0]).get(Integer.parseInt(pos.get(i)[1])));*/
 

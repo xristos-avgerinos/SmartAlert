@@ -66,7 +66,10 @@ public class FCMsend {
                     int success, failure;
                     success = resultJson.getInt("success");
                     failure = resultJson.getInt("failure");
-                    } catch (JSONException e) {
+                    System.out.println(success);
+                    System.out.println(failure);
+                    }
+                catch (JSONException e) {
                     e.printStackTrace();
 
                 }

@@ -35,7 +35,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -58,6 +57,11 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
     Date dateForModel;
     ProgressBar progressBar;
     Map<String,String> languageCat;
+    String[] items;
+    ArrayAdapter<String> adapter;
+    SimpleDateFormat formatter;
+
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,8 +90,8 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
         reference = database.getReference("Emergency Alerts");
 
         //φτιαχνω εναν adapter με τα στοιχεια της λιστας  items και το περναω στο dropdown spinner
-        String[] items = new String[]{getString(R.string.select_alert_category),getString(R.string.flood), getString(R.string.fire), getString(R.string.earthquake), getString(R.string.extreme_temperature),getString(R.string.snowstorm),getString(R.string.tornado),getString(R.string.storm)};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items){
+        items = new String[]{getString(R.string.select_alert_category),getString(R.string.flood), getString(R.string.fire), getString(R.string.earthquake), getString(R.string.extreme_temperature),getString(R.string.snowstorm),getString(R.string.tornado),getString(R.string.storm)};
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items){
             @Override
             public boolean isEnabled(int position){
                 // Disable the first item from Spinner
@@ -116,7 +120,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
         dropdown.setAdapter(adapter);
 
         getSupportActionBar().setTitle(R.string.new_emergency_alert);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         dateForModel = new Date();
         timestampEditText.setText(formatter.format(dateForModel));
 
@@ -165,7 +169,7 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Intent intent = new Intent(getApplicationContext(), CitizenProfileActivity.class);
+        intent  = new Intent(getApplicationContext(), CitizenProfileActivity.class);
         switch(item.getItemId()) {
             case R.id.CancelButton:
                 finish();
@@ -181,7 +185,6 @@ public class AddAlertActivity extends AppCompatActivity implements LocationListe
                     showMessage(getString(R.string.simple_category), getString(R.string.select_category));
                 }
                 else{
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                     //Save category only in english locale
                     String category;
                     if(languageCat.containsKey(dropdown.getSelectedItem().toString())){

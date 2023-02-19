@@ -41,7 +41,7 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
     TextView textViewFullName, textViewEmail, textViewMobile,textView_show_welcome;
     String fullName, email, mobile;
     FusedLocationProviderClient fusedLocationProviderClient;
-    //LocationManager locationManager;
+
     static final int locationRequestCode1 = 111;
     static final int locationRequestCode2 = 123;
 
@@ -51,6 +51,7 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_citizen_profile);
+
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
@@ -62,20 +63,12 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
         textViewEmail = findViewById(R.id.textView_show_email);
         textViewMobile = findViewById(R.id.textView_show_mobile);
         textView_show_welcome = findViewById(R.id.textView_show_welcome);
-        //locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (user == null) {
             Toast.makeText(this, getString(R.string.unavailable_details), Toast.LENGTH_SHORT).show();
         } else {
             showUserProfile();
-            /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                //Αν δεν εχω τα permissions τα ζηταω
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, locationRequestCode1);
-                return;
-            }*/
-            //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
 
             updateLocationToDB();
 
@@ -91,7 +84,7 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, locationRequestCode2);
         } else {
             //αν τα εχω τον στελνω κατευθειαν στο επομενο activity
-            Intent intent = new Intent(getApplicationContext(), AddAlertActivity.class);
+            intent = new Intent(getApplicationContext(), AddAlertActivity.class);
             startActivity(intent);
         }
 
@@ -132,7 +125,7 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
         if (requestCode == locationRequestCode2) { //ελεγχουμε αν εχει ερθει απο το παραπανω requestPermission με requestCode = 123 που ειναι του AddAlertButton
             if (grantResults.length > 0 && (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
                 //Αν ο χρηστης πατησει allow τον στελνουμε στο αλλο activity
-                Intent intent = new Intent(getApplicationContext(), AddAlertActivity.class);
+                intent = new Intent(getApplicationContext(), AddAlertActivity.class);
                 startActivity(intent);
             } else {
                 //Αν ο χρηστης αρνηθει τα δικαιωματα παραμενω στο activity αυτο και εμφανιζω καταλληλο μηνυμα.
@@ -231,51 +224,4 @@ public class CitizenProfileActivity extends AppCompatActivity /*implements Locat
 
         return true;
     }
-
-/*
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
-        reference.child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Users user = snapshot.getValue(Users.class);
-                Users temp_user = new Users(user.getFullname(),user.getPhoneNumber(), user.getRole());
-                temp_user.setToken(user.getToken());
-                temp_user.setLongitude(location.getLongitude());
-                temp_user.setLatitude(location.getLatitude());
-                reference.child(mAuth.getUid()).setValue(temp_user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (!task.isSuccessful()){
-                            System.out.println("Something went wrong");
-                        }
-
-                    }
-                });
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        System.out.println(location.getLatitude());
-        locationManager.removeUpdates(this);
-    }
-
-    @Override
-    public void onProviderEnabled(@NonNull String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(@NonNull String provider) {
-
-    }
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }*/
 }

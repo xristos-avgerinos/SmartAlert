@@ -22,6 +22,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
     // [START receive_message]
+
+    //onMessageReceived is triggered when the a citizen receives a notification either in background or foreground(works in both cases)
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // TODO(developer): Handle FCM messages here.

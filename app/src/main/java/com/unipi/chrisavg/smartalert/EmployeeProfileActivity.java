@@ -40,8 +40,6 @@ Intent intent;
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Users");
 
-
-
         getSupportActionBar().setTitle(R.string.employee_profile);
 
         textViewFullName = findViewById(R.id.textView_show_full_name);
@@ -60,7 +58,6 @@ Intent intent;
 
     private void showEmployeeProfile () {
 
-        //Extracting User Reference from Database for "Registered Users"
         reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
