@@ -1,8 +1,5 @@
 package com.unipi.chrisavg.smartalert;
 
-import android.location.Location;
-import android.location.LocationListener;
-
 public class Users {
     private String fullname;
     private String phoneNumber;

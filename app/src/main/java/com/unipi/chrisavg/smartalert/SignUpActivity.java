@@ -8,7 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.LocationListener;
+
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
