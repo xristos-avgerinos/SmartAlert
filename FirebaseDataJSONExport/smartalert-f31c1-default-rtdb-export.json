@@ -1,0 +1,1326 @@
+{
+  "Emergency Alerts": {
+    "-NNwwm9tMhTtcyn-Zv67": {
+      "address": "Φυλή,Αχαρνές 143 43",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.1181086107,
+      "longitude": 23.6560506011,
+      "timeStamp": 1676066733000,
+      "title": "χιονοθύελλα στην Φυλή"
+    },
+    "-NNwwm9tMhTtcyn-Zv68": {
+      "address": "Θεοδώρου Πεταλά 47, Νέα Χαλκηδόνα 143 43",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.0235926383,
+      "longitude": 23.7263635155,
+      "timeStamp": 1676066733000,
+      "title": "χιονοθύελλα κοντα στη Φυλή"
+    },
+    "-NNwwm9tMhTtcyn-Zv69": {
+      "address": "Βερνάρδου 39, Βριλήσσια 152 38",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.0363663767,
+      "longitude": 23.8327006677,
+      "timeStamp": 1676106647000,
+      "title": "πολυ χιόνι  Αχαρνές"
+    },
+    "-NNwwm9tMhTtcyn-Zv70": {
+      "address": "Δερβενοχώρια",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.1782957551,
+      "longitude": 23.6260012018,
+      "timeStamp": 1676066733000,
+      "title": "χιονοθύελλα Δερβενοχωρια"
+    },
+    "-NNwwm9tMhTtcyn-Zv71": {
+      "address": "Αυλώνα",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.2635608769,
+      "longitude": 23.6379040019,
+      "timeStamp": 1676066733000,
+      "title": "χιονιζει εντονα στη κοντινη περιοχη"
+    },
+    "-NNwwm9tMhTtcyn-Zv72": {
+      "address": "Μάντζαρου, Γέρακας 153 44",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 37.9987060052,
+      "longitude": 23.862312012,
+      "timeStamp": 1676066733000,
+      "title": "χιονοθύελλα στο Γερακα"
+    },
+    "-NNwwm9tMhTtcyn-Zv73": {
+      "address": "Φυλή",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.169564713,
+      "longitude": 23.6805528292,
+      "timeStamp": 1676066733000,
+      "title": "50 ποντοι χιονι στη Φυλη"
+    },
+    "-NNwwm9tMhTtcyn-Zv74": {
+      "address": "Αττική",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.1762309209,
+      "longitude": 23.7129102974,
+      "timeStamp": 1676066733000,
+      "title": "μεγαλη χιονοθύελλα "
+    },
+    "-NNwwm9tMhTtcyn-Zv75": {
+      "address": "Πεντέλη 152 36",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.0541125367,
+      "longitude": 23.8614525293,
+      "timeStamp": 1676066733000,
+      "title": "Αποκλεισμος λογω χιονοθύελλας"
+    },
+    "-NNwwm9tMhTtcyn-Zv76": {
+      "address": "Αττική",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.1491403218,
+      "longitude": 23.716253984,
+      "timeStamp": 1676066733000,
+      "title": "χιονοθύελλα "
+    },
+    "-NNwwm9tMhTtcyn-Zv77": {
+      "address": "Αττική",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.2127112231,
+      "longitude": 23.7416826338,
+      "timeStamp": 1676066733000,
+      "title": "πολυ χιονι στην αττικη"
+    },
+    "-NNwwm9tMhTtcyn-Zv78": {
+      "address": "Δερβενοχώρια",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.1844518422,
+      "longitude": 23.6063591997,
+      "timeStamp": 1676066733000,
+      "title": "μεγαλος κινδυνος"
+    },
+    "-NNwwm9tMhTtcyn-Zv79": {
+      "address": "Αφίδνες",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.1983716893,
+      "longitude": 23.8523150369,
+      "timeStamp": 1676066733000,
+      "title": "χιονι στις Αφιδνες"
+    },
+    "-NNwwm9tMhTtcyn-Zv80": {
+      "address": "Μαρκόπουλο Ωρωπού",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.2682351651,
+      "longitude": 23.8129404121,
+      "timeStamp": 1676066733000,
+      "title": "Βοήθεια"
+    },
+    "-NNwwm9tMhTtcyn-Zv81": {
+      "address": "Μητροπολίτου Ηλείας Αντωνίου 35-31, Αιγάλεω 122 43",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.0033552742,
+      "longitude": 23.6698916214,
+      "timeStamp": 1676066733000,
+      "title": "χιονοθύελλα  κοντά στο Αιγάλεω"
+    },
+    "-NNwwm9tMhTtcyn-Zv82": {
+      "address": "Ηρας 17-7, Κηφισιά 145 64",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.0951117394,
+      "longitude": 23.7904856941,
+      "timeStamp": 1676066733000,
+      "title": "χιονιζει επικινδυνα"
+    },
+    "-NNwwm9tMhTtcyn-Zv83": {
+      "address": "Θερμοπυλών 88, Χαϊδάρι 124 61",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.0048158753,
+      "longitude": 23.6670294352,
+      "timeStamp": 1676066733000,
+      "title": "χιονοθύελλα "
+    },
+    "-NNwwm9tMhTtcyn-Zv84": {
+      "address": "Ηλίου 8, Αθήνα 104 38",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 37.988201381,
+      "longitude": 23.7232834001,
+      "timeStamp": 1676066733000,
+      "title": "χιονι μεσα στην Αθηνα"
+    },
+    "-NNwwm9tMhTtcyn-Zv85": {
+      "address": "Οινόφυτα",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.2720482146,
+      "longitude": 23.6106698321,
+      "timeStamp": 1676066733000,
+      "title": "επικινδυνος χιονιάς"
+    },
+    "-NNwwm9tMhTtcyn-Zv86": {
+      "address": "Κασσάνδρας 2-10, Νέα Φιλαδέλφεια Αττικής 143 42",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.0499451165,
+      "longitude": 23.7461504475,
+      "timeStamp": 1676066733000,
+      "title": "μεγάλη χιονοθύελλα "
+    },
+    "-NNwwm9tMhTtcyn-Zv87": {
+      "address": "Πάρκο Ηρώων, Δήμος Μοσχάτου-Ταύρου 177 78",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 37.9723883899,
+      "longitude": 23.700490053,
+      "timeStamp": 1676066733000,
+      "title": "επικινδυνη χιονοθύελλα στην Αττικη"
+    },
+    "-NNwwm9tMhTtcyn-Zv88": {
+      "address": "Αυλώνα",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.2162404357,
+      "longitude": 23.7488902807,
+      "timeStamp": 1676066733000,
+      "title": "χιονοθύελλα Αυλώνα"
+    },
+    "-NNwwm9tMhTtcyn-Zv89": {
+      "address": "Αγίου Βασιλείου 42-48, Περιστέρι 121 34",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.0164525132,
+      "longitude": 23.6897281774,
+      "timeStamp": 1676066733000,
+      "title": "χιονι στο Περιστερι"
+    },
+    "-NNwwm9tMhTtcyn-Zv90": {
+      "address": "Αττική",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.1834016746,
+      "longitude": 23.7405759935,
+      "timeStamp": 1676066733000,
+      "title": "χιονι Αττικη"
+    },
+    "-NNwwm9tMhTtcyn-Zv91": {
+      "address": "Φυλή",
+      "category": "Snowstorm",
+      "description": " ",
+      "latitude": 38.1492502715,
+      "longitude": 23.6691705269,
+      "timeStamp": 1676066733000,
+      "title": "χιονοθύελλα  κοντα στη Φυλή"
+    },
+    "-NOWMKAVZdBimOp-SaUP": {
+      "address": "Λεωφ. Αγίων Αποστολών 3, Άγιοι Απόστολοι 190 14, Ελλάδα",
+      "category": "Storm",
+      "description": "",
+      "latitude": 38.2952324,
+      "longitude": 23.8994244,
+      "timeStamp": 1676670740368,
+      "title": "Ισχυρή Καταιγίδα"
+    },
+    "-NOWMuAeKwWVXAauiUSl": {
+      "address": "Λεωφ. Αγίων Αποστολών 3, Άγιοι Απόστολοι 190 14, Ελλάδα",
+      "category": "Earthquake",
+      "description": "",
+      "latitude": 38.2952333,
+      "longitude": 23.8994314,
+      "status": "Accepted",
+      "timeStamp": 1676670884954,
+      "title": "Σεισμός"
+    },
+    "-NOWq7M05RhE6QMKi0TE": {
+      "address": "Κρήτης 5, Πέραμα 188 63, Ελλαδα",
+      "category": "Fire",
+      "description": "φωτιαα",
+      "latitude": 37.965567,
+      "longitude": 23.572299,
+      "status": "Accepted",
+      "timeStamp": 1676678807543,
+      "title": "φωτιά στο Πέραμα"
+    },
+    "-NOdVDXVu2G61ERxgH4s": {
+      "address": "Ανεξαρτησίας, Αγίου Μηνά & Ασπρόπυργος 193 00, Ελλάδα",
+      "category": "Extreme Temperature",
+      "description": "",
+      "latitude": 38.045666,
+      "longitude": 23.582718,
+      "status": "Accepted",
+      "timeStamp": 1676806974418,
+      "title": "Πολικό ψύχος στον Ασπρόπυργο "
+    },
+    "-NOdW71tCQl24HByUOBz": {
+      "address": "Πλ. Βαρνάβα 2, Αθήνα 116 35, Αθήνα",
+      "category": "Flood",
+      "description": "",
+      "latitude": 37.965685,
+      "longitude": 23.742861,
+      "status": "Accepted",
+      "timeStamp": 1676807506213,
+      "title": "Πλημμύρα στην Αθήνα "
+    },
+    "-NOeAoudu0F2LjxqO-zb": {
+      "address": "Σωτήρος 52, Αιάντειο 189 03, Ελλάδα",
+      "category": "Fire",
+      "description": "φωτιά στο κέντρο της σαλαμινας",
+      "latitude": 37.92003532,
+      "longitude": 23.45946794,
+      "status": "Accepted",
+      "timeStamp": 1676818697724,
+      "title": "φωτιά σαλαμινα"
+    },
+    "-NOeFC7601fDCGyBB9rA": {
+      "address": "Σωτήρος 37, Αιάντειο 189 03, Ελλάδα",
+      "category": "Fire",
+      "description": "πυρκαγιά στο κέντρο της σαλαμινας ",
+      "latitude": 37.91962427,
+      "longitude": 23.45973864,
+      "status": "Accepted",
+      "timeStamp": 1676819846715,
+      "title": "φωτιά σαλαμινα"
+    },
+    "-NOeFchE9Mb5bLGa-f_h": {
+      "address": "Σωτήρος 47, Αιάντειο 189 03, Ελλάδα",
+      "category": "Storm",
+      "description": "",
+      "latitude": 37.91989229,
+      "longitude": 23.45949032,
+      "status": "Declined",
+      "timeStamp": 1676819979750,
+      "title": "καταιγιδα"
+    },
+    "-NOfJv3eHnBsMfNEX2w3": {
+      "address": "Φρύνης ΑΘΗΝΑ,ΚΑΛΛΑΜΟΣ, Κάλαμος 190 14, Ελλάδα",
+      "category": "Storm",
+      "description": "",
+      "latitude": 38.28291168,
+      "longitude": 23.86307107,
+      "timeStamp": 1676837862414,
+      "title": "fotia"
+    },
+    "-NOfKoTNaHPP-N5_woEd": {
+      "address": "Κωνσταντίνου Καραντάνου, Κάλαμος 190 14, Ελλάδα",
+      "category": "Tornado",
+      "description": "",
+      "latitude": 38.28298052,
+      "longitude": 23.86310214,
+      "status": "Accepted",
+      "timeStamp": 1676838119787,
+      "title": "haiabs"
+    },
+    "-NOfMKQiOYQX015hOzDc": {
+      "address": "Φρύνης ΑΘΗΝΑ,ΚΑΛΛΑΜΟΣ, Κάλαμος 190 14, Ελλάδα",
+      "category": "Tornado",
+      "description": "",
+      "latitude": 38.28296421,
+      "longitude": 23.86316292,
+      "status": "Accepted",
+      "timeStamp": 1676838514772,
+      "title": "ggjs"
+    },
+    "-NOfN94hhrNVJk3fbOIx": {
+      "address": "Κωνσταντίνου Καραντάνου, Κάλαμος 190 14, Ελλάδα",
+      "category": "Earthquake",
+      "description": "",
+      "latitude": 38.28275919,
+      "longitude": 23.86273455,
+      "status": "Accepted",
+      "timeStamp": 1676838732239,
+      "title": "jaiaa"
+    },
+    "-Niwqs7hMsTtcyn-Zo10": {
+      "address": "Πλ. Βουλής, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6180308744,
+      "longitude": 21.4074888164,
+      "timeStamp": 1675289447000,
+      "title": "Σεισμόςςςς"
+    },
+    "-Niwqs7hMsTtcyn-Zo11": {
+      "address": "Γοργοποτάμου 26-28, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6358352648,
+      "longitude": 21.4018505028,
+      "timeStamp": 1675289447000,
+      "title": "Σεισμός στο Αγρινιο"
+    },
+    "-Niwqs7hMsTtcyn-Zo12": {
+      "address": "Μπαϊμπά 12, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6397245967,
+      "longitude": 21.4025691641,
+      "timeStamp": 1675289447000,
+      "title": "Επεσε σπίτι απο το σεισμό"
+    },
+    "-Niwqs7hMsTtcyn-Zo13": {
+      "address": "Χατζή, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6112057755,
+      "longitude": 21.4176744692,
+      "timeStamp": 1675289447000,
+      "title": "Μεγάλος Σεισμός"
+    },
+    "-Niwqs7hMsTtcyn-Zo14": {
+      "address": "Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6280491079,
+      "longitude": 21.4191877896,
+      "timeStamp": 1675289447000,
+      "title": "Σεισμός στο Αγρινιο"
+    },
+    "-Niwqs7hMsTtcyn-Zo15": {
+      "address": "Πυλήνης 15, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6222749537,
+      "longitude": 21.400935154,
+      "timeStamp": 1675289447000,
+      "title": "Βοήθεια στο Αγρινιο"
+    },
+    "-Niwqs7hMsTtcyn-Zo16": {
+      "address": "Πανεπιστημίου 19, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6323760406,
+      "longitude": 21.4113569967,
+      "timeStamp": 1675289447000,
+      "title": "Αισθητός σεισμός"
+    },
+    "-Niwqs7hMsTtcyn-Zo17": {
+      "address": "Ζαχαρίου 4-2, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6105250421,
+      "longitude": 21.4064018257,
+      "timeStamp": 1675289447000,
+      "title": "Σεισμόςςςς"
+    },
+    "-Niwqs7hMsTtcyn-Zo18": {
+      "address": "Πυρομάγλου 4-16, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6269070855,
+      "longitude": 21.4013406914,
+      "timeStamp": 1675419047000,
+      "title": "επεσε το σπίτι μου"
+    },
+    "-Niwqs7hMsTtcyn-Zo19": {
+      "address": "Βελισσαρίου 9-1, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6300707951,
+      "longitude": 21.4054839942,
+      "timeStamp": 1675419047000,
+      "title": "στείλτε βοήθεια"
+    },
+    "-Niwqs7hMsTtcyn-Zo20": {
+      "address": "Αλθαίας 2-16, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6068235106,
+      "longitude": 21.4093346522,
+      "timeStamp": 1675419047000,
+      "title": "Σεισμός"
+    },
+    "-Niwqs7hMsTtcyn-Zo21": {
+      "address": "Γριμπόβου 16-4, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6238471145,
+      "longitude": 21.4005313858,
+      "timeStamp": 1675419047000,
+      "title": "Σεισμόςςςςςςς"
+    },
+    "-Niwqs7hMsTtcyn-Zo22": {
+      "address": "Τερτσέτη, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6191532986,
+      "longitude": 21.4093729493,
+      "timeStamp": 1675419047000,
+      "title": "Μεγάλος Σεισμός"
+    },
+    "-Niwqs7hMsTtcyn-Zo23": {
+      "address": "Εθ. Ενότητας 19-13, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6287028772,
+      "longitude": 21.3974885942,
+      "timeStamp": 1675419047000,
+      "title": "Εντονος Σεισμός"
+    },
+    "-Niwqs7hMsTtcyn-Zo24": {
+      "address": "Αιτωλικού 5-3, Αγρίνιο 301 31",
+      "category": "Earthquake",
+      "description": " ",
+      "latitude": 38.6283386078,
+      "longitude": 21.3973021464,
+      "timeStamp": 1675419047000,
+      "title": "Σεισμός στο Αγρίνιο"
+    },
+    "-Niwws3hMsTtcyn-Zv01": {
+      "address": "Τρίπολη 221 00",
+      "category": "Extreme Temperature",
+      "description": " ",
+      "latitude": 37.5312997474,
+      "longitude": 22.4140969962,
+      "timeStamp": 1675548647000,
+      "title": "Βράζει η τρίπολη"
+    },
+    "-Niwws3hMsTtcyn-Zv02": {
+      "address": "Τρίπολη 221 00",
+      "category": "Extreme Temperature",
+      "description": " ",
+      "latitude": 37.5275814115,
+      "longitude": 22.4091417423,
+      "timeStamp": 1675548647000,
+      "title": "πολυ ζέστη στη Τρίπολη"
+    },
+    "-Niwws3hMsTtcyn-Zv03": {
+      "address": "Λυκαίου 22-34, Τρίπολη 221 00",
+      "category": "Extreme Temperature",
+      "description": " ",
+      "latitude": 37.5247576271,
+      "longitude": 22.3539069161,
+      "timeStamp": 1675548647000,
+      "title": "Ακραία Θερμοκρασία"
+    },
+    "-Niwws3hMsTtcyn-Zv04": {
+      "address": "Τεγέας 30, Τρίπολη 221 00",
+      "category": "Extreme Temperature",
+      "description": " ",
+      "latitude": 37.4989211132,
+      "longitude": 22.3862641832,
+      "timeStamp": 1675548647000,
+      "title": "Υψηλή Θερμοκρασία"
+    },
+    "-Niwws3hMsTtcyn-Zv05": {
+      "address": "Mikri Perimetriki Tripoleos, Tripoli 221 00",
+      "category": "Extreme Temperature",
+      "description": " ",
+      "latitude": 37.53927258,
+      "longitude": 22.4178288017,
+      "timeStamp": 1675548647000,
+      "title": "Υψηλή Θερμοκρασία"
+    },
+    "-Niwws3hMsTtcyn-Zv06": {
+      "address": "Αταλάντης 4, Τρίπολη 221 00",
+      "category": "Extreme Temperature",
+      "description": " ",
+      "latitude": 37.4994067939,
+      "longitude": 22.4091178828,
+      "timeStamp": 1675548647000,
+      "title": "Υψηλή Θερμοκρασία στη Τριπολη"
+    },
+    "-Niwws3hMsTtcyn-Zv07": {
+      "address": "Βάρβογλη 13-11, Τρίπολη 221 00",
+      "category": "Extreme Temperature",
+      "description": " ",
+      "latitude": 37.5388593745,
+      "longitude": 22.3512312465,
+      "timeStamp": 1675548647000,
+      "title": "45 βαθμοι"
+    },
+    "-Niwws3hMsTtcyn-Zv08": {
+      "address": "Παλαιολόγου 4, Τρίπολη 221 00",
+      "category": "Extreme Temperature",
+      "description": " ",
+      "latitude": 37.5217302628,
+      "longitude": 22.3567581009,
+      "timeStamp": 1675548647000,
+      "title": "θα πεθανουμε απο τη ζέστη"
+    },
+    "-Niwws3hMsTtcyn-Zv09": {
+      "address": "Κύπρου 18-46, Τρίπολη 221 00",
+      "category": "Extreme Temperature",
+      "description": " ",
+      "latitude": 37.4970766994,
+      "longitude": 22.3658290632,
+      "timeStamp": 1675548647000,
+      "title": "Υψηλή Θερμοκρασία"
+    },
+    "-Niwws3hMsTtcyn-Zv10": {
+      "address": "Κορύθιο, Τρίπολη 221 00",
+      "category": "Extreme Temperature",
+      "description": " ",
+      "latitude": 37.4961397305,
+      "longitude": 22.4146040199,
+      "timeStamp": 1675548647000,
+      "title": "Ακραία Θερμοκρασία"
+    },
+    "-Niwws3hMsTtcyn-Zv11": {
+      "address": "Τρίπολη 221 00",
+      "category": "Extreme Temperature",
+      "description": " ",
+      "latitude": 37.5296769885,
+      "longitude": 22.3550069009,
+      "timeStamp": 1675548647000,
+      "title": "48 βαθμοι βοηθεια"
+    },
+    "-Niwws3hMsTtcyn-Zv12": {
+      "address": "Σαρανταπόρου 3, Τρίπολη 221 00",
+      "category": "Extreme Temperature",
+      "description": " ",
+      "latitude": 37.5375209747,
+      "longitude": 22.3645798879,
+      "timeStamp": 1675548647000,
+      "title": "καιγόμαστε"
+    },
+    "-Nowwm3tMsTtcyn-Zv20": {
+      "address": "Αιγαίου Πελάγου, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676066733000,
+      "title": "Φωτιά"
+    },
+    "-Nowwm3tMsTtcyn-Zv21": {
+      "address": "Ασκληπιού, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676066733000,
+      "title": "Φωτιάααα"
+    },
+    "-Nowwm3tMsTtcyn-Zv22": {
+      "address": "4ης Ιανουαρίου 2, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676066733000,
+      "title": "καιγομαστε ζωντανοί"
+    },
+    "-Nowwm3tMsTtcyn-Zv23": {
+      "address": "Φορονέως 12, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "φωτιά στο Αργος"
+    },
+    "-Nowwm3tMsTtcyn-Zv24": {
+      "address": "Φορονέως 2, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "Μεγάλη Πυρκαγιά"
+    },
+    "-Nowwm3tMsTtcyn-Zv25": {
+      "address": "Γούναρη 28, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "φωτια στο κεντρο του Αργους"
+    },
+    "-Nowwm3tMsTtcyn-Zv26": {
+      "address": "Γούναρη 28, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "Στειλτε Πυροσβεστικά"
+    },
+    "-Nowwm3tMsTtcyn-Zv27": {
+      "address": "Παπαλεξοπούλου 17-11, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "Φωτιά"
+    },
+    "-Nowwm3tMsTtcyn-Zv28": {
+      "address": "Riga Fereou, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "Πυρκαγιά"
+    },
+    "-Nowwm3tMsTtcyn-Zv29": {
+      "address": "Διομήδους 65-57, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "Καίγεται το Αργος"
+    },
+    "-Nowwm3tMsTtcyn-Zv30": {
+      "address": "Αθανασίου Διάκου, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "Ορατη φωτια στο κεντρο"
+    },
+    "-Nowwm3tMsTtcyn-Zv31": {
+      "address": "Μεγ. Αλεξάνδρου 7-5, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "Βλεπω καπνους"
+    },
+    "-Nowwm3tMsTtcyn-Zv32": {
+      "address": "Ηρακλέους 125, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "Πυροσβεστική γρήγορα"
+    },
+    "-Nowwm3tMsTtcyn-Zv33": {
+      "address": "Κορίνθου 44-62, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "Καίγεται το Αργος"
+    },
+    "-Nowwm3tMsTtcyn-Zv34": {
+      "address": "Κορίνθου 2, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "Βοήθεια"
+    },
+    "-Nowwm3tMsTtcyn-Zv35": {
+      "address": "Βασ. Σοφίας 4, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "Φωτιά"
+    },
+    "-Nowwm3tMsTtcyn-Zv36": {
+      "address": "Βασ. Σοφίας 45, Άργος 212 00",
+      "category": "Fire",
+      "description": " ",
+      "latitude": 37.632858,
+      "longitude": 22.728871,
+      "timeStamp": 1676153133000,
+      "title": "Πυρκαγιά"
+    },
+    "-Pioqy7hLsIEcyn-Zo20": {
+      "address": "Μουσών 27, Ευκαρπία 564 29",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6899842927,
+      "longitude": 22.9508900587,
+      "timeStamp": 1676458604998,
+      "title": "Ανεμοστρόβιλος κοντα στον Εύοσμο"
+    },
+    "-Pioqy7hLsIEcyn-Zo21": {
+      "address": "Κωστή Παλαμά 40, Ευκαρπία 564 29",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6478740035,
+      "longitude": 22.8840720991,
+      "timeStamp": 1676424564310,
+      "title": "Ανεμοστρόβιλος"
+    },
+    "-Pioqy7hLsIEcyn-Zo22": {
+      "address": "Μουσών 14-20, Ευκαρπία 564 29",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6699569891,
+      "longitude": 22.8781003387,
+      "timeStamp": 1676474288987,
+      "title": "Δυνατός Ανεμοστρόβιλος"
+    },
+    "-Pioqy7hLsIEcyn-Zo23": {
+      "address": "Γρ. Λαμπράκη 21-15, Ευκαρπία 564 29",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.689145938,
+      "longitude": 22.9652620252,
+      "timeStamp": 1676399623450,
+      "title": "Βοήθεια"
+    },
+    "-Pioqy7hLsIEcyn-Zo24": {
+      "address": "Αγίου Δημητρίου 53, Ευκαρπία 564 29",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6882356004,
+      "longitude": 22.8664904827,
+      "timeStamp": 1676383614167,
+      "title": "Στείλτε βοήθεια"
+    },
+    "-Pioqy7hLsIEcyn-Zo25": {
+      "address": "Ανδρούτσου 40, Ευκαρπία 564 29",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6929227662,
+      "longitude": 22.8837707064,
+      "timeStamp": 1676447529547,
+      "title": "Επικίνδυνος Ανεμοστρόβιλος"
+    },
+    "-Pioqy7hLsIEcyn-Zo26": {
+      "address": "Ελευθέριο Κορδελιό",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6942845999,
+      "longitude": 22.891299936,
+      "timeStamp": 1676412551031,
+      "title": "Ανεμοστρόβιλος στο κεντρο του Εύοσμου"
+    },
+    "-Pioqy7hLsIEcyn-Zo27": {
+      "address": "Νίκης 10-24, Σταυρούπολη 564 31",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6682200158,
+      "longitude": 22.9444025163,
+      "timeStamp": 1676448098358,
+      "title": "Ανεμοστρόβιλος"
+    },
+    "-Pioqy7hLsIEcyn-Zo28": {
+      "address": "Γαμβέτα 21-17, Εύοσμος 562 24",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6845272246,
+      "longitude": 22.8907211311,
+      "timeStamp": 1676393682948,
+      "title": "Ανεμοστρόβιλος στον Εύοσμο"
+    },
+    "-Pioqy7hLsIEcyn-Zo29": {
+      "address": "Διογένους 2-12, Εύοσμος 562 24",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6894415999,
+      "longitude": 22.9079718693,
+      "timeStamp": 1676431617414,
+      "title": "Ανεμοστρόβιλος"
+    },
+    "-Pioqy7hLsIEcyn-Zo30": {
+      "address": "Εύοσμος 562 24",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6955636943,
+      "longitude": 22.8743418674,
+      "timeStamp": 1676380619994,
+      "title": "Σηκωνει τα παντα στο περασμα του"
+    },
+    "-Pioqy7hLsIEcyn-Zo31": {
+      "address": "Ζωγράφου 14-18, Εύοσμος 562 24",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6472826875,
+      "longitude": 22.9104635008,
+      "timeStamp": 1676470080817,
+      "title": "Ανεμοστρόβιλος"
+    },
+    "-Pioqy7hLsIEcyn-Zo32": {
+      "address": "Ηρακλείτου, Εύοσμος 562 24",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6833472935,
+      "longitude": 22.8927694969,
+      "timeStamp": 1676422903163,
+      "title": "Δυνατός Ανεμοστρόβιλος"
+    },
+    "-Pioqy7hLsIEcyn-Zo33": {
+      "address": "Παναγιώτη Βλαχάκου 2-8, Εύοσμος 562 24",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6846338769,
+      "longitude": 22.9289469229,
+      "timeStamp": 1676455385463,
+      "title": "Ανεμοστρόβιλος στον Εύοσμο"
+    },
+    "-Pioqy7hLsIEcyn-Zo34": {
+      "address": "Αντώνη Τρίτση, Εύοσμος 562 24",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6508513135,
+      "longitude": 22.9239045993,
+      "timeStamp": 1676417862573,
+      "title": "Ανεμοστρόβιλος βοηθήστε μας"
+    },
+    "-Pioqy7hLsIEcyn-Zo35": {
+      "address": "Ανατολικής Ρωμυλίας 10, Ελευθέριο Κορδελιό 563 34",
+      "category": "Tornado",
+      "description": " ",
+      "latitude": 40.6970896705,
+      "longitude": 22.870020716,
+      "timeStamp": 1676459677893,
+      "title": "Ανεμοστρόβιλος "
+    },
+    "-Pipqy2hLsIAcyn-Zo50": {
+      "address": "Λεβέντη, Αλιβέρι 345 00",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 38.4102241121,
+      "longitude": 24.0369260701,
+      "timeStamp": 1676779895278,
+      "title": "Καταιγίδα "
+    },
+    "-Pipqy2hLsIAcyn-Zo51": {
+      "address": "Ταμυνέοι, Κύμη Αλιβέρι 345 00",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 38.4099892155,
+      "longitude": 24.0421598356,
+      "timeStamp": 1676784824829,
+      "title": "Ισχυρή Καταιγίδα"
+    },
+    "-Pipqy2hLsIAcyn-Zo52": {
+      "address": "Ορφανάκου, Αλιβέρι 345 00",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 38.4030132037,
+      "longitude": 24.0452365437,
+      "timeStamp": 1676779432426,
+      "title": "Καταιγίδα στην Εύβοια"
+    },
+    "-Pipqy2hLsIAcyn-Zo53": {
+      "address": "Ταμυνέοι",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 38.4062247335,
+      "longitude": 24.0475393192,
+      "timeStamp": 1676780187909,
+      "title": "Καταιγίδα κοντα στην Εύβοια"
+    },
+    "-Pipqy2hLsIAcyn-Zo54": {
+      "address": "Αγίας Παρασκευής, Αλιβέρι 345 00",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 38.404988025,
+      "longitude": 24.032926668,
+      "timeStamp": 1676753772580,
+      "title": "Καταιγίδα"
+    },
+    "-Pipqy2hLsIAcyn-Zo55": {
+      "address": "Ταμυνέοι",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 38.4027161141,
+      "longitude": 24.0398913532,
+      "timeStamp": 1676782215187,
+      "title": "Βοηθήστε την Εύβοια"
+    },
+    "-Pipqy2hLsIAcyn-Zo56": {
+      "address": "ΕΟ Αλιβερίου Λέπουρων, Κύμη Αλιβέρι 345 00",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 38.4030621572,
+      "longitude": 24.0355465244,
+      "timeStamp": 1676762323670,
+      "title": "Καταιγίδα στην Εύβοια"
+    },
+    "-Pipqy2hLsIAcyn-Zo57": {
+      "address": "Μεταξά, Αλιβέρι 345 00",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 38.4031355108,
+      "longitude": 24.0362776809,
+      "timeStamp": 1676774216106,
+      "title": "Ιαχυρή Καταιγίδα"
+    },
+    "-Pipqy2hLsIAcyn-Zo58": {
+      "address": "Βολή, Αλιβέρι 345 00",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 38.4025808207,
+      "longitude": 24.0392980358,
+      "timeStamp": 1676751444200,
+      "title": "Καταιγίδα"
+    },
+    "-Pipqy2hLsIAcyn-Zo59": {
+      "address": "Βολή 56, Αλιβέρι 345 00",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 38.3974973638,
+      "longitude": 24.0330785453,
+      "timeStamp": 1676762362783,
+      "title": "Επεσε κολόνα απο αστραπή"
+    },
+    "-Pipqy2hLsIAcyn-Zo60": {
+      "address": "Ταμυνέοι",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 38.3988523585,
+      "longitude": 24.0311403014,
+      "timeStamp": 1676757063683,
+      "title": "Καταιγίδα"
+    },
+    "-Pipqy2hLsIAcyn-Zo61": {
+      "address": "Μεταξά, Αλιβέρι 345 00",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 38.3995246747,
+      "longitude": 24.0467853045,
+      "timeStamp": 1676783237739,
+      "title": "Δυνατή Καταιγίδα"
+    },
+    "-Pipty2pLsIAcye-Zu50": {
+      "address": "Σκουζέ 13, Πειραιάς 185 36",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9426110153,
+      "longitude": 23.6541159291,
+      "timeStamp": 1677324863493,
+      "title": "Καταιγίδα στο κέντρο του Πειραιά"
+    },
+    "-Pipty2pLsIAcye-Zu51": {
+      "address": "Αγίου Νικολάου 3-1, Πειραιάς 185 37",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9373690837,
+      "longitude": 23.6483585575,
+      "timeStamp": 1677327008960,
+      "title": "Καταιγίδα που γκρεμίζει σπίτια"
+    },
+    "-Pipty2pLsIAcye-Zu52": {
+      "address": "Αλκιβιάδου 221-203, Πειραιάς 185 36",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9392837037,
+      "longitude": 23.6435882342,
+      "timeStamp": 1677324758564,
+      "title": "Μεγάλη Καταιγίδα"
+    },
+    "-Pipty2pLsIAcye-Zu53": {
+      "address": "Γρ. Λαμπράκη 85-75, Πειραιάς 185 34",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9384555979,
+      "longitude": 23.6577878168,
+      "timeStamp": 1677324813749,
+      "title": "Καταιγίδα με επικεντρο τον Πειραιά"
+    },
+    "-Pipty2pLsIAcye-Zu54": {
+      "address": "Κουντουριώτου 84-100, Πειραιάς 185 32",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.939501642,
+      "longitude": 23.6419657302,
+      "timeStamp": 1677323412528,
+      "title": "Καταιγίδα στον Πειραιά"
+    },
+    "-Pipty2pLsIAcye-Zu55": {
+      "address": "Καραΐσκου 50, Πειραιάς 185 32",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9364879057,
+      "longitude": 23.6522962068,
+      "timeStamp": 1677323282129,
+      "title": "Καταιγίδα στον Πειραιά"
+    },
+    "-Pipty2pLsIAcye-Zu56": {
+      "address": "Μεγ. Αλεξάνδρου, Πειραιάς 185 33",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9450622807,
+      "longitude": 23.6505290159,
+      "timeStamp": 1677326773833,
+      "title": "Καταιγίδα"
+    },
+    "-Pipty2pLsIAcye-Zu57": {
+      "address": "Θεοχάρη 53-47, Πειραιάς 185 38",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.948068375,
+      "longitude": 23.6542853501,
+      "timeStamp": 1677324691451,
+      "title": "Ισχυρή Καταιγίδα"
+    },
+    "-Pipty2pLsIAcye-Zu58": {
+      "address": "Σαλαμινομάχων 16-20, Πειραιάς 185 37",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9399107739,
+      "longitude": 23.6570720988,
+      "timeStamp": 1677321472303,
+      "title": "Προβλήματα στον πειραιά"
+    },
+    "-Pipty2pLsIAcye-Zu59": {
+      "address": "Σηραγγείου 43-35, Πειραιάς 185 34",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.947218137,
+      "longitude": 23.6413313599,
+      "timeStamp": 1677324467748,
+      "title": "Ισχυρή Καταιγίδα"
+    },
+    "-Pipty2pLsIAcye-Zu60": {
+      "address": "Ὑψηλάντου 166, Πειραιάς 185 35",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9430048077,
+      "longitude": 23.6461611624,
+      "timeStamp": 1677319873652,
+      "title": "Καταιγίδα"
+    },
+    "-Pipty2pLsIAcye-Zu61": {
+      "address": "Λεωφ. Βασιλέως Γεωργίου Β 33-27, Πειραιάς 185 34",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9388595306,
+      "longitude": 23.6501506079,
+      "timeStamp": 1677320068423,
+      "title": "Μεγάλη Καταιγίδα"
+    },
+    "-Pipty2pLsIAcye-Zu62": {
+      "address": "Γορτυνίας 10-8, Πειραιάς 185 34",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9399260791,
+      "longitude": 23.6504044645,
+      "timeStamp": 1677325359507,
+      "title": "Βοήθεια"
+    },
+    "-Pipty2pLsIAcye-Zu63": {
+      "address": "Αλκιβιάδου 97, Πειραιάς 185 32",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9383114744,
+      "longitude": 23.6419954518,
+      "timeStamp": 1677321029140,
+      "title": "Καταιγίδα"
+    },
+    "-Pipty2pLsIAcye-Zu64": {
+      "address": "Πραξιτέλους 151-131, Πειραιάς 185 35",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9472199076,
+      "longitude": 23.6413621108,
+      "timeStamp": 1677322810192,
+      "title": "Επεσε κολονα στη Πραξιτέλους"
+    },
+    "-Pipty2pLsIAcye-Zu65": {
+      "address": "Τσαμαδού, Καραΐσκου &, Πειραιάς 185 32",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9413092079,
+      "longitude": 23.6489665518,
+      "timeStamp": 1677321573951,
+      "title": "Καταιγίδα πειραια"
+    },
+    "-Pipty2pLsIAcye-Zu66": {
+      "address": "Γερμανού 18-6, Πειραιάς 185 34",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9401912472,
+      "longitude": 23.6456460849,
+      "timeStamp": 1677321964054,
+      "title": "Καταιγίδα"
+    },
+    "-Pipty2pLsIAcye-Zu67": {
+      "address": "Ζέας 126-132, Πειραιάς 185 34",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9471726042,
+      "longitude": 23.6423854828,
+      "timeStamp": 1677325599605,
+      "title": "Ισχυρή Καταιγίδα"
+    },
+    "-Pipty2pLsIAcye-Zu68": {
+      "address": "Κανθάρου 21, Πειραιάς 185 36",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.9442772319,
+      "longitude": 23.6412461656,
+      "timeStamp": 1677321286669,
+      "title": "Καταιγίδα"
+    },
+    "-Pipty2pLsIAcye-Zu69": {
+      "address": "Νιρβάνα 11-1, Πειραιάς 185 39",
+      "category": "Storm",
+      "description": " ",
+      "latitude": 37.941569117,
+      "longitude": 23.6563442469,
+      "timeStamp": 1677322804659,
+      "title": "Βοήθεια στο Πειραιά"
+    },
+    "-Piwqs7hMsItcyn-Zo30": {
+      "address": "Χαλκιάδες 470 42",
+      "category": "Flood",
+      "description": " ",
+      "latitude": 39.1620935224,
+      "longitude": 20.9337800835,
+      "timeStamp": 1675591847000,
+      "title": "Καταιγίδα"
+    },
+    "-Piwqs7hMsItcyn-Zo31": {
+      "address": "Μουργκάνας 16-8, Άρτα 471 00",
+      "category": "Flood",
+      "description": " ",
+      "latitude": 39.150211398,
+      "longitude": 20.941507716,
+      "timeStamp": 1675591847000,
+      "title": "Πλημμύρα"
+    },
+    "-Piwqs7hMsItcyn-Zo32": {
+      "address": "Τζουμέρκων 13-11, Άρτα 471 00",
+      "category": "Flood",
+      "description": " ",
+      "latitude": 39.169066758,
+      "longitude": 20.917586296,
+      "timeStamp": 1675591847000,
+      "title": "Πλημμύρα στην Αρτα"
+    },
+    "-Piwqs7hMsItcyn-Zo33": {
+      "address": "Φλέμινγκ 20-2, Άρτα 471 00",
+      "category": "Flood",
+      "description": " ",
+      "latitude": 39.1670661731,
+      "longitude": 20.9161811719,
+      "timeStamp": 1675667447000,
+      "title": "Πλημμύρα κοντα Χαλκιάδες"
+    },
+    "-Piwqs7hMsItcyn-Zo34": {
+      "address": "Παντοκράτορος 2-26, Άρτα 471 00",
+      "category": "Flood",
+      "description": " ",
+      "latitude": 39.1671625253,
+      "longitude": 20.9435497291,
+      "timeStamp": 1675667447000,
+      "title": "Πλημμύρα στην Αρτα"
+    },
+    "-Piwqs7hMsItcyn-Zo35": {
+      "address": "Βασ. Κωνσταντίνου 50-58, Άρτα 471 00",
+      "category": "Flood",
+      "description": " ",
+      "latitude": 39.1537602809,
+      "longitude": 20.9471391732,
+      "timeStamp": 1675667447000,
+      "title": "Μεγάλη Πλημμύρα"
+    }
+  },
+  "Users": {
+    "7gEcv3yvoEdGy228lYoMstkqQdS2": {
+      "fullname": "Sheen Prout",
+      "latitude": 38.2952333,
+      "longitude": 23.8994314,
+      "phoneNumber": "6940427281",
+      "role": "Citizen",
+      "token": "dLHdbp8sTb6D1eWA75IhCx:APA91bG7y717eE8PSkTGNaH9IMfUt7LgBHzwAwd5h-oogdAvZFW3yJYcGeNsxvNN3KSR2I5PMu2psiCWNpq2AhN71WNqlvZzPH6kzlr7ukEa2hnvhzgfiopJw1cjft7uaiTlMOSpx0qg"
+    },
+    "907XGXm1b3NlAnYDFmSaDPzi0Tn2": {
+      "fullname": "Darlene Francino",
+      "latitude": 38.2952286,
+      "longitude": 23.8994243,
+      "phoneNumber": "6905375451",
+      "role": "Citizen",
+      "token": "dLHdbp8sTb6D1eWA75IhCx:APA91bG7y717eE8PSkTGNaH9IMfUt7LgBHzwAwd5h-oogdAvZFW3yJYcGeNsxvNN3KSR2I5PMu2psiCWNpq2AhN71WNqlvZzPH6kzlr7ukEa2hnvhzgfiopJw1cjft7uaiTlMOSpx0qg"
+    },
+    "Ejd23XzykthhCQFKYHYeiH55lZJ3": {
+      "fullname": "Jamie Greshik ",
+      "latitude": 38.2952286,
+      "longitude": 23.8994243,
+      "phoneNumber": "6933427840",
+      "role": "Citizen",
+      "token": "dLHdbp8sTb6D1eWA75IhCx:APA91bG7y717eE8PSkTGNaH9IMfUt7LgBHzwAwd5h-oogdAvZFW3yJYcGeNsxvNN3KSR2I5PMu2psiCWNpq2AhN71WNqlvZzPH6kzlr7ukEa2hnvhzgfiopJw1cjft7uaiTlMOSpx0qg"
+    },
+    "HOiFW2tBsobxKcMIOxinvzeVod13": {
+      "fullname": "Δημήτριος Παναγιωτόπουλος",
+      "latitude": 38.2952365,
+      "longitude": 23.8994234,
+      "phoneNumber": "6977593962",
+      "role": "Employee"
+    },
+    "IW1BO3TpV1h3BsE1XYcXfNZ83Ks2": {
+      "fullname": "Melina Goudie",
+      "latitude": 38.2952286,
+      "longitude": 23.8994243,
+      "phoneNumber": "6908722731",
+      "role": "Citizen",
+      "token": "dLHdbp8sTb6D1eWA75IhCx:APA91bG7y717eE8PSkTGNaH9IMfUt7LgBHzwAwd5h-oogdAvZFW3yJYcGeNsxvNN3KSR2I5PMu2psiCWNpq2AhN71WNqlvZzPH6kzlr7ukEa2hnvhzgfiopJw1cjft7uaiTlMOSpx0qg"
+    },
+    "M5qohTFZdGOiz2FQrSp2w8lfYjL2": {
+      "fullname": "Rosalie Furman",
+      "latitude": 38.2952395,
+      "longitude": 23.8994302,
+      "phoneNumber": "6943454548",
+      "role": "Citizen",
+      "token": "dLHdbp8sTb6D1eWA75IhCx:APA91bG7y717eE8PSkTGNaH9IMfUt7LgBHzwAwd5h-oogdAvZFW3yJYcGeNsxvNN3KSR2I5PMu2psiCWNpq2AhN71WNqlvZzPH6kzlr7ukEa2hnvhzgfiopJw1cjft7uaiTlMOSpx0qg"
+    },
+    "PXAO5CrRpxRGB2ZtQr2cHFGDmHV2": {
+      "fullname": "Erica Bucle",
+      "latitude": 38.2952286,
+      "longitude": 23.8994243,
+      "phoneNumber": "6905234248",
+      "role": "Citizen",
+      "token": "dLHdbp8sTb6D1eWA75IhCx:APA91bG7y717eE8PSkTGNaH9IMfUt7LgBHzwAwd5h-oogdAvZFW3yJYcGeNsxvNN3KSR2I5PMu2psiCWNpq2AhN71WNqlvZzPH6kzlr7ukEa2hnvhzgfiopJw1cjft7uaiTlMOSpx0qg"
+    },
+    "TJNX4Czo76X5eyqAQImdDdWD5pr1": {
+      "fullname": "Richard Slot",
+      "latitude": 38.2952286,
+      "longitude": 23.8994243,
+      "phoneNumber": "6932454011",
+      "role": "Citizen",
+      "token": "dLHdbp8sTb6D1eWA75IhCx:APA91bG7y717eE8PSkTGNaH9IMfUt7LgBHzwAwd5h-oogdAvZFW3yJYcGeNsxvNN3KSR2I5PMu2psiCWNpq2AhN71WNqlvZzPH6kzlr7ukEa2hnvhzgfiopJw1cjft7uaiTlMOSpx0qg"
+    },
+    "UqHHijmsUEcoEbSq4WmwUflPUkQ2": {
+      "fullname": "vasilis",
+      "latitude": 38.2829642,
+      "longitude": 23.8631629,
+      "phoneNumber": "6949313151",
+      "role": "Citizen",
+      "token": "dUku1NqgTU2lK1T4wTSOHV:APA91bGjqq2lERs-1uKW2nEgEpuDahupj7xAwSMjlnWxP5_W269GTSJBAdrt-UIji0b7fJNpwSDXggX8qYegNdC0940cN5B5lF3LkleauiSvtd5DYQ9OoCIdYDl4k52O6QbU7Mr7gjEY"
+    },
+    "nk0QiLa1JAQEdF5POh1njP36AJG3": {
+      "fullname": "Jamie Booy",
+      "latitude": 38.282758,
+      "longitude": 23.8627355,
+      "phoneNumber": "6948427301",
+      "role": "Citizen",
+      "token": "dUku1NqgTU2lK1T4wTSOHV:APA91bGjqq2lERs-1uKW2nEgEpuDahupj7xAwSMjlnWxP5_W269GTSJBAdrt-UIji0b7fJNpwSDXggX8qYegNdC0940cN5B5lF3LkleauiSvtd5DYQ9OoCIdYDl4k52O6QbU7Mr7gjEY"
+    },
+    "pyO8r7CO7HPfiGyVQwTuIr5lOno2": {
+      "fullname": "Αθανάσιος Βιτάκης",
+      "latitude": 37.9216085,
+      "longitude": 23.4737031,
+      "phoneNumber": "6989891709",
+      "role": "Citizen",
+      "token": "cYYNQE99RzC4_CbKXJINnf:APA91bFbCSeQWG-hNXw2GrVP3adzSm0Aj5mcDArNcOFbbfJYIM0PgFGeswnJsfmIAWVKkbdg15MF9RYWQkvZDzXlmWPtFwvThJosVBMgA9fNHy9JWv9VqU4ad4WBqaC6Xn6otuOg9eBD"
+    },
+    "yJPZ9xZIp8cHnRd35qwiBVRKZFE2": {
+      "fullname": "Χρηστος Αυγερινός",
+      "latitude": 37.9231749,
+      "longitude": 23.4662617,
+      "phoneNumber": "6981762341",
+      "role": "Citizen",
+      "token": "f1TxW61ySUmt6QBYbIPgH7:APA91bFyjzFxGknomJ0AfcmeYQoDKDhhOs9aK3_n5LQJzgadyBDuii4V24qVUyuNw8NLY4wdz9ihQ5w1RxZXlq9vxNxR6eRgHrv-jPx_wHTZmBcmLboE_fp5dTlyY6rjWtb7oLDcu703"
+    }
+  }
+}
